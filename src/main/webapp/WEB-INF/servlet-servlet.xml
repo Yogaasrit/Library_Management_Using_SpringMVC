@@ -46,4 +46,9 @@
 		name="userDAO">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
+	
+	<bean class="library.management.repositories.BookDAOImplementation"
+		name="bookDAO">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
 </beans>

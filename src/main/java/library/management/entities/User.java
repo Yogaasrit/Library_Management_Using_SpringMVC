@@ -4,7 +4,8 @@ public class User {
 	private int userId;
 	private String userName;
 	private String userEmailId;
-	private String userPassword;
+	private String userPassword; 
+	// Add more details ???
 	public User() {
 		super();
 	}
