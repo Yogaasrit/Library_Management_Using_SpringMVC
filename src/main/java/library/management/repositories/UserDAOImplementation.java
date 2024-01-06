@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import library.management.entities.Book;
+import library.management.entities.BorrowBook;
 import library.management.entities.PurchasedBook;
 import library.management.entities.User;
 
@@ -77,6 +78,22 @@ public class UserDAOImplementation implements UserDAO{
 				+ "on books.bookId = orderedbooks.bookId\r\n"
 				+ "where orderedbooks.userId = ?;";
 			return jdbcTemplate.query(viewPurchasedBookQuery, new OrderedBookRowMapper(), userId);
+	}
+
+	@Override
+	public List<BorrowBook> viewBorrowedBooks(int userId) {
+		String viewBorrowedBooksQuery = " select books.bookCover,\r\n"
+				+ "books.bookName,\r\n"
+				+ "borrowbook.borrowedDate,\r\n"
+				+ "borrowbook.returnDate,\r\n"
+				+ "borrowbook.bookfine,\r\n"
+				+ "borrowbook.borrowedId from books inner join borrowbook\r\n"
+				+ "on \r\n"
+				+ "books.bookId = borrowbook.bookId\r\n"
+				+ "where\r\n"
+				+ "borrowbook.userId = ? ";
+		
+		return jdbcTemplate.query(viewBorrowedBooksQuery, new BorrowRowMapper(), userId);
 	}
 
 }

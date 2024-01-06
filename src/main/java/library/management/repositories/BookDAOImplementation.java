@@ -1,7 +1,10 @@
 package library.management.repositories;
 
+import java.sql.Date;
 import java.util.List;
+
 import org.springframework.jdbc.core.JdbcTemplate;
+
 import library.management.entities.Book;
 
 public class BookDAOImplementation implements BookDAO {
@@ -61,6 +64,31 @@ public class BookDAOImplementation implements BookDAO {
 	public int updateBookCount(int bookQuantity) {
 		String updateBookCountQuery = "update books set bookQuantity = bookQuantity - ?";
 		return jdbcTemplate.update(updateBookCountQuery,bookQuantity);
+	}
+
+	@Override
+	public int updateBorrowBookCount(int userId, int bookId, Date borrowedDate,Date returnDate) {
+		//`borrowedId`, `userId`, `borrowedDate`, `bookFine`, `bookId`, `returnStatus`
+		
+		String insertBorrowBookQuery = "INSERT INTO borrowbook "
+				+ " (`userId`, `borrowedDate`, `bookFine`, `bookId`, `returnStatus`,`returnDate`) "
+				+ " VALUES "
+				+ " (?,?,?,?,?,?) ";
+	
+		int status = 0;
+		if(jdbcTemplate.update(insertBorrowBookQuery,
+								userId,
+								borrowedDate,
+								0,
+								bookId,
+								0,
+								returnDate
+								) == 1) {
+			
+			String updateBorrowBookCount = "UPDATE books SET bookQuantity = bookQuantity - 1";
+			status = jdbcTemplate.update(updateBorrowBookCount);
+		}
+		return status;
 	}
 
 }

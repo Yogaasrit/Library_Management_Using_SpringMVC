@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import library.management.entities.Book;
 import library.management.repositories.BookDAO;
 
-@RequestMapping("/book")
+
 @Controller
+@RequestMapping("User/book")
 public class BookController {
 	@Autowired
 	BookDAO bookDao;
@@ -88,5 +89,7 @@ public class BookController {
 		model.addAttribute("filteredGenres",filteredGenres);
 		return "filter-bookgenre";
 	}
+	
+	
 	
 }

@@ -77,7 +77,7 @@
                 <!-- Buttons below the book cover image -->
                 <div class="button-container">
                     <button class="action-button"> <a href = "handlePlaceOrder?bookId=<%=book.getBookId()%>">Place Order</a></button>
-                    <button class="action-button" >Borrow Book</button>
+                    <button class="action-button" ><a href = "handleBorrowBook?bookId=<%=book.getBookId()%>">Borrow book</a></button>
                 </div>
             </div>
         <% } %>

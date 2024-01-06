@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import library.management.entities.Admin;
 import library.management.entities.Book;
+import library.management.entities.BorrowBook;
 import library.management.entities.PurchasedBook;
 import library.management.entities.User;
 import library.management.repositories.AdminLoginDAO;
@@ -30,7 +31,7 @@ import library.management.repositories.BookDAO;
 import library.management.repositories.UserDAO;
 
 @Controller
-@RequestMapping("/User")
+@RequestMapping("User")
 
 public class UserController {
 	@Autowired
@@ -225,8 +226,31 @@ public class UserController {
 	}
 	
 	
+	@GetMapping("/handleBorrowBook")
+	public String handleBorrowBooks(@RequestParam("bookId") String bookId, 
+			Model model) {
+		Book book = bookDAO.displayByBookId(Integer.parseInt(bookId));
+		model.addAttribute("book",book);
+		return "borrow-book-details";
+	}
 	
-	
-	
-	
+	@GetMapping("/confirm-borrowbook")
+	public String confirmBorrowBook(
+			@RequestParam("bookId") String bookId,
+			@RequestParam("count") String bookCount,
+			Model model,
+			HttpSession session
+			) {
+		
+		 User user = (User) session.getAttribute("User");
+		 int status = bookDAO.updateBorrowBookCount(user.getUserId(),
+				 			Integer.parseInt(bookId), Date.valueOf(LocalDate.now()),
+				 			Date.valueOf(LocalDate.now().plusWeeks(2)));
+		 
+		List<BorrowBook> borrowBooks = userDAO.viewBorrowedBooks(user.getUserId());
+		
+		model.addAttribute("borrowedBooks", borrowBooks);
+		
+		return "view-borrowed-books";
+	}
 }
