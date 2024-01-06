@@ -27,21 +27,6 @@ public class BookController {
 		return "view-books";
 	}
 	
-	@GetMapping("/filter-bookname")
-	public String filterBookName() {
-		return "filter-bookname";
-	}
-	
-	@GetMapping("/handle-bookname")
-	public String handleBookName(
-			@RequestParam("bookName") String bookName,
-			Model model
-			) {
-		List<Book> filteredBook = bookDao.filterByBookName(bookName);
-		model.addAttribute("filteredBook",filteredBook);
-		return "filter-bookname";
-	}
-	
 	@GetMapping("/view-author")
 		public String viewAllAuthor(
 				Model model) {
@@ -57,6 +42,51 @@ public class BookController {
 		List<Book> genreList = bookDao.viewAllGenre();
 		model.addAttribute("genreList",genreList);
 		return "view-genre";
+	}
+	
+	@GetMapping("/filter-bookname")
+	public String filterBookName() {
+		return "filter-bookname";
+	}
+	
+	@GetMapping("/handle-bookname")
+	public String handleBookName(
+			@RequestParam("bookName") String bookName,
+			Model model
+			) {
+		List<Book> filteredBook = bookDao.filterByBookName(bookName);
+		model.addAttribute("filteredBook",filteredBook);
+		return "filter-bookname";
+	}
+	
+	@GetMapping("/filter-bookauthor")
+	public String filterAuthorName() {
+		return "filter-bookauthor";
+	}
+	
+	@GetMapping("/handle-authorname")
+	public String handleBookAuthor(
+			@RequestParam("authorName") String authorName,
+			Model model
+			) {
+		List<Book> filteredAuthors = bookDao.filterByBookAuthor(authorName);
+		model.addAttribute("filteredAuthors",filteredAuthors);
+		return "filter-bookauthor";
+	}
+	
+	@GetMapping("/filter-bookgenre")
+	public String filterGenreName() {
+		return "filter-bookgenre";
+	}
+	
+	@GetMapping("/handle-bookGenre")
+	public String handleBookGenre(
+			@RequestParam("genreName") String genreName,
+			Model model
+			) {
+		List<Book> filteredGenres = bookDao.filterByBookGenre(genreName);
+		model.addAttribute("filteredGenres",filteredGenres);
+		return "filter-bookgenre";
 	}
 	
 }

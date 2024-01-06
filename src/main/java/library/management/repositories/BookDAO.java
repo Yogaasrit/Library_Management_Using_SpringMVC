@@ -8,4 +8,8 @@ public interface BookDAO {
 	List<Book> viewAllAuthors();
 	List<Book> viewAllGenre();
 	List<Book> filterByBookName(String bookName);
+	List<Book> filterByBookAuthor(String authorName);
+	List<Book> filterByBookGenre(String bookGenre);
+	Book displayByBookId(int bookId);
+	int updateBookCount(int bookCount);
 }

@@ -15,15 +15,12 @@
 	List<Book> genres = (List<Book>) request.getAttribute("genreList");
 	%>
 	<%
-	Set<Book> genresSet = new HashSet<>(genres);
-	%>
-	<%
-	if (genresSet.isEmpty()) {
+	if (genres.isEmpty()) {
 	%>
 	No books found!!
 	<%
 	} else {
-	for (Book genre : genresSet) {
+	for (Book genre : genres) {
 	%>
 	<h1><%=genre.getBookGenre()%></h1>
 	<%

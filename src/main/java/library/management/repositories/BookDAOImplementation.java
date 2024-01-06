@@ -29,14 +29,38 @@ public class BookDAOImplementation implements BookDAO {
 
 	@Override
 	public List<Book> viewAllAuthors() {
-		String displayAllAuthorsQuery = "select * from books ";
-		return jdbcTemplate.query(displayAllAuthorsQuery, new BookRowMapper());
+		String displayAllAuthorsQuery = "select distinct authorName from books ";
+		return jdbcTemplate.query(displayAllAuthorsQuery, new ViewAuthorRowMapper());
 	}
 
 	@Override
 	public List<Book> viewAllGenre() {
-		String displayAllGenreQuery = "select * from books";
-		return jdbcTemplate.query(displayAllGenreQuery, new BookRowMapper());
+		String displayAllGenreQuery = "select distinct bookGenre from books";
+		return jdbcTemplate.query(displayAllGenreQuery, new ViewGenreRowMapper());
+	}
+
+	@Override
+	public List<Book> filterByBookAuthor(String authorName) {
+		String searchAuthorQuery = "select * from books where authorName like CONCAT( '%',?,'%')";
+		return jdbcTemplate.query(searchAuthorQuery, new BookRowMapper(), authorName);
+	}
+
+	@Override
+	public List<Book> filterByBookGenre(String bookGenre) {
+		String searchGenreQuery = "select * from books where bookGenre like CONCAT( '%',?,'%')";
+		return jdbcTemplate.query(searchGenreQuery, new BookRowMapper(), bookGenre);
+	}
+
+	@Override
+	public Book displayByBookId(int bookId) {
+		String displayByBookIdQuery = "select * from books where bookId = ?";
+		return jdbcTemplate.queryForObject(displayByBookIdQuery, new BookRowMapper(), bookId);
+	}
+
+	@Override
+	public int updateBookCount(int bookQuantity) {
+		String updateBookCountQuery = "update books set bookQuantity = bookQuantity - ?";
+		return jdbcTemplate.update(updateBookCountQuery,bookQuantity);
 	}
 
 }

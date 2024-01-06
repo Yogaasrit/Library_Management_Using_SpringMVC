@@ -1,10 +1,12 @@
 package library.management.entities;
 
+import java.sql.Blob;
 import java.sql.Date;
 
 public class Book {
 	private int bookId;
 	private String bookName;
+	private Blob bookCover; 
 	private int bookPrice;
 	private String bookGenre;
 	private String bookPublication;
@@ -19,7 +21,7 @@ public class Book {
 	}
 
 	public Book(int bookId, String bookName, int bookPrice, String bookGenre, String bookPublication, int bookEdition,
-			int bookQuantity, Date publishDate, String authorName, boolean bookStatus) {
+			int bookQuantity, Date publishDate, String authorName, boolean bookStatus, Blob bookCover) {
 		super();
 		this.bookId = bookId;
 		this.bookName = bookName;
@@ -31,11 +33,12 @@ public class Book {
 		this.publishDate = publishDate;
 		this.authorName = authorName;
 		this.bookStatus = bookStatus;
+		this.bookCover = bookCover;
 	}
 	
 	// Adding books by admin
 	public Book(String bookName, int bookPrice, String bookGenre, String bookPublication, int bookEdition,
-			int bookQuantity, Date publishDate, String authorName, boolean bookStatus) {
+			int bookQuantity, Date publishDate, String authorName, boolean bookStatus, Blob bookCover) {
 		super();
 		this.bookName = bookName;
 		this.bookPrice = bookPrice;
@@ -46,6 +49,8 @@ public class Book {
 		this.publishDate = publishDate;
 		this.authorName = authorName;
 		this.bookStatus = bookStatus;
+		this.bookCover = bookCover;
+
 	}
 
 	public boolean isBookStatus() {
@@ -128,11 +133,21 @@ public class Book {
 		this.authorName = authorName;
 	}
 
+	public Blob getBookCover() {
+		return bookCover;
+	}
+
+	public void setBookCover(Blob bookCover) {
+		this.bookCover = bookCover;
+	}
+
 	@Override
 	public String toString() {
 		return "Book [bookId=" + bookId + ", bookName=" + bookName + ", bookPrice=" + bookPrice + ", bookGenre="
 				+ bookGenre + ", bookPublication=" + bookPublication + ", bookEdition=" + bookEdition
 				+ ", bookQuantity=" + bookQuantity + ", publishDate=" + publishDate + ", authorName=" + authorName
-				+ "]";
+				+ ", bookStatus=" + bookStatus + "]";
 	}
+
+	
 }

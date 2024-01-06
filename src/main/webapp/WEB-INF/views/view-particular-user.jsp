@@ -4,11 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Welcome</title>
+<title>Insert title here</title>
 </head>
 <body>
-<h1>LIBRARY MANAGEMENT SYSTEM</h1>
-<a href = "User/AdminLogin">Admin</a>
-<a href = "User/UserLogin">User</a>
+<h1>View particular user</h1>
+<form></form>
 </body>
 </html>

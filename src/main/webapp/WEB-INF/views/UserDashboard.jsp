@@ -12,8 +12,8 @@
 <a href = "book/view-author">View Authors</a>
 <a href = "book/view-genre">View Genre</a>
 <a href = "book/filter-bookname">Filter bookName</a>
-<a href = "filter-bookauthor">Filter Author</a>
-<a href = "filter-bookgenre">Filter bookGenre</a>
+<a href = "book/filter-bookauthor">Filter Author</a>
+<a href = "book/filter-bookgenre">Filter bookGenre</a>
 <a href = "place-order">Place order</a>
 <a href = "view-your-books">View Bought Books</a>
 <a href = "borrow-books">Borrow books</a>
