@@ -11,10 +11,10 @@
 <h1>ADMIN DASHBOARD</h1>
 <% Admin admin = (Admin)session.getAttribute("adminSession");%>
 <%= admin.getAdminName() +" Welcome back!" %>
-<a href = "User/handle-view-user">View All User</a>
-<a href = "User/view-particular-user">View particular user</a>
+<a href = "handle-view-user">View All User</a>
+<a href = "view-particular-user">View particular user</a>
 <a href = "delete-user">Delete user</a>
-<a href = "User/add-books">Add books</a>
+<a href = "add-books">Add books</a>
 <a href = "delete-books">Delete books</a>
 </body>
 </html>

@@ -144,37 +144,26 @@ public class UserController {
             @RequestParam("bookEdition") String bookEdition,
             @RequestParam("bookQuantity") String bookQuantity,
             @RequestParam("authorName") String authorName,
-//            @RequestParam("bookCover") MultipartFile bookCover,
+            @RequestParam("bookCover") MultipartFile bookCover,
             Model model
 			) {
 		
 		
-//		byte[] bookCoverArr;
-//		Blob bookCoverBlob = null;
-//		try {
-//			bookCoverArr = bookCover.getBytes();
-//			bookCoverBlob = new SerialBlob(bookCoverArr);
-//		} catch (IOException | SQLException e) {
-//			e.printStackTrace();
-//		}
-		Book book;
+		byte[] bookCoverArr;
+		Blob bookCoverBlob = null;
 		try {
-			book = new Book(bookName, Integer.parseInt(bookPrice), bookGenre,
-					bookPublication, Integer.parseInt(bookEdition), Integer.parseInt(bookQuantity),
-					Date.valueOf(bookPublishDate), authorName, true, new SerialBlob(new byte[16]));
-			int status = userDAO.addBooks(book);
-			model.addAttribute("status",status);
-
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SerialException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			bookCoverArr = bookCover.getBytes();
+			bookCoverBlob = new SerialBlob(bookCoverArr);
+		} catch (IOException | SQLException e) {
 			e.printStackTrace();
 		}
+		Book book;
+		
+			book = new Book(bookName, Integer.parseInt(bookPrice), bookGenre,
+					bookPublication, Integer.parseInt(bookEdition), Integer.parseInt(bookQuantity),
+					Date.valueOf(bookPublishDate), authorName, true, bookCoverBlob);
+			int status = userDAO.addBooks(book);
+			model.addAttribute("status",status);
 				
 		return "AdminDashboard";
 	}

@@ -51,4 +51,13 @@
 		name="bookDAO">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
+	
+	
+	<bean
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+		name="multipartResolver">
+		<property name="maxUploadSize" value="-1" />
+	</bean>
+	
+	
 </beans>
