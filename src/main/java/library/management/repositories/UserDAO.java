@@ -18,4 +18,9 @@ public interface UserDAO {
 	public List<BorrowBook> viewBorrowedBooks(int userId);
 	public int updateBorrowedBook(int borrowedId);
 	public int updateFine(int borrowedId);
+	//--------------
+	public User checkUser(int userId);
+	public int deleteUser(int userId);
+	public Book checkBook(int bookId);
+	public int deleteBook(int bookId);
 }

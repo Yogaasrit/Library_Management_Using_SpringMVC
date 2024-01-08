@@ -41,8 +41,8 @@
 <body>
     <h1>LIBRARY MANAGEMENT SYSTEM</h1>
     <a href="book/view-books" class="button">View Books</a>
-    <a href="book/view-author" class="button">View Authors</a>
-    <a href="book/view-genre" class="button">View Genres</a>
+   <!--  <a href="book/view-author" class="button">View Authors</a>
+    <a href="book/view-genre" class="button">View Genres</a> -->
     <a href="book/filter-bookname" class="button">Filter by Book Name</a>
     <a href="book/filter-bookauthor" class="button">Filter by Author</a>
     <a href="book/filter-bookgenre" class="button">Filter by Genre</a>

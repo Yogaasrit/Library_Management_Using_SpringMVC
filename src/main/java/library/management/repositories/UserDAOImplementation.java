@@ -116,5 +116,45 @@ public class UserDAOImplementation implements UserDAO{
 		String updateFineQuery = "update borrowbook set bookFine = 0 where borrowedId = ?";
 		return jdbcTemplate.update(updateFineQuery,borrowedId);
 	}
+	
+	//----------------------
+	
+	@Override
+	public User checkUser(int userId) {
+		String checkAvailableUser = "select * from user where userId = ? and status = 1";
+		
+		return jdbcTemplate.queryForObject(checkAvailableUser, new UserLoginRowMapper(),userId);
+		
+		
+	}
+	@Override
+	public int deleteUser(int userId) {
+		String deleteQuery = "UPDATE user\n"
+				+ "SET status = 0\n"
+				+ "WHERE userId = ? -- specify the user ID\n"
+				+ "  AND userId NOT IN (SELECT userId FROM borrowbook WHERE bookFine > 0)\n"
+				+ "  AND userId NOT IN (SELECT userId FROM borrowbook WHERE returnStatus = 0)";
+		return jdbcTemplate.update(deleteQuery, userId);
+		
+		
+	}
+	@Override
+	public Book checkBook(int bookId) {
+		String checkAvailableBook = "select * from books where bookId = ? and bookStatus = 1";
+		
+		return jdbcTemplate.queryForObject(checkAvailableBook, new BookRowMapper(),bookId);
+		
+		
+	}
+	@Override
+	public int deleteBook(int bookId) {
+		String deleteQuery = "UPDATE books\n"
+				+ "SET bookStatus = 0\n"
+				+ "WHERE bookId = ? -- specify the user ID\n"
+				+ "  AND bookId NOT IN (SELECT bookId FROM borrowbook)";
+		return jdbcTemplate.update(deleteQuery, bookId);
+		
+		
+	}
 
 }

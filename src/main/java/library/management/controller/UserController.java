@@ -124,10 +124,10 @@ public class UserController {
 			return "ViewUser";
 	}
 	
-	@GetMapping("/view-particular-user")
-	public String viewParticularUser() {
-		return "view-particular-user";
-	}
+//	@GetMapping("/view-particular-user")
+//	public String viewParticularUser() {
+//		return "view-particular-user";
+//	}
 	
 	@GetMapping("/add-books")
 	public String addBooks() {
@@ -280,6 +280,84 @@ public class UserController {
 		return "redirect:view-borrowed-books";
 	}
 	
+	//-------------------wasim-------------
+	
+	
+	//open delete-user.jsp file using getMapping annotation
+	@GetMapping("/delete-user")
+	public String openDeleteUser() {
+		return "delete-user";
+	}
+	
+	@GetMapping("/deleteuser")
+	public String deleteuser(
+			@RequestParam("userid") String userId,
+			Model model,
+			HttpSession session
+			) {
+
+		User status=userDAO.checkUser(Integer.parseInt(userId));
+		System.out.println(status.getUserId());
+		if(status!=null) {//delete user
+			
+			int deleteStatus=userDAO.deleteUser(Integer.parseInt(userId));// 0 -> return (""
+			if(deleteStatus==0) {
+				model.addAttribute("message","This user has fine or not returned the book!");
+			}
+			else {
+			model.addAttribute("message","Deleted successfully!");
+		}
+		}else {
+			model.addAttribute("message","No user found!");
+		}
+		
+
+		
+		return "delete-user";
+	}
+	
+	@GetMapping("/delete-books")
+	public String openDeletebook() {
+		return "delete-book";
+	}
+	
+	@GetMapping("/deletebook")
+	public String deletebook(
+			@RequestParam("bookid") String bookId,
+			Model model,
+			HttpSession session
+			) {
+
+		Book status=userDAO.checkBook(Integer.parseInt(bookId));
+		
+		if(status!=null) {//delete user
+			
+			int deleteStatus=userDAO.deleteBook(Integer.parseInt(bookId));// 0 -> return (""
+			if(deleteStatus==0) {
+				model.addAttribute("message","This book has already borrowed by some user!");
+			}
+			else {
+			model.addAttribute("message","Book Deleted successfully!");
+		}
+		}else {
+			model.addAttribute("message","No Book found!");
+		}
+		
+		return "delete-book";
+	}
+	@GetMapping("/view-particular-user")
+	public String openviewparticularuser() {
+		return "view-particular-user";
+	}
+	
+	@GetMapping("/viewParticularUser")
+	public String viewparticularuser(@RequestParam("userid") String userId,
+			Model model,
+			HttpSession session) {
+		User userDetails=userDAO.checkUser(Integer.parseInt(userId));
+		model.addAttribute("userInfo",userDetails);
+		return "view-particular-user";
+	}
 	
 	
 	
