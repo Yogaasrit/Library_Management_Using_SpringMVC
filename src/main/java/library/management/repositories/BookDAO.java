@@ -13,7 +13,7 @@ public interface BookDAO {
 	List<Book> filterByBookAuthor(String authorName);
 	List<Book> filterByBookGenre(String bookGenre);
 	Book displayByBookId(int bookId);
-	int updateBookCount(int bookCount);
+	int updateBookCount(int bookCount,int bookId);
 	int updateBorrowBookCount(int userId,int bookId,Date borrowedDate,Date returnDate);
 	
 }

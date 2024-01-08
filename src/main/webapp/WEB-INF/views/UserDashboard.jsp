@@ -48,7 +48,6 @@
     <a href="book/filter-bookgenre" class="button">Filter by Genre</a>
     <a href="place-order" class="button">Place Order</a>
     <a href="view-your-books" class="button">View Bought Books</a>
-    <a href="borrow-books" class="button">Borrow Books</a>
     <a href="view-borrowed-books" class="button">View Borrowed Books</a>
     <a href="return-book" class="button">Return Books</a>
     <a href="view-fine" class="button">View Fine</a>

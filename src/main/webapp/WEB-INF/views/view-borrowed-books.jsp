@@ -78,10 +78,10 @@
     </style>
 </head>
 <body>
-<h1>Your purchased books</h1>
+<h1>Your borrowed books</h1>
 <% List<BorrowBook> bookList = (List<BorrowBook>)request.getAttribute("borrowedBooks"); %>
 
-
+	<% if(!bookList.isEmpty()){ %>
     <div class="order-container">
         <% for (BorrowBook borrowBook : bookList) { 
         	
@@ -101,8 +101,18 @@
                 <div class="order-date">Borrow Date: <%= borrowBook.getBorrowDate() %></div>
                 <div class="book-count">Return Date: <%= borrowBook.getReturnDate() %></div>
                 <div class="book-count">Fine : <%= borrowBook.getFine() %></div>
+                
+                <form action="<%= borrowBook.getFine() > 0 ? "pay-fine" : "return-book" %>">
+        <input type="hidden" name="borrowedId" value="<%= borrowBook.getBorrowedId() %>">
+        <button type="submit">Return Book</button>
+    </form>
             </div>
+            
+            
         <% } %>
     </div>
+	<%} else{%>
+	<h1>You didn't borrow any books!!</h1>
+	<%} %>
 </body>
 </html>

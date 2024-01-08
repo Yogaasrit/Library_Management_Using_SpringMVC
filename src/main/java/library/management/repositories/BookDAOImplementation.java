@@ -61,9 +61,9 @@ public class BookDAOImplementation implements BookDAO {
 	}
 
 	@Override
-	public int updateBookCount(int bookQuantity) {
-		String updateBookCountQuery = "update books set bookQuantity = bookQuantity - ?";
-		return jdbcTemplate.update(updateBookCountQuery,bookQuantity);
+	public int updateBookCount(int bookQuantity, int bookId) {
+		String updateBookCountQuery = "update books set bookQuantity = bookQuantity - ? where bookId = ?";
+		return jdbcTemplate.update(updateBookCountQuery,bookQuantity,bookId);
 	}
 
 	@Override

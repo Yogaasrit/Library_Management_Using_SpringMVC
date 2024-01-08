@@ -200,7 +200,7 @@ public class UserController {
 				 Integer.parseInt(bookId),Integer.parseInt(bookCount),Date.valueOf(LocalDate.now()));
 		 
 		 List<PurchasedBook> bookList = userDAO.viewPurchasedBooks(user.getUserId());
-		 bookDAO.updateBookCount(Integer.parseInt(bookCount));
+		 bookDAO.updateBookCount(Integer.parseInt(bookCount),Integer.parseInt(bookId));
 		 model.addAttribute("bookList",bookList);
 		return "view-your-books";
 	}
@@ -242,4 +242,46 @@ public class UserController {
 		
 		return "view-borrowed-books";
 	}
+	
+	@GetMapping("/view-borrowed-books")
+	public String showBorrowedBooks(
+			HttpSession session,
+			Model model
+			) {
+		User user = (User)session.getAttribute("User");
+		List<BorrowBook> borrowedBooks = userDAO.viewBorrowedBooks(user.getUserId());
+		model.addAttribute("borrowedBooks", borrowedBooks);
+		return "view-borrowed-books";
+	}
+	
+	@GetMapping("/return-book")
+	public String handleReturnBook(
+			@RequestParam("borrowedId") String borrowedId,
+			Model model
+			) {
+		int status = userDAO.updateBorrowedBook(Integer.parseInt(borrowedId));
+		model.addAttribute("status",status);
+		return "redirect:view-borrowed-books";
+	}
+	
+	@GetMapping("/pay-fine")
+	public String handlePayfine(@RequestParam("borrowedId") String borrowedId,Model model) {
+		
+		model.addAttribute("borrowedId", borrowedId);
+		return "view-fine";
+	}
+	
+	@GetMapping("pay-fine-form")
+	public String handlePayement(
+			@RequestParam("borrowedId") String borrowedId,
+			Model model
+			) {
+		int status = userDAO.updateFine(Integer.parseInt(borrowedId));
+		return "redirect:view-borrowed-books";
+	}
+	
+	
+	
+	
+	
 }

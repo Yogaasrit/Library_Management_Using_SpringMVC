@@ -91,9 +91,30 @@ public class UserDAOImplementation implements UserDAO{
 				+ "on \r\n"
 				+ "books.bookId = borrowbook.bookId\r\n"
 				+ "where\r\n"
-				+ "borrowbook.userId = ? ";
+				+ "borrowbook.userId = ? and returnStatus = 0";
 		
 		return jdbcTemplate.query(viewBorrowedBooksQuery, new BorrowRowMapper(), userId);
+	}
+
+	@Override
+	public int updateBorrowedBook(int borrowedId) {
+		String updateBorrowedBookQuery = "update borrowbook set returnStatus = 1 where borrowedId = ?";
+		int status = 0;
+		if(jdbcTemplate.update(updateBorrowedBookQuery,borrowedId) == 1)
+		{
+			String updateBookQuery = "UPDATE books b\r\n"
+					+ "JOIN borrowbook bb ON b.bookId = bb.bookId\r\n"
+					+ "SET b.bookQuantity = b.bookQuantity + 1\r\n"
+					+ "WHERE bb.borrowedId = ?";
+			status = jdbcTemplate.update(updateBookQuery,borrowedId);
+		}
+		return status;
+	}
+
+	@Override
+	public int updateFine(int borrowedId) {
+		String updateFineQuery = "update borrowbook set bookFine = 0 where borrowedId = ?";
+		return jdbcTemplate.update(updateFineQuery,borrowedId);
 	}
 
 }

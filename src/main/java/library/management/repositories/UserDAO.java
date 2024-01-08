@@ -16,4 +16,6 @@ public interface UserDAO {
 	public int placeOrder(int userId,int bookId,int bookCount,Date orderDate);
 	public List<PurchasedBook> viewPurchasedBooks(int userId);
 	public List<BorrowBook> viewBorrowedBooks(int userId);
+	public int updateBorrowedBook(int borrowedId);
+	public int updateFine(int borrowedId);
 }
