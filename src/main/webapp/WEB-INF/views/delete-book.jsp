@@ -21,7 +21,7 @@
         var message = '<%= request.getAttribute("message") %>';
 
         // Check if the message is not empty
-        if (message.trim() !== '') {
+        if (message !== "null" && message.trim() !== '') {
             alert(message);
         }
     };
