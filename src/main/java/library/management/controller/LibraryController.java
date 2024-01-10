@@ -36,19 +36,19 @@ public class LibraryController {
 		return "UserRegister";
 	}
 	
-	@PostMapping("/handle-register")
-	public String showUserRegisterPage(
-			@RequestParam("emailId") String emailId,
-			@RequestParam("userName") String userName,
-			@RequestParam("passWord") String passWord
-			) {
-			int result = userDAO.userRegister(userName, emailId, passWord);
-			if(result == 1) {
-				return "UserLogin";
-			}else {
-				return "UserRegister";
-			}		
-	}
+//	@PostMapping("/handle-register")
+//	public String showUserRegisterPage(
+//			@RequestParam("emailId") String emailId,
+//			@RequestParam("userName") String userName,
+//			@RequestParam("passWord") String passWord
+//			) {
+//			int result = userDAO.userRegister(userName, emailId, passWord);
+//			if(result == 1) {
+//				return "UserLogin";
+//			}else {
+//				return "UserRegister";
+//			}		
+//	}
 	
 	@PostMapping("/validate-admin")
 	public String showAdminDashboard(

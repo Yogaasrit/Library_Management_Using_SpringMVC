@@ -29,6 +29,7 @@ import library.management.entities.User;
 import library.management.repositories.AdminLoginDAO;
 import library.management.repositories.BookDAO;
 import library.management.repositories.UserDAO;
+import library.management.utilities.EmailSender;
 
 @Controller
 @RequestMapping("User")
@@ -61,14 +62,20 @@ public class UserController {
 	public String showUserRegisterPage(
 			@RequestParam("emailId") String emailId,
 			@RequestParam("userName") String userName,
-			@RequestParam("passWord") String passWord
+			@RequestParam("phoneNo") String phoneNo,
+			@RequestParam("dob") Date dob,
+			@RequestParam("address") String address,
+			@RequestParam("gender") String gender,
+			@RequestParam("password") String password,
+			Model model
 			) {
-			int result = userDAO.userRegister(userName, emailId, passWord);
-			if(result == 1) {
-				return "UserLogin";
-			}else {
-				return "UserRegister";
-			}		
+				int result = userDAO.userRegister(emailId, userName,phoneNo,dob,address, gender,password);
+				if(result == 1) {
+					return "UserLogin";
+				}else {
+					model.addAttribute("message","You are already registered user");
+					return "UserRegister";
+				}
 	}
 	
 	@PostMapping("/validate-admin")
@@ -100,12 +107,13 @@ public class UserController {
 	public String showUserDashboard(
 			@RequestParam("emailId") String userEmailId,
 			@RequestParam("passWord") String userPassword,
-			HttpServletRequest request
+			HttpServletRequest request,
+			Model model
 			) {
 			HttpSession session = request.getSession();
 			User user;
 			if(userDAO.userLogin(userEmailId, userPassword).isEmpty()) {
-				System.out.println("Invalid Id");
+				model.addAttribute("message", "Invalid Login credentials");
 				return "UserLogin";
 			}
 			else {
@@ -124,10 +132,77 @@ public class UserController {
 			return "ViewUser";
 	}
 	
-//	@GetMapping("/view-particular-user")
-//	public String viewParticularUser() {
-//		return "view-particular-user";
-//	}
+	@GetMapping("/forget-password")
+	public String openPage() {
+		return "forget-password";
+	}
+	@PostMapping("/verify-email")
+	public String verifyEmail(@RequestParam("email") String email,
+			HttpServletRequest request,
+			Model model) {
+		if (userDAO.isEmailInDatabase(email)) {
+			String generatedOTP = generateOTP(6);
+			HttpSession session = request.getSession();
+			session.setAttribute("otp", generatedOTP);
+			User user = userDAO.getUser(email);
+			session.setAttribute("user-update", user);
+			session.setAttribute("emailId", email);
+			sendOTPEmail(email, generatedOTP);
+			return "otp-page";
+		} else {
+			model.addAttribute("message","User Email not found! check email");
+			return "forget-password";
+		}
+	}
+
+	// Method to generate OTP
+	private String generateOTP(int length) {
+		// Range of characters to generate the OTP from
+		String numbers = "0123456789";
+
+		StringBuilder otp = new StringBuilder();
+		for (int i = 0; i < length; i++) {
+			int index = (int) (Math.random() * numbers.length());
+			otp.append(numbers.charAt(index));
+		}
+
+		return otp.toString();
+	}
+
+	// Method to send OTP via email
+	private void sendOTPEmail(String email, String otp) {
+
+		EmailSender emailSender = new EmailSender();
+		emailSender.sendEmail(email, otp);
+
+	}
+
+	@PostMapping("verify-otp")
+	public String openOTPPage(@RequestParam("otp") String otp,
+			HttpSession session,Model model) {
+		String emailId = (String)session.getAttribute("emailId");
+		session.setAttribute("emailId", emailId);
+//		System.out.println("In otp page"+emailId);
+		String sentOTP = (String) session.getAttribute("otp");
+		if(sentOTP.equals(otp)) {
+			User user = (User) session.getAttribute("user-update");
+			model.addAttribute("user",user);
+			return "reset-password";
+		}
+
+		return "forget-password";
+	}
+	
+	@GetMapping("/reset-password")
+	public String updatePassword(
+			@RequestParam("confirmPassword") String userPassword,
+			HttpSession session
+			) {
+		String emailId = (String)session.getAttribute("emailId");
+		System.out.println("Reset page"+emailId);
+		int status = userDAO.updatePassword(userPassword,emailId);
+		return "UserLogin";
+	}
 	
 	@GetMapping("/add-books")
 	public String addBooks() {

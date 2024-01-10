@@ -9,7 +9,8 @@ import library.management.entities.PurchasedBook;
 import library.management.entities.User;
 
 public interface UserDAO {
-	public int userRegister(String userName, String userEmailId, String userPassword);
+
+	public int userRegister(String emailId, String userName, String phoneNo,Date dob, String address,String gender, String password);
 	public List<User> userLogin(String userEmailId, String userPassword);
 	public List<User> viewUser();
 	public int addBooks(Book book);
@@ -18,9 +19,11 @@ public interface UserDAO {
 	public List<BorrowBook> viewBorrowedBooks(int userId);
 	public int updateBorrowedBook(int borrowedId);
 	public int updateFine(int borrowedId);
-	//--------------
 	public User checkUser(int userId);
 	public int deleteUser(int userId);
 	public Book checkBook(int bookId);
 	public int deleteBook(int bookId);
+	public boolean isEmailInDatabase(String email);
+	public User getUser(String userEmailId);
+	public int updatePassword(String userPassword,String emailId);
 }

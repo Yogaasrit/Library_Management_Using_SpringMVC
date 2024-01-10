@@ -13,7 +13,12 @@
 	<p>Password : </p>
 	<input type = "password" name = "passWord">
 	<button onClick = "submit">Login</button>
+	<% String message =(String) request.getAttribute("message"); 
+        if(message!=null){ %>
+    <h1><%=message %></h1>
+    <%} %>
 	</form>
 	<a href = "UserRegister" >New User? Register</a>
+	<a href = "forget-password">Forgot password?</a>
 </body>
 </html>

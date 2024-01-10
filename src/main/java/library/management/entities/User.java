@@ -1,10 +1,53 @@
 package library.management.entities;
 
+import java.sql.Date;
+
 public class User {
-	private int userId;
-	private String userName;
+	private int userId;	
 	private String userEmailId;
+	private String userName;
+	private String phoneNo;
+	private Date dob;
+	public User(int userId, String userEmailId, String userName, String phoneNo, Date dob, String address,
+			String gender, String userPassword) {
+		super();
+		this.userId = userId;
+		this.userEmailId = userEmailId;
+		this.userName = userName;
+		this.phoneNo = phoneNo;
+		this.dob = dob;
+		this.address = address;
+		this.gender = gender;
+		this.userPassword = userPassword;
+	}
+	public String getPhoneNo() {
+		return phoneNo;
+	}
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
+	}
+	public Date getDob() {
+		return dob;
+	}
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	private String address;
+	private String gender;
 	private String userPassword; 
+	
 	// Add more details ???
 	public User() {
 		super();

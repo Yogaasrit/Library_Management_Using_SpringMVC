@@ -24,11 +24,7 @@ public class UserDAOImplementation implements UserDAO{
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	@Override
-	public int userRegister(String userName, String userEmailId, String userPassword) {
-		String userRegisterQuery = "INSERT INTO user (userName, userEmailId, userPassword) VALUES (?,?,?)";
-		return jdbcTemplate.update(userRegisterQuery,userName,userEmailId,userPassword);
-	}
+
 
 	@Override
 	public List<User> userLogin(String userEmailId, String userPassword) {
@@ -117,7 +113,6 @@ public class UserDAOImplementation implements UserDAO{
 		return jdbcTemplate.update(updateFineQuery,borrowedId);
 	}
 	
-	//----------------------
 	
 	@Override
 	public User checkUser(int userId) {
@@ -156,5 +151,35 @@ public class UserDAOImplementation implements UserDAO{
 		
 		
 	}
+
+	@Override
+	public int userRegister(String userEmailId, String userName, String phoneNo, Date dob, String address, String gender,
+			String userPassword) {
+		String userRegisterQuery = "INSERT IGNORE INTO user (userEmailId, userName, phoneNo, dob, address, gender, userPassword, status)\r\n"
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, 1)";
+		return jdbcTemplate.update(userRegisterQuery,userEmailId,userName,phoneNo,dob,address, gender, userPassword);
+	}
+
+	@Override
+	public boolean isEmailInDatabase(String email) {
+		String CheckQuery="Select * from user where userEmailId=?";
+		return jdbcTemplate.query(CheckQuery, new UserLoginRowMapper(),email)
+				.size() == 1 ? true : false;
+	}
+
+	@Override
+	public User getUser(String userEmailId) {
+		String getUserQuery = "select * from user where userEmailId = ?";
+		return jdbcTemplate.queryForObject(getUserQuery,new GetUserRowMapper(),userEmailId);
+	}
+
+	@Override
+	public int updatePassword(String userPassword,String userEmailId) {
+		String updatePasswordQUery = "update user set userPassword = ? where userEmailId = ?";
+		return jdbcTemplate.update(updatePasswordQUery,userPassword,userEmailId);
+	}
+
+
+
 
 }
