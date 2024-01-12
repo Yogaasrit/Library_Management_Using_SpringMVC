@@ -25,6 +25,9 @@
             alert(message);
         }
     };
+    function goBack() {
+        window.history.back();
+    }
 </script>
 </head>
 <body>
@@ -33,5 +36,7 @@
         <input type="text" name="bookid" id="bookid">
         <input type="submit" value="Delete">
     </form>
+    <div class="button-container">
+        <button class="button" onclick="goBack()">Back</button></div> 
 </body>
 </html>

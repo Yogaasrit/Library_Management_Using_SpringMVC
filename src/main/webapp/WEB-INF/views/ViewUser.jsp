@@ -8,6 +8,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<script >
+function goBack() {
+    window.history.back();
+}
+</script>
 <body>
 <h1>USER LIST</h1>
 <%  List<User> list = (List<User>) request.getAttribute("userList");
@@ -21,5 +26,7 @@
 		}
 	}	
 %>
+<div class="button-container">
+        <button class="button" onclick="goBack()">Back</button></div> 
 </body>
 </html>

@@ -8,6 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Place order</title>
+<script >
+function goBack() {
+    window.history.back();
+}
+</script>
 <style>
         body {
             font-family: Arial, sans-serif;
@@ -71,7 +76,9 @@
         
             <div class="book-card">
                 <!-- Print all columns in the table -->
+                <% if(book.getBookQuantity()>0 || book.isBookStatus()) {%>
                 <h1><%= book.getBookName() + " " + book.getBookId() %></h1>
+                
                 <img class="book-cover" src="data:image/png;base64, <%= bookCover %>" width="100" />
 
                 <!-- Buttons below the book cover image -->
@@ -82,5 +89,8 @@
             </div>
         <% } %>
     <% } %>
+    <%} %>
+    <div class="button-container">
+        <button class="button" onclick="goBack()">Back</button></div> 
 </body>
 </html>

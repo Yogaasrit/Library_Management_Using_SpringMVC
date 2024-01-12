@@ -13,7 +13,7 @@
 	Admin admin = (Admin) session.getAttribute("adminSession");
 	%>
 	<%=admin.getAdminName() + " Welcome back!"%>
-	<a href="book/view-books" class="button">View Books</a>
+	<a href="book/admin-book-operation" class="button">View Books</a>
 	<!--  <a href="book/view-author" class="button">View Authors</a>
     <a href="book/view-genre" class="button">View Genres</a> -->
 	<a href="book/filter-bookname" class="button">Filter by Book Name</a>

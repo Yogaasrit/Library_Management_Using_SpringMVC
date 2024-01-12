@@ -16,7 +16,7 @@ public class BookRowMapper implements RowMapper<Book> {
 		book.setBookPrice(rs.getInt("bookPrice"));
 		book.setBookGenre(rs.getString("bookGenre"));
 		book.setBookPublication(rs.getString("bookPublication"));
-		book.setPublishDate(rs.getDate("bookPublishDate"));
+		book.setBookPublishDate(rs.getDate("bookPublishDate"));
 		book.setBookEdition(rs.getInt("bookEdition"));
 		book.setBookQuantity(rs.getInt("bookQuantity"));
 		book.setAuthorName(rs.getString("authorName"));

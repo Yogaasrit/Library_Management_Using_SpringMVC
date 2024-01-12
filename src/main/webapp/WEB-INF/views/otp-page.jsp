@@ -60,6 +60,11 @@
         <label for="otp">Enter OTP:</label>
         <input type="text" id="otp" name="otp" required>
         <button type="submit">Verify OTP</button>
+        <a href = "resend-otp">Resend OTP</a>
+        <% String message = (String)request.getAttribute("message"); %>
+        <% if(message != null){ %>
+        <h3><%= message %></h3>
+        <%} %>
     </form>
 </body>
 </html>

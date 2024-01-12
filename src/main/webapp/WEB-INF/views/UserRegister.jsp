@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>User Register</title>
-    <script>
+     <script>
         function validateForm() {
             var emailId = document.forms["registerForm"]["emailId"].value;
             var userName = document.forms["registerForm"]["userName"].value;
@@ -12,7 +12,7 @@
             var dob = document.forms["registerForm"]["dob"].value;
             var address = document.forms["registerForm"]["address"].value;
             var gender = document.forms["registerForm"]["gender"].value;
-            var password = document.forms["registerForm"]["passWord"].value;
+            var password = document.forms["registerForm"]["password"].value; // Corrected here
             var confirmPassword = document.forms["registerForm"]["confirmPassword"].value;
 
             if (emailId === "" || userName === "" || phoneNo === "" || dob === "" || address === "" || gender === "" || password === "" || confirmPassword === "") {

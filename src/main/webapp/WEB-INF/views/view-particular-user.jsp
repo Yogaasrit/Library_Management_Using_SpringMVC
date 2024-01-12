@@ -6,6 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script >
+function goBack() {
+    window.history.back();
+}
+</script>
  <style>
         .user-card {
             border: 1px solid #ddd;
@@ -36,6 +41,8 @@ if (user != null) {
 <%  
 }
 %>
+<div class="button-container">
+        <button class="button" onclick="goBack()">Back</button></div> 
 
 </body>
 </html>

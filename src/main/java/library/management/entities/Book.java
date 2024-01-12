@@ -12,7 +12,7 @@ public class Book {
 	private String bookPublication;
 	private int bookEdition;
 	private int bookQuantity;
-	private Date publishDate;
+	private Date bookPublishDate;
 	private String authorName;	
 	private boolean bookStatus;
 	
@@ -30,7 +30,7 @@ public class Book {
 		this.bookPublication = bookPublication;
 		this.bookEdition = bookEdition;
 		this.bookQuantity = bookQuantity;
-		this.publishDate = publishDate;
+		this.bookPublishDate = publishDate;
 		this.authorName = authorName;
 		this.bookStatus = bookStatus;
 		this.bookCover = bookCover;
@@ -46,7 +46,7 @@ public class Book {
 		this.bookPublication = bookPublication;
 		this.bookEdition = bookEdition;
 		this.bookQuantity = bookQuantity;
-		this.publishDate = publishDate;
+		this.bookPublishDate = publishDate;
 		this.authorName = authorName;
 		this.bookStatus = bookStatus;
 		this.bookCover = bookCover;
@@ -117,12 +117,13 @@ public class Book {
 		this.bookQuantity = bookQuantity;
 	}
 
-	public Date getPublishDate() {
-		return publishDate;
+
+	public Date getBookPublishDate() {
+		return bookPublishDate;
 	}
 
-	public void setPublishDate(Date publishDate) {
-		this.publishDate = publishDate;
+	public void setBookPublishDate(Date bookPublishDate) {
+		this.bookPublishDate = bookPublishDate;
 	}
 
 	public String getAuthorName() {
@@ -145,7 +146,7 @@ public class Book {
 	public String toString() {
 		return "Book [bookId=" + bookId + ", bookName=" + bookName + ", bookPrice=" + bookPrice + ", bookGenre="
 				+ bookGenre + ", bookPublication=" + bookPublication + ", bookEdition=" + bookEdition
-				+ ", bookQuantity=" + bookQuantity + ", publishDate=" + publishDate + ", authorName=" + authorName
+				+ ", bookQuantity=" + bookQuantity + ", publishDate=" + bookPublishDate + ", authorName=" + authorName
 				+ ", bookStatus=" + bookStatus + "]";
 	}
 

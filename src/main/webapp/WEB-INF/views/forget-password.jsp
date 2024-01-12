@@ -60,6 +60,10 @@
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
         <button type="submit">Verify Email</button>
+        <% String message = (String)request.getAttribute("message"); %>
+        <% if(message != null){ %>
+        <h3><%= message %></h3>
+        <%} %>
     </form>
 </body>
 </html>

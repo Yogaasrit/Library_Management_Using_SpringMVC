@@ -8,6 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script >
+function goBack() {
+    window.history.back();
+}
+</script>
 </head>
 <body>
 	<h1>List of books</h1>
@@ -34,11 +39,17 @@
 			
 		%>	
 			<!-- print all columns in table -->
-			<h1><%= book.getBookName() +" " + book.getBookId()%></h1>
-			<img src="data:image/png;base64, <%=bookCover%>"
-				width="100" />
+			<% if(book.getBookQuantity()>0 || book.isBookStatus()){ %>
+			<h3><%= book.getBookName()%></h3>
+			
+			 <a href = "handleViewBooks?bookId=<%=book.getBookId()%>"><img src="data:image/png;base64, <%=bookCover%>"
+				width="100" /></a>
+			
 		<%}
 	} %>
+	<%} %>
+	<div class="button-container">
+        <button class="button" onclick="goBack()">Back</button></div> 
 	
 </body>
 </html>

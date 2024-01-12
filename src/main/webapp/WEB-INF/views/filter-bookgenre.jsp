@@ -1,45 +1,50 @@
-<%@page import="library.management.entities.Book"%>
+
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@page import="library.management.entities.Book"%>
+<%@page import="java.util.Set"%>
+<%@page import="java.util.HashSet"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Filtered Genre</title>
-<style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        tbody tr:hover {
-            background-color: #f5f5f5;
-        }
-
-        p {
-            margin-top: 20px;
-        }
-    </style>
+    <title>Genre Filter</title>
 </head>
+<script >
+function goBack() {
+    window.history.back();
+}
+</script>
 <body>
-<form action="handle-bookGenre">
-        <label>Enter genre name :</label> <input type="text" name="genreName">
-        <button type="submit">Search</button>
+
+<%  List<Book> books = (List<Book>) request.getAttribute("books"); %>
+    <form action="handle-bookGenre">
+        <!-- Creating a dropdown list -->
+        <label for="genres">Select Genre:</label>
+        <select name="genres" id="genres" multiple>
+            <% 
+                // Get unique genres from the list
+                List<Book> filteredGenres = (List<Book>) request.getAttribute("filteredGenres");
+                Set<String> uniqueGenres = new HashSet<>();
+                
+                if(filteredGenres != null){
+
+                for (Book book : filteredGenres) {
+                    uniqueGenres.add(book.getBookGenre());
+                }
+
+                // Display unique genres in the dropdown
+                for (String genre : uniqueGenres) {
+                    out.println("<option value='" + genre + "'>" + genre + "</option>");
+                }
+                }
+            %>
+        </select>
+        <br>
+        <br>
+                
+        <input type="submit" value="Filter">
     </form>
-    <% List<Book> filteredGenres = (List<Book>)request.getAttribute("filteredGenres"); %>
-    <% if(filteredGenres != null && !filteredGenres.isEmpty()) { %>
+    
+        <% if(books != null && !books.isEmpty()) { %>
         <table>
             <thead>
                 <tr>
@@ -55,7 +60,7 @@
                 </tr>
             </thead>
             <tbody>
-                <% for (Book book : filteredGenres) { %>
+                <% for (Book book : books) { %>
                     <tr>
                         <td><%= book.getBookId() %></td>
                         <td><%= book.getBookName() %></td>
@@ -63,13 +68,20 @@
                         <td><%= book.getBookPrice() %></td>
                         <td><%= book.getBookEdition() %></td>
                         <td><%= book.getBookQuantity() %></td>
-                        <td><%= book.getPublishDate()%></td>
+                        <td><%= book.getBookPublishDate()%></td>
                         <td><%= book.getBookPublication() %></td>
                         <td><%= book.getAuthorName() %></td>
                     </tr>
-                <% } %>
+                <% }
+                }%>
             </tbody>
         </table>
-    <% }  %>
+    
+    <div class="button-container">
+        <button class="button" onclick="goBack()">Back</button></div> 
 </body>
 </html>
+
+
+
+ 

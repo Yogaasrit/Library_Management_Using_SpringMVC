@@ -5,6 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Book Form</title>
+    <script>function goBack() {
+        window.history.back();
+    }</script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -95,25 +98,8 @@
 
         <input type="submit">
     </form>
-<%--     <%String status =  (String)request.getAttribute("status"); %>
- --%>  
-  	 <!-- <script>
-        // JavaScript code to display an alert based on the status value
-        window.onload = function() {
-            var status = ${status}; // Assuming "status" is the name of the variable passed from the controller
-
-            // Check if the status is not null
-            if (status !== null) {
-                if (status === "1") {
-                    alert("Book added successfully!");
-                } else if (status === "0") {
-                    alert("Book not added. Please try again.");
-                } else {
-                    alert("Unexpected status value: " + status);
-                }
-            }
-        };
-    </script> -->
+<div class="button-container">
+        <button class="button" onclick="goBack()">Back</button></div> 
   
 </body>
 </html>

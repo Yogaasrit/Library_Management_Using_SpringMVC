@@ -26,7 +26,7 @@ public class BookDAOImplementation implements BookDAO {
 
 	@Override
 	public List<Book> filterByBookName(String bookName) {
-		String searchBookQuery = "select * from books where bookName like CONCAT( '%',?,'%')";
+		String searchBookQuery = "select * from books where bookName like CONCAT( '%',?,'%') and bookStatus = 1 and bookQuantity > 0 order by bookName";
 		return jdbcTemplate.query(searchBookQuery, new BookRowMapper(),bookName);
 	}
 
@@ -44,15 +44,18 @@ public class BookDAOImplementation implements BookDAO {
 
 	@Override
 	public List<Book> filterByBookAuthor(String authorName) {
-		String searchAuthorQuery = "select * from books where authorName like CONCAT( '%',?,'%')";
+		String searchAuthorQuery = "select * from books where authorName like CONCAT( '%',?,'%') order by authorName";
 		return jdbcTemplate.query(searchAuthorQuery, new BookRowMapper(), authorName);
 	}
 
 	@Override
-	public List<Book> filterByBookGenre(String bookGenre) {
-		String searchGenreQuery = "select * from books where bookGenre like CONCAT( '%',?,'%')";
-		return jdbcTemplate.query(searchGenreQuery, new BookRowMapper(), bookGenre);
+	public List<Book> filterByBookGenre() {
+		String searchGenreQuery = "select distinct(bookGenre) from books";
+		
+		return jdbcTemplate.query(searchGenreQuery, new GenreRowMapper());
 	}
+	
+	
 
 	@Override
 	public Book displayByBookId(int bookId) {
@@ -89,6 +92,27 @@ public class BookDAOImplementation implements BookDAO {
 			status = jdbcTemplate.update(updateBorrowBookCount);
 		}
 		return status;
+	}
+
+	@Override
+	public List<Book> filterByBookGenre(String genre) {
+		
+		String filterByBookGenre = "SELECT * FROM books where bookGenre = ? and bookStatus = 1 and bookQuantity > 0";
+		
+		return jdbcTemplate.query(filterByBookGenre, new BookRowMapper(),genre);
+	}
+
+	@Override
+	public List<Book> getAllAuthor() {
+		String getAllAuthorQuery = "SELECT distinct(authorName) FROM books";
+		return jdbcTemplate.query(getAllAuthorQuery, new AuthorRowMapper());
+	}
+
+	@Override
+	public int editBookDetails(int bookId, Book book) {
+		
+		String editBookQuery= "UPDATE books SET bookName = ?, bookPrice = ?,bookGenre=?,bookPublication=?,bookEdition=?,bookQuantity=?,authorName=? WHERE bookId = ?";
+		return jdbcTemplate.update(editBookQuery,book.getBookName(),book.getBookPrice(),book.getBookGenre(),book.getBookPublication(),book.getBookEdition(),book.getBookQuantity(),book.getAuthorName(),bookId);
 	}
 
 }

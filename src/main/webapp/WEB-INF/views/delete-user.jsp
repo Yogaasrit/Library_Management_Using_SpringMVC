@@ -29,6 +29,11 @@
             alert(message);
         }
     };
+    
+    function goBack() {
+        window.history.back();
+    }
+    
 </script>
 
 </head>
@@ -38,6 +43,7 @@
         <input type="text" name="userid" id="userid">
         <input type="submit" value="Delete">
     </form>
-
+<div class="button-container">
+        <button class="button" onclick="goBack()">Back</button></div> 
 </body>
 </html>

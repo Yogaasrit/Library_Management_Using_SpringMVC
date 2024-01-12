@@ -9,6 +9,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script >
+function goBack() {
+    window.history.back();
+}
+</script>
 
 <style>
         body {
@@ -109,5 +114,7 @@
             </div>
         <% } %>
     </div>
+    <div class="button-container">
+        <button class="button" onclick="goBack()">Back</button></div> 
 </body>
 </html>

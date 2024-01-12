@@ -58,6 +58,7 @@ public class UserController {
 		return "UserRegister";
 	}
 	
+	
 	@PostMapping("/handle-register")
 	public String showUserRegisterPage(
 			@RequestParam("emailId") String emailId,
@@ -82,7 +83,8 @@ public class UserController {
 	public String showAdminDashboard(
 			@RequestParam("adminEmailId") String adminEmailId,
 			@RequestParam("adminPassword") String adminPassword,
-			HttpServletRequest request
+			HttpServletRequest request,
+			Model model
 			) {		
 			// Creating admin session
 			HttpSession session = request.getSession();
@@ -91,7 +93,7 @@ public class UserController {
 			// if empty, then no record is fetched,
 			// then, admin details is incorrect.
 			if(adminLoginDAO.validateAdmin(adminEmailId, adminPassword).isEmpty()) {
-				System.out.println("NO user found!");			
+				model.addAttribute("message","Invalid login credentials");		
 				return "AdminLogin";
 			}
 			// If not null, validated,
@@ -189,8 +191,8 @@ public class UserController {
 			model.addAttribute("user",user);
 			return "reset-password";
 		}
-
-		return "forget-password";
+		model.addAttribute("message","Incorrect otp");
+		return "otp-page";
 	}
 	
 	@GetMapping("/reset-password")
@@ -204,6 +206,14 @@ public class UserController {
 		return "UserLogin";
 	}
 	
+	@GetMapping("/resend-otp")
+	public String resendOTP(
+			HttpSession session) {
+		String otp = generateOTP(6);
+		String emailId = (String)session.getAttribute("emailId");
+		sendOTPEmail(emailId,otp);
+		return "otp-page";
+	}
 	@GetMapping("/add-books")
 	public String addBooks() {
 		return "add-books";
@@ -256,6 +266,7 @@ public class UserController {
 	@GetMapping("/handlePlaceOrder")
 	public String handlePlaceOrder(@RequestParam("bookId") String bookId, 
 			Model model) {
+		System.out.println("Running");
 		Book book = bookDAO.displayByBookId(Integer.parseInt(bookId));
 		model.addAttribute("book",book);
 		return "book-details";
@@ -289,6 +300,11 @@ public class UserController {
 		 return "view-your-books";
 	}
 	
+	@GetMapping("/handleViewBooks")
+	public String handleViewBooks(@RequestParam("bookId") String bookId)
+	{
+		return "book-details";
+	}
 	
 	@GetMapping("/handleBorrowBook")
 	public String handleBorrowBooks(@RequestParam("bookId") String bookId, 
@@ -433,6 +449,29 @@ public class UserController {
 		model.addAttribute("userInfo",userDetails);
 		return "view-particular-user";
 	}
+	
+	@GetMapping("/user-profile")
+	public String openProfile(
+			HttpSession session,
+			Model model
+			) {
+		
+		User user = (User)session.getAttribute("User");
+		User userProfile = userDAO.getUser(user.getUserEmailId());
+		model.addAttribute("userProfile" , userProfile);
+		
+		return "user-profile";
+	}
+	
+	@GetMapping("/update-profile")
+	public String openUpdate(HttpSession session,Model model) {
+		
+		User user = (User)session.getAttribute("User");
+		User userProfile = userDAO.getUser(user.getUserEmailId());
+		model.addAttribute("userProfile", userProfile);
+		return "update-profile-page";
+	}
+	
 	
 	
 	

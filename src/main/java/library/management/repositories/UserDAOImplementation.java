@@ -51,7 +51,7 @@ public class UserDAOImplementation implements UserDAO{
 				 				book.getBookPrice(),
 				 				book.getBookGenre(),
 				 				book.getBookPublication(),
-				 				book.getPublishDate(),
+				 				book.getBookPublishDate(),
 				 				book.getBookEdition(),
 				 				book.getBookQuantity(),
 				 				book.getAuthorName(),

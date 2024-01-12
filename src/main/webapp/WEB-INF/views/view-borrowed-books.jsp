@@ -8,6 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script >
+function goBack() {
+    window.history.back();
+}
+</script>
 <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -114,5 +119,7 @@
 	<%} else{%>
 	<h1>You didn't borrow any books!!</h1>
 	<%} %>
+	<div class="button-container">
+        <button class="button" onclick="goBack()">Back</button></div> 
 </body>
 </html>

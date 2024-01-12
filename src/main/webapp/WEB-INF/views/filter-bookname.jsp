@@ -5,9 +5,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<script >
+function goBack() {
+    window.history.back();
+}
+</script>
 <style>
         table {
             border-collapse: collapse;
@@ -43,38 +48,47 @@
 
     <% List<Book> filteredBooks = (List<Book>)request.getAttribute("filteredBook"); %>
     
-    <% if(filteredBooks != null && !filteredBooks.isEmpty()) { %>
-        <table>
-            <thead>
-                <tr>
-                    <th>Book ID</th>
-                    <th>Book Name</th>
-                    <th>Book Genre</th>
-                    <th>Book Price</th>
-                    <th>Book Edition</th>
-                    <th>Book Quantity</th>
-                    <th>Published Date</th>
-                    <th>Book Publisher</th>
-                    <th>Author Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for (Book book : filteredBooks) { %>
+    <% if (filteredBooks != null) { %>
+        <% if (!filteredBooks.isEmpty()) { %>
+            <table>
+                <thead>
                     <tr>
-                        <td><%= book.getBookId() %></td>
-                        <td><%= book.getBookName() %></td>
-                        <td><%= book.getBookGenre() %></td>
-                        <td><%= book.getBookPrice() %></td>
-                        <td><%= book.getBookEdition() %></td>
-                        <td><%= book.getBookQuantity() %></td>
-                        <td><%= book.getPublishDate()%></td>
-                        <td><%= book.getBookPublication() %></td>
-                        <td><%= book.getAuthorName() %></td>
+                        <th>Book ID</th>
+                        
+                        <th>Book Name</th>
+                        <th>Book Genre</th>
+                        <th>Book Price</th>
+                        <th>Book Edition</th>
+                        <th>Book Quantity</th>
+                        <th>Published Date</th>
+                        <th>Book Publisher</th>
+                        <th>Author Name</th>
+                        
                     </tr>
-                <% } %>
-            </tbody>
-        </table>
-    <% }  %>
-	
+                </thead>
+                <tbody>
+                    <% for (Book book : filteredBooks) { %>
+                        <tr>
+                            <td><%= book.getBookId() %></td>
+                            
+                            <td><%= book.getBookName() %></td>
+                            <td><%= book.getBookGenre() %></td>
+                            <td><%= book.getBookPrice() %></td>
+                            <td><%= book.getBookEdition() %></td>
+                            <td><%= book.getBookQuantity() %></td>
+                            <td><%= book.getBookPublishDate() %></td>
+                            <td><%= book.getBookPublication() %></td>
+                            <td><%= book.getAuthorName() %></td>
+                            
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <h3>No Book Found</h3>
+        <% } %>
+    <% } %>
+	<div class="button-container">
+        <button class="button" onclick="goBack()">Back</button></div> 
 </body>
 </html>

@@ -135,7 +135,7 @@
             <p><strong>Book Price:</strong> <%= book.getBookPrice() %></p>
             <p><strong>Book Genre:</strong> <%= book.getBookGenre() %></p>
             <p><strong>Book Publication:</strong> <%= book.getBookPublication() %></p>
-            <p><strong>Book Publish Date:</strong> <%= book.getPublishDate() %></p>
+            <p><strong>Book Publish Date:</strong> <%= book.getBookPublishDate() %></p>
             <p><strong>Book Edition:</strong> <%= book.getBookEdition() %></p>
             <p><strong>Book Quantity:</strong> <%= book.getBookQuantity() %></p>
             <p><strong>Author Name:</strong> <%= book.getAuthorName() %></p>

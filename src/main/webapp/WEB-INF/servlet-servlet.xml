@@ -13,7 +13,22 @@
 
 	<mvc:annotation-driven />
 	<context:component-scan base-package="library.management" />
+	
+	<mvc:annotation-driven
+		conversion-service="conversionService" />
 
+	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="formatters">
+			<set>
+				<bean class="library.management.utilities.StringToSqlDateConverter" />
+				<!-- Add other custom converters here if needed -->
+			</set>
+		</property>
+	</bean>
+	
+	
+	
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		name="viewResolver">
