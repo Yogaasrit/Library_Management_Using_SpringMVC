@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>User Login</title>
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-<script>
+    <meta charset="UTF-8">
+    <title>User Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/LibraryManagement/resources/css/user-login.css">
+    <script>
 function generateCaptcha() {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let captcha = '';
@@ -40,26 +40,30 @@ document.addEventListener('DOMContentLoaded', function() {
     </script>
 </head>
 <body>
-<form action = "validate-user" method = "post" onsubmit="return validateCaptcha()">
-	<p>Email Id : </p>
-	<input type = "text" name = "emailId">
-	<p>Password : </p>
-	<input type = "password" name = "passWord"><br>
-	 <label for="userInput">Captcha</label>
-            <div class="captcha-container">
-                <span id="captchaDisplay">Captcha</span>
-                <input type="text" id="userInput" placeholder="Enter Captcha" required>
-                <button type="button" class="refresh-captcha" onclick="initCaptcha()">
-                    <i class="fas fa-redo"></i>
-                </button>
-            </div>
-	<button onClick = "submit">Login</button>
-	<% String message =(String) request.getAttribute("message"); 
-        if(message!=null){ %>
-    <h1><%=message %></h1>
-    <%} %>
-	</form>
-	<a href = "UserRegister" >New User? Register</a>
-	<a href = "forget-password">Forgot password?</a>
+    <form action="validate-user" method="post" onsubmit="return validateCaptcha()">
+        <h1>USER</h1>
+        <h4>Enter Email ID :</h4>
+        <input type="text" name="emailId" required>
+        <h4>Enter password :</h4>
+        <input type="password" name="passWord" required><br>
+        <label for="userInput">Captcha</label>
+        <div class="captcha-container">
+            <span id="captchaDisplay">Captcha</span>
+            <input type="text" id="userInput" placeholder="Enter Captcha" required>
+            <button type="button" class="refresh-captcha" onclick="initCaptcha()">
+                <i class="fas fa-redo"></i>
+            </button>
+        </div>
+        <button type="submit">Login</button>
+        
+        <% String message = (String) request.getAttribute("message"); %>
+        <% if (message != null) { %>
+            <h3><%= message %></h3>
+        <% } %>
+        
+        
+         <a href="UserRegister">New User? Register</a>
+    	 <a href="forget-password">Forgot password?</a>
+    </form>
 </body>
 </html>

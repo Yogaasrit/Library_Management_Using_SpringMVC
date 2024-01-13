@@ -1,13 +1,12 @@
 <%@page import="java.util.Base64"%>
 <%@page import="library.management.entities.Book"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>List of Books</title>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -62,14 +61,32 @@
         background-color: #e74c3c; /* Red for delete button */
     }
 </style>
+
+<script>
+    function confirmAction(action, bookId) {
+        var message = "Do you really want to " + action + " this book?";
+        if (confirm(message)) {
+            // Redirect to the appropriate action
+            if (action === 'delete') {
+                window.location.href = "delete-book?bookId=" + bookId;
+            } else if (action === 'edit') {
+                window.location.href = "edit-book?bookId=" + bookId;
+            }
+        }
+    }
+
+    function goBack() {
+        window.history.back();
+    }
+</script>
 </head>
 <body>
-    <h1>List of books</h1>
+    <h1>List of Books</h1>
     <% List<Book> books = (List<Book>)request.getAttribute("bookList"); %>
     <div class="button-container">
         <button class="button" onclick="goBack()">Back</button>
     </div>
-    
+
     <% if (books != null && !books.isEmpty()) {
         for (Book book : books) {
             String bookCover = Base64.getEncoder().encodeToString(
@@ -82,9 +99,9 @@
                 </a>
                 <div>
                     <!-- Edit Button -->
-                    <a href="edit-book?bookId=<%=book.getBookId()%>" class="button edit-button">Edit</a>
+                    <button class="button edit-button" onclick="confirmAction('edit', <%=book.getBookId()%>)">Edit</button>
                     <!-- Delete Button -->
-                    <a href="delete-book?bookId=<%=book.getBookId()%>" class="button delete-button">Delete</a>
+                    <button class="button delete-button" onclick="confirmAction('delete', <%=book.getBookId()%>)">Delete</button>
                 </div>
             </div>
     <% }

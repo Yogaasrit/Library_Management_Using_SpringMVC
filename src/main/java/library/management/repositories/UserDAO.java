@@ -26,4 +26,5 @@ public interface UserDAO {
 	public boolean isEmailInDatabase(String email);
 	public User getUser(String userEmailId);
 	public int updatePassword(String userPassword,String emailId);
+	int updateProfile(User user,int userId);
 }

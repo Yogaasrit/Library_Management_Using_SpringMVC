@@ -1,3 +1,5 @@
+<%@page import="java.sql.Blob"%>
+<%@page import="java.util.Base64"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
@@ -57,8 +59,19 @@
 <body>
 
     <h2>Book Form</h2>
+    <%
+    
+    Blob bookCover = (Blob)request.getAttribute("bookCover");
+    
+    String bookCoverStr = Base64.getEncoder().encodeToString(
+			(bookCover
+					.getBytes(1, (int) 
+					(bookCover
+							.length()))));	
+    
+    %>
 
-    <form:form action="edit-book-details" method="post" modelAttribute="book">
+    <form:form action="edit-book-details" method="post" modelAttribute="book" enctype="multipart/form-data">
 
         <label for="bookName">Book Name:</label>
         <form:input path="bookName" id="bookName" />
@@ -85,8 +98,9 @@
         <form:input path="authorName" id="authorName" />
         
         <label for="bookCover">Book Cover (Base64):</label>
-        <form:input path="bookCover" id="bookCover" />
-
+        <form:input path="bookCover" type = "file" id="bookCover" />
+        
+		 <img class="book-image" src="data:image/png;base64, <%= bookCoverStr %>" alt="image %>" />
         <button type="submit">Submit</button>
 
     </form:form>

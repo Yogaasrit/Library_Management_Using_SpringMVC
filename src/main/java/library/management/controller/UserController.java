@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -468,12 +469,33 @@ public class UserController {
 		
 		User user = (User)session.getAttribute("User");
 		User userProfile = userDAO.getUser(user.getUserEmailId());
-		model.addAttribute("userProfile", userProfile);
+		System.out.println(userProfile);
+		model.addAttribute("user", userProfile);
 		return "update-profile-page";
 	}
 	
-	
-	
-	
+	@PostMapping("/userForm")
+	public String updateProfile(@ModelAttribute User user, HttpSession session,Model model) {
+		User userSession = (User)session.getAttribute("User");
+		int status = userDAO.updateProfile(user,userSession.getUserId());
+		model.addAttribute("userProfile" , user);
+		return "user-profile";
+	}
+	@GetMapping("/change-password")
+	public String openChangePasswordPage(HttpSession session,Model model) {
+		
+		String password=((User)session.getAttribute("User")).getUserPassword();
+		model.addAttribute("password",password);
+		return "change-password";
+	}
+	@PostMapping("/changePassword")
+	public String changePassword(@RequestParam("newPassword")String newPassword,@RequestParam("confirmPassword")String confirmPassword,Model model,HttpSession session) {
+		String emailId=((User)session.getAttribute("User")).getUserEmailId();
+		int changePassword=userDAO.updatePassword(newPassword, emailId);
+		User userSession = (User)session.getAttribute("User");
+		User userProfile = userDAO.getUser(emailId);
+		model.addAttribute("userProfile" , userProfile);
+		return "user-profile";
+	}
 	
 }

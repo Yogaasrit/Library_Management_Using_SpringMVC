@@ -20,7 +20,6 @@ function goBack() {
 	
 	%>
 	
-	
 	<%
 		if(books.isEmpty()){ 
 	%>
@@ -42,7 +41,8 @@ function goBack() {
 			<% if(book.getBookQuantity()>0 || book.isBookStatus()){ %>
 			<h3><%= book.getBookName()%></h3>
 			
-			 <a href = "handleViewBooks?bookId=<%=book.getBookId()%>"><img src="data:image/png;base64, <%=bookCover%>"
+			 <a href = "handleViewBooks?bookId=<%=book.getBookId()%>"><img src="data:image/png;base64, 
+			 <%=bookCover%>"
 				width="100" /></a>
 			
 		<%}

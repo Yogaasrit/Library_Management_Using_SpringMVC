@@ -179,6 +179,18 @@ public class UserDAOImplementation implements UserDAO{
 		return jdbcTemplate.update(updatePasswordQUery,userPassword,userEmailId);
 	}
 
+	@Override
+	public int updateProfile(User user,int userId) {
+		System.out.println(user);
+		String updateProfileQuery = "update user set "
+				+ "userEmailId = ?, userName = ?, "
+				+ "phoneNo = ?, dob = ?, address=?, "
+				+ "gender=? where userId = ?";
+				
+		return jdbcTemplate.update(updateProfileQuery,user.getUserEmailId(),user.getUserName(),user.getPhoneNo(),
+				user.getDob(),user.getAddress(),user.getGender(),userId);
+	}
+
 
 
 

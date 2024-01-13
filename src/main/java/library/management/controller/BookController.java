@@ -35,6 +35,16 @@ public class BookController {
 		return "admin-book-operation";
 	}
 	
+	@GetMapping("/delete-book")
+	public String openDeleteBook(@RequestParam("bookId") String bookId ,Model model) {
+		
+		int deletedResult = bookDao.deleteBook(Integer.parseInt(bookId));
+		
+		List<Book> bookList= bookDao.viewAllBooks();
+		model.addAttribute("bookList",bookList);
+		return "admin-book-operation";
+	}
+	
 	@GetMapping("/handleViewBooks")
 	public String handleViewBooks(@RequestParam("bookId") String bookId,Model model)
 	{	
@@ -130,6 +140,7 @@ public class BookController {
 		
 		Book book = bookDao.displayByBookId(Integer.parseInt(bookId));
 		model.addAttribute("book", book);
+		model.addAttribute("bookCover", book.getBookCover());
 		session.setAttribute("bookId",bookId);
 		return "edit-book";
 	}

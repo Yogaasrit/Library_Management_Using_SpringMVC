@@ -1,0 +1,55 @@
+body {
+    /* Add a light background color */
+    background-color: #f5f5f5;
+
+    /* Center the content */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Make the background cover the full height of the viewport */
+    margin: 0; /* Remove default margin */
+}
+
+.container {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left-div {
+    padding: 20px;
+    flex: 1; /* Take up remaining space in the container */
+}
+
+.right-div {
+    padding: 40px;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.library-image {
+    width: 60%; /* Make the image cover the entire width of the left div */
+    height: auto; /* Maintain the image's aspect ratio */
+    max-height: 100%; /* Make sure the image does not exceed the height of the left div */
+}
+
+a {
+    /* Style the links like buttons */
+    display: block;
+    padding: 20px 50px;
+    margin: 5px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #3498db; /* Blue color for the button */
+    border: 2px solid #2980b9;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+a:hover {
+    /* Hover effect */
+    background-color: #2980b9;
+}

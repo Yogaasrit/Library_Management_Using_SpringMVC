@@ -164,7 +164,7 @@
         </div>
 
         <a href = "update-profile" class = "edit-profile-button"> Edit Profile </a>
-
+			<a href = "change-password" class = "edit-profile-button">Change Password </a>
 
 		
 </body>

@@ -8,6 +8,9 @@ public class User {
 	private String userName;
 	private String phoneNo;
 	private Date dob;
+	private String address;
+	private String gender;
+	private String userPassword;
 	public User(int userId, String userEmailId, String userName, String phoneNo, Date dob, String address,
 			String gender, String userPassword) {
 		super();
@@ -44,9 +47,7 @@ public class User {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	private String address;
-	private String gender;
-	private String userPassword; 
+	 
 	
 	// Add more details ???
 	public User() {
@@ -91,7 +92,11 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [userName=" + userName + ", userEmailId=" + userEmailId + ", userPassword=" + userPassword + "]";
+		return "User [userId=" + userId + ", userEmailId=" + userEmailId + ", userName=" + userName + ", phoneNo="
+				+ phoneNo + ", dob=" + dob + ", address=" + address + ", gender=" + gender + ", userPassword="
+				+ userPassword + "]";
 	}
+	
+	
 	
 }

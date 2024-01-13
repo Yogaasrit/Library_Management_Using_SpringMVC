@@ -18,5 +18,6 @@ public interface BookDAO {
 	int updateBorrowBookCount(int userId,int bookId,Date borrowedDate,Date returnDate);
 	List<Book> getAllAuthor();
 	int editBookDetails(int bookId,Book book);
+	int deleteBook(int bookId);
 	
 }
