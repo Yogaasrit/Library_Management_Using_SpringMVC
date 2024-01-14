@@ -18,7 +18,7 @@ public class BorrowRowMapper implements RowMapper<BorrowBook>{
 		book.setFine(rs.getInt("bookFine"));
 		book.setBookCover(rs.getBlob("bookCover"));
 		book.setBookName(rs.getString("bookName"));
-		
+		book.setApproveStatus(rs.getBoolean("approveStatus"));
 		return book;
 	}
 

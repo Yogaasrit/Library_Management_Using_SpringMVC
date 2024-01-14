@@ -4,15 +4,17 @@ import java.sql.Date;
 import java.util.List;
 
 import library.management.entities.Book;
+import library.management.entities.BookApproval;
 import library.management.entities.BorrowBook;
 import library.management.entities.PurchasedBook;
 import library.management.entities.User;
+import library.management.entities.ViewUserDetails;
 
 public interface UserDAO {
 
 	public int userRegister(String emailId, String userName, String phoneNo,Date dob, String address,String gender, String password);
 	public List<User> userLogin(String userEmailId, String userPassword);
-	public List<User> viewUser();
+	public List<ViewUserDetails> viewUser();
 	public int addBooks(Book book);
 	public int placeOrder(int userId,int bookId,int bookCount,Date orderDate);
 	public List<PurchasedBook> viewPurchasedBooks(int userId);
@@ -27,4 +29,7 @@ public interface UserDAO {
 	public User getUser(String userEmailId);
 	public int updatePassword(String userPassword,String emailId);
 	int updateProfile(User user,int userId);
+	int updateApproveStatus(int borroweId);
+	public List<BookApproval>viewApprovalList();
+	public int updateBookApproveStatus(int borrowedId);
 }

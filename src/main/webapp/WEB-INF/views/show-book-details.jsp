@@ -110,6 +110,14 @@
     </style>
 </head>
 <body>
+
+	<%
+		String ctx = application.getContextPath();
+		//out.print(ctx);
+		String targetUrl = ctx + "/User";
+	%>
+
+
     <h1>Book Detail</h1>
 
     <% Book book = (Book) request.getAttribute("book");
@@ -142,7 +150,13 @@
         </div>
     </div>
 
-    
+    <div class="button-container">
+                    <button class="action-button"> 
+                    <a href = "<%=targetUrl%>/handlePlaceOrder?bookId=<%=book.getBookId()%>">Place Order</a></button>
+                    <button class="action-button">
+                    <a href = "<%=targetUrl%>/handleBorrowBook?bookId=<%=book.getBookId()%>">
+                    Borrow book</a></button>
+    </div>
     
 
      <!-- Buttons -->

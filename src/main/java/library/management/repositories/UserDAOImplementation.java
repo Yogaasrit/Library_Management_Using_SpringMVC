@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import library.management.entities.Book;
+import library.management.entities.BookApproval;
 import library.management.entities.BorrowBook;
 import library.management.entities.PurchasedBook;
 import library.management.entities.User;
+import library.management.entities.ViewUserDetails;
 
 public class UserDAOImplementation implements UserDAO{
 
@@ -33,9 +35,28 @@ public class UserDAOImplementation implements UserDAO{
 	}
 
 	@Override
-	public List<User> viewUser() {
-		String viewUserQuery = "SELECT * FROM user";
-		return jdbcTemplate.query(viewUserQuery, new ViewUserRowMapper());
+	public List<ViewUserDetails> viewUser() {
+		String viewUserQuery = "SELECT\r\n"
+				+ "    u.userId,\r\n"
+				+ "    u.userEmailId,\r\n"
+				+ "    u.userName,\r\n"
+				+ "    u.phoneNo,\r\n"
+				+ "    u.dob,\r\n"
+				+ "    u.address,\r\n"
+				+ "    u.gender,\r\n"
+				+ "    COUNT(DISTINCT ob.bookId) AS totalOrderedBooks,\r\n"
+				+ "    COUNT(DISTINCT bb.bookId) AS totalBorrowedBooks,\r\n"
+				+ "    COALESCE(SUM(bb.bookFine), 0) AS totalFine\r\n"
+				+ "FROM\r\n"
+				+ "    user u\r\n"
+				+ "LEFT JOIN\r\n"
+				+ "    orderedbooks ob ON u.userId = ob.userId\r\n"
+				+ "LEFT JOIN\r\n"
+				+ "    borrowbook bb ON u.userId = bb.userId\r\n"
+				+ "WHERE u.status = 1\r\n"
+				+ "GROUP BY\r\n"
+				+ "    u.userId, u.userEmailId, u.userName, u.phoneNo, u.dob, u.address, u.gender";
+		return jdbcTemplate.query(viewUserQuery, new ViewAllUserDetailRowMapper());
 	}
 
 	@Override
@@ -83,6 +104,7 @@ public class UserDAOImplementation implements UserDAO{
 				+ "borrowbook.borrowedDate,\r\n"
 				+ "borrowbook.returnDate,\r\n"
 				+ "borrowbook.bookfine,\r\n"
+				+ "borrowbook.approveStatus,\r\n"
 				+ "borrowbook.borrowedId from books inner join borrowbook\r\n"
 				+ "on \r\n"
 				+ "books.bookId = borrowbook.bookId\r\n"
@@ -128,10 +150,8 @@ public class UserDAOImplementation implements UserDAO{
 				+ "SET status = 0\n"
 				+ "WHERE userId = ? -- specify the user ID\n"
 				+ "  AND userId NOT IN (SELECT userId FROM borrowbook WHERE bookFine > 0)\n"
-				+ "  AND userId NOT IN (SELECT userId FROM borrowbook WHERE returnStatus = 0)";
+				+ "  AND userId NOT IN (SELECT userId FROM borrowbook WHERE returnStatus = 1)";
 		return jdbcTemplate.update(deleteQuery, userId);
-		
-		
 	}
 	@Override
 	public Book checkBook(int bookId) {
@@ -189,6 +209,41 @@ public class UserDAOImplementation implements UserDAO{
 				
 		return jdbcTemplate.update(updateProfileQuery,user.getUserEmailId(),user.getUserName(),user.getPhoneNo(),
 				user.getDob(),user.getAddress(),user.getGender(),userId);
+	}
+
+	@Override
+	public int updateApproveStatus(int borroweId) {
+		String updateApproveStatus = "update borrowBook set approveStatus = 1 where borrowedId = ?";
+		return jdbcTemplate.update(updateApproveStatus,borroweId);
+		
+	}
+
+	@Override
+	public List<BookApproval> viewApprovalList() {
+		String approvalQuery = "SELECT\r\n"
+				+ "    u.userName,\r\n"
+				+ "    u.userEmailId,\r\n"
+				+ "    u.userId,\r\n"
+				+ "    b.bookId,\r\n"
+				+ "    b.bookName,\r\n"
+				+ "    b.bookCover,\r\n"
+				+ "    bb.borrowedId,\r\n"
+				+ "    bb.borrowedDate,\r\n"
+				+ "    bb.returnDate\r\n"
+				+ "FROM\r\n"
+				+ "    user u\r\n"
+				+ "JOIN\r\n"
+				+ "    borrowbook bb ON u.userId = bb.userId\r\n"
+				+ "JOIN\r\n"
+				+ "    books b ON bb.bookId = b.bookId"
+				+ " WHERE bb.returnStatus = 0";
+		return jdbcTemplate.query(approvalQuery, new viewApprovalRowMapper());
+	}
+
+	@Override
+	public int updateBookApproveStatus(int borrowedId) {
+		String updateBookApproveStatusQuery = "update borrowBook set approveStatus = 0, returnStatus = 1 where borrowedId = ?";		
+		return jdbcTemplate.update(updateBookApproveStatusQuery,borrowedId);
 	}
 
 

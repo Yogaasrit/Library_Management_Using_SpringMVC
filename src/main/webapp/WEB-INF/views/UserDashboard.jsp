@@ -98,19 +98,7 @@ footer {
 </head>
 <body>
 
-	<header>
-        <nav>
-            <a href="UserDashboard">Home</a>
-            <a href="#">About Us</a>
-            <a href="#">Contact Us</a>
-            <a href="#">Gallery</a>
-        </nav>
-        
-        <div>
-            <span class="profile-icon"><a href = "user-profile"><i class="fas fa-user"></a></i></span>
-            <button class="logout-btn">Logout</button>
-        </div>
-    </header>
+	<jsp:include page="Header.jsp" />
 	
 
 
@@ -121,8 +109,8 @@ footer {
     <a href="book/filter-bookname" class="button">Filter by Book Name</a>
     <a href="book/filter-bookauthor" class="button">Filter by Author</a>
     <a href="book/filter-bookgenre" class="button">Filter by Genre</a>
-    <a href="place-order" class="button">Place Order</a>
-    <a href="view-your-books" class="button">View Bought Books</a>
+<!--     <a href="place-order" class="button">Place Order</a>
+ -->    <a href="view-your-books" class="button">View Bought Books</a>
     <a href="view-borrowed-books" class="button">View Borrowed Books</a>
     <footer>
         <div style="background-color: #333; color: #fff; padding: 20px; text-align: center;">

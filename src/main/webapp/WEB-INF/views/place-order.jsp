@@ -59,6 +59,7 @@ function goBack() {
     </style>
 </head>
 <body>
+<jsp:include page="Header.jsp" />
     <h1>Place Order</h1>
 
     <% List<Book> books = (List<Book>)request.getAttribute("books"); %>

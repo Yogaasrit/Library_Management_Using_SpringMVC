@@ -136,7 +136,7 @@
     </style>
 </head>
 <body>
-
+<jsp:include page="Header.jsp" />
 <%
 	User user = (User) request.getAttribute("userProfile");
 %>

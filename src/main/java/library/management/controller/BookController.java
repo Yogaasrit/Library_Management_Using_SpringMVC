@@ -60,6 +60,9 @@ public class BookController {
 			) {
 		List<Book> bookList= bookDao.viewAllBooks();
 		model.addAttribute("bookList",bookList);
+		List<Book> filteredGenres = bookDao.filterByBookGenre();
+		model.addAttribute("filteredGenres",filteredGenres);
+
 		return "view-books";
 	}
 	

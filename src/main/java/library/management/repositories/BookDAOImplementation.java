@@ -20,7 +20,7 @@ public class BookDAOImplementation implements BookDAO {
 
 	@Override
 	public List<Book> viewAllBooks() {
-		String displayAllBooksQuery = "select * from books where bookStatus = 1";
+		String displayAllBooksQuery = "select * from books where bookStatus = 1 and bookQuantity > 0";
 		return jdbcTemplate.query(displayAllBooksQuery, new BookRowMapper());
 	}
 
@@ -74,9 +74,9 @@ public class BookDAOImplementation implements BookDAO {
 		//`borrowedId`, `userId`, `borrowedDate`, `bookFine`, `bookId`, `returnStatus`
 		
 		String insertBorrowBookQuery = "INSERT INTO borrowbook "
-				+ " (`userId`, `borrowedDate`, `bookFine`, `bookId`, `returnStatus`,`returnDate`) "
+				+ " (`userId`, `borrowedDate`, `bookFine`, `bookId`, `returnStatus`,`returnDate`,`approveStatus`) "
 				+ " VALUES "
-				+ " (?,?,?,?,?,?) ";
+				+ " (?,?,?,?,?,?,?) ";
 	
 		int status = 0;
 		if(jdbcTemplate.update(insertBorrowBookQuery,
@@ -85,7 +85,8 @@ public class BookDAOImplementation implements BookDAO {
 								0,
 								bookId,
 								0,
-								returnDate
+								returnDate,
+								0
 								) == 1) {
 			
 			String updateBorrowBookCount = "UPDATE books SET bookQuantity = bookQuantity - 1";

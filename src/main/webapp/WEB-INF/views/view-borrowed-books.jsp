@@ -83,43 +83,51 @@ function goBack() {
     </style>
 </head>
 <body>
-<h1>Your borrowed books</h1>
-<% List<BorrowBook> bookList = (List<BorrowBook>)request.getAttribute("borrowedBooks"); %>
+    <h1>Your borrowed books</h1>
+    <% List<BorrowBook> bookList = (List<BorrowBook>)request.getAttribute("borrowedBooks"); %>
 
-	<% if(!bookList.isEmpty()){ %>
-    <div class="order-container">
-        <% for (BorrowBook borrowBook : bookList) { 
-        	
-        	String bookCover = Base64.getEncoder().encodeToString(
-					(borrowBook.getBookCover())
-							.getBytes(1, (int) 
-							(borrowBook.getBookCover()
-									.length())));
-        
-        %>
-            <div class="order-card">
-                <div class="book-details">
-                    <div class="book-name"><%= borrowBook.getBookName() %></div>
-                    <img class="book-cover" src="data:image/png;base64, <%= bookCover %>" 
-                    alt="<%= borrowBook.getBookName() %>">
-                </div>
-                <div class="order-date">Borrow Date: <%= borrowBook.getBorrowDate() %></div>
-                <div class="book-count">Return Date: <%= borrowBook.getReturnDate() %></div>
-                <div class="book-count">Fine : <%= borrowBook.getFine() %></div>
+    <% if(!bookList.isEmpty()){ %>
+        <div class="order-container">
+            <% for (BorrowBook borrowBook : bookList) { 
                 
-                <form action="<%= borrowBook.getFine() > 0 ? "pay-fine" : "return-book" %>">
-        <input type="hidden" name="borrowedId" value="<%= borrowBook.getBorrowedId() %>">
-        <button type="submit">Return Book</button>
-    </form>
-            </div>
+                String bookCover = Base64.getEncoder().encodeToString(
+                        (borrowBook.getBookCover())
+                                .getBytes(1, (int) 
+                                (borrowBook.getBookCover()
+                                        .length())));
             
-            
-        <% } %>
+            %>
+                <div class="order-card">
+                    <div class="book-details">
+                        <div class="book-name"><%= borrowBook.getBookName() %></div>
+                        <img class="book-cover" src="data:image/png;base64, <%= bookCover %>" 
+                        alt="<%= borrowBook.getBookName() %>">
+                    </div>
+                    <div class="order-date">Borrow Date: <%= borrowBook.getBorrowDate() %></div>
+                    <div class="book-count">Return Date: <%= borrowBook.getReturnDate() %></div>
+                    <div class="book-count">Fine : <%= borrowBook.getFine() %></div>
+                    
+                    <form action="<%= borrowBook.getFine() > 0 ? "pay-fine" : "return-book" %>">
+                        <input type="hidden" name="borrowedId" value="<%= borrowBook.getBorrowedId() %>">
+                        
+                        <% if (!borrowBook.isApproveStatus()) { %>
+                            <!-- Display "Return Book" button -->
+                            <button type="submit">Return Book</button>
+                        <% } else { %>
+                            <!-- Display "Waiting for Approval" button -->
+                            <button type="button" disabled>Waiting for Approval</button>
+                        <% } %>
+                    </form>
+                </div>
+                
+            <% } %>
+        </div>
+    <%} else{%>
+        <h1>You didn't borrow any books!!</h1>
+    <%} %>
+    <div class="button-container">
+        <button class="button" onclick="goBack()">Back</button>
     </div>
-	<%} else{%>
-	<h1>You didn't borrow any books!!</h1>
-	<%} %>
-	<div class="button-container">
-        <button class="button" onclick="goBack()">Back</button></div> 
 </body>
+
 </html>

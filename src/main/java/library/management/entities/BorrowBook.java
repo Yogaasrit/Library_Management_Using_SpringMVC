@@ -10,6 +10,28 @@ public class BorrowBook {
 	private Date returnDate;
 	private int fine;
 	private Blob bookCover;
+	private boolean approveStatus;
+	
+	public BorrowBook(int borrowedId, String bookName, Date borrowDate, Date returnDate, int fine, Blob bookCover,
+			boolean approveStatus) {
+		super();
+		this.borrowedId = borrowedId;
+		this.bookName = bookName;
+		this.borrowDate = borrowDate;
+		this.returnDate = returnDate;
+		this.fine = fine;
+		this.bookCover = bookCover;
+		this.approveStatus = approveStatus;
+	}
+	public BorrowBook() {
+		// TODO Auto-generated constructor stub
+	}
+	public boolean isApproveStatus() {
+		return approveStatus;
+	}
+	public void setApproveStatus(boolean approveStatus) {
+		this.approveStatus = approveStatus;
+	}
 	public int getBorrowedId() {
 		return borrowedId;
 	}

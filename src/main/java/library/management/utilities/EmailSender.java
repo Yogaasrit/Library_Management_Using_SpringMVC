@@ -42,5 +42,42 @@ public class EmailSender {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	
+	public void sendRejectResponse(String recipientEmail,String rejectMessage,String borrowedId, String bookName) {
+
+		final String username = "apjabdulkalamlibrary15@gmail.com"; // Your email
+		final String password = "veqdriezruqlfzyr"; // Your password
+
+		Properties props = new Properties();
+		 props.put("mail.smtp.auth", "true");
+	        props.put("mail.smtp.starttls.enable", "true");
+	        props.put("mail.smtp.host", "smtp.gmail.com"); // Gmail's SMTP host
+	        props.put("mail.smtp.port", "587"); // Gmail's SMTP port
+
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
+
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(username));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
+			message.setSubject("Reason for rejection of book " + bookName);
+			message.setText("Borrowed ID" + borrowedId + "\n" + rejectMessage);
+
+			Transport.send(message);
+
+			System.out.println("Email sent successfully!");
+
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	
+	
 
 }

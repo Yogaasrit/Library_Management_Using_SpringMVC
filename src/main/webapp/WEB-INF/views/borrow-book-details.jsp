@@ -110,7 +110,7 @@
     </style>
 </head>
 <body>
-    <h1>Ordering Page</h1>
+    <h1>Borrow Page</h1>
 
     <% Book book = (Book) request.getAttribute("book");
     

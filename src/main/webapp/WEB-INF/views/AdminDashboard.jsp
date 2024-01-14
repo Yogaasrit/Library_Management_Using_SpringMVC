@@ -59,6 +59,11 @@
             <h3>Delete Books</h3>
             <a href="delete-books" class="button">Delete</a>
         </div>
+        
+        <div class="card">
+            <h3>Approve returned books</h3>
+            <a href="approve-return-book" class="button">Approve</a>
+        </div>
     </div>
 
 </body>
