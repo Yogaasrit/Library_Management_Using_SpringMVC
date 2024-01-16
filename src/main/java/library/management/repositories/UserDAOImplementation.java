@@ -1,5 +1,6 @@
 package library.management.repositories;
 
+import java.sql.Blob;
 import java.sql.Date;
 import java.util.List;
 
@@ -244,6 +245,13 @@ public class UserDAOImplementation implements UserDAO{
 	public int updateBookApproveStatus(int borrowedId) {
 		String updateBookApproveStatusQuery = "update borrowBook set approveStatus = 0, returnStatus = 1 where borrowedId = ?";		
 		return jdbcTemplate.update(updateBookApproveStatusQuery,borrowedId);
+	}
+
+	@Override
+	public int insertImage(Blob profilePicBlob, String emailId) {
+		
+		String insertImage = "UPDATE user SET profilePic = ? WHERE userEmailId = ?";
+		return jdbcTemplate.update(insertImage,profilePicBlob,emailId);
 	}
 
 

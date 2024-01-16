@@ -1,5 +1,6 @@
 package library.management.repositories;
 
+import java.sql.Blob;
 import java.sql.Date;
 import java.util.List;
 
@@ -32,4 +33,5 @@ public interface UserDAO {
 	int updateApproveStatus(int borroweId);
 	public List<BookApproval>viewApprovalList();
 	public int updateBookApproveStatus(int borrowedId);
+	public int insertImage(Blob profilePicBlob,String emailId);
 }

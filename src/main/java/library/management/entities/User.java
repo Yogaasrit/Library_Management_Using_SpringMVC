@@ -1,5 +1,6 @@
 package library.management.entities;
 
+import java.sql.Blob;
 import java.sql.Date;
 
 public class User {
@@ -11,8 +12,10 @@ public class User {
 	private String address;
 	private String gender;
 	private String userPassword;
+	private Blob profilePic;
+	
 	public User(int userId, String userEmailId, String userName, String phoneNo, Date dob, String address,
-			String gender, String userPassword) {
+			String gender, String userPassword,Blob profilePic) {
 		super();
 		this.userId = userId;
 		this.userEmailId = userEmailId;
@@ -22,6 +25,7 @@ public class User {
 		this.address = address;
 		this.gender = gender;
 		this.userPassword = userPassword;
+		this.profilePic = profilePic;
 	}
 	public String getPhoneNo() {
 		return phoneNo;
@@ -89,6 +93,13 @@ public class User {
 	}
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
+	}
+	
+	public Blob getProfilePic() {
+		return profilePic;
+	}
+	public void setProfilePic(Blob profilePic) {
+		this.profilePic = profilePic;
 	}
 	@Override
 	public String toString() {

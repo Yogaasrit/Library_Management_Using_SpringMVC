@@ -21,5 +21,25 @@ public class AdminLoginDAOImplementation implements AdminLoginDAO{
 		String validateAdminQuery = "SELECT * FROM ADMIN WHERE adminEmailId = ? and adminPassword = ?";
 		return jdbcTemplate.query(validateAdminQuery, new AdminLoginRowMapper() ,adminEmailId,adminPassword);
 	}
+	@Override
+	public int totalUser() {
+		String totalUserQuery = "SELECT COUNT(*) AS totalUsers FROM user where status = 1";
+		return jdbcTemplate.query(totalUserQuery, new TotalUserCountRowMapper()).get(0).getTotalUser();
+	}
+	@Override
+	public int totalBooks() {
+		String totalUserQuery = "SELECT COUNT(*) AS totalBooks FROM user where bookStatus = 1";
+		return jdbcTemplate.query(totalUserQuery, new TotalBookCountRowMapper()).get(0).getTotalBookCount();
+	}
+	@Override
+	public int totalBooksBorrowedToday() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public int totalBooksBoughtToday() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }

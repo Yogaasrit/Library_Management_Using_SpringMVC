@@ -97,6 +97,13 @@ public class UserController {
 		// If not null, validated,
 		// Dashboard page is shown to admin
 		else {
+			
+			
+			//add more data for admin dashboard
+			int totalUserCount = adminLoginDAO.totalUser();
+			int totalBookCount = adminLoginDAO.totalBooks();
+			model.addAttribute("totalUserCount",totalUserCount);
+			model.addAttribute("totalBookCount",totalBookCount);
 			admin = adminLoginDAO.validateAdmin(adminEmailId, adminPassword).get(0);
 			session.setAttribute("adminSession", admin);
 			return "AdminDashboard";
@@ -503,4 +510,27 @@ public class UserController {
 		model.addAttribute("list",list);
 		return "approve-return-books";
 	}
+	
+	//-------------------------------------
+	@PostMapping("/profile-pic")
+	public String updateProfilePic(Model model,
+						HttpSession session,
+						@RequestParam("profile-pic") MultipartFile profilePic) {
+		
+		byte[] profilePicArr;
+		Blob profilePicBlob = null;
+		try {
+			profilePicArr = profilePic.getBytes();
+			profilePicBlob = new SerialBlob(profilePicArr);
+		} catch (IOException | SQLException e) {
+			e.printStackTrace();
+		}
+		User userSession = (User) session.getAttribute("User");
+		userSession.setProfilePic(profilePicBlob);
+		int dpInsertStatus = userDAO.insertImage(profilePicBlob, userSession.getUserEmailId());
+		User userProfile = userDAO.getUser(userSession.getUserEmailId());
+		model.addAttribute("userProfile", userProfile);
+		return "user-profile";
+	}
+	
 }

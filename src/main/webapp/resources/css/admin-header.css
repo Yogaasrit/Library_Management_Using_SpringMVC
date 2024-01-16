@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.admin-header {
+    background-color: #3498db; /* Blue color */
+    color: #fff;
+    padding: 15px; /* Padding adjusted */
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Center items vertically */
+}
+
+.brand {
+    font-size: 24px;
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+}
+
+.actions-dropdown {
+    position: relative;
+    display: inline-block;
+    margin-right: 20px; /* Increased spacing between the dropdown and logout */
+}
+
+.dropdown-btn {
+    background-color: #3498db; /* Blue color */
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 10px 15px; /* Adjusted padding */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #3498db; /* Blue color */
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: #fff;
+    padding: 12px 16px; /* Adjusted padding */
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #2980b9; /* Darker shade on hover */
+}
+
+.logout a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px; /* Adjusted padding */
+}
+
+/* Increased spacing between links */
+.admin-header a:not(.profile-icon) {
+    margin-right: 20px;
+}

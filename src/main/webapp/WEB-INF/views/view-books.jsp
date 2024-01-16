@@ -211,9 +211,9 @@ function goBack() {
     <!-- Search button -->
     <button onclick="searchBooks()">Search</button>
 
-    <div class="button-container">
+    <!-- <div class="button-container">
         <button class="button" onclick="goBack()">Back</button>
-    </div>
+    </div> -->
 
     <% 
         List<Book> books = (List<Book>)request.getAttribute("bookList"); 

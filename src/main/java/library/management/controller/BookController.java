@@ -32,6 +32,8 @@ public class BookController {
 	public String bookOperation(Model model) {
 		List<Book> bookList= bookDao.viewAllBooks();
 		model.addAttribute("bookList",bookList);
+		List<Book> filteredGenres = bookDao.filterByBookGenre();
+		model.addAttribute("filteredGenres",filteredGenres);
 		return "admin-book-operation";
 	}
 	
@@ -42,6 +44,8 @@ public class BookController {
 		
 		List<Book> bookList= bookDao.viewAllBooks();
 		model.addAttribute("bookList",bookList);
+		List<Book> filteredGenres = bookDao.filterByBookGenre();
+		model.addAttribute("filteredGenres",filteredGenres);
 		return "admin-book-operation";
 	}
 	
@@ -157,9 +161,6 @@ public class BookController {
 		int editBook=bookDao.editBookDetails(Integer.parseInt(bookId),book);
 		return "redirect:view-books";
 	}
-	
-	
-	
 	
 	@InitBinder
     public void initBinder(WebDataBinder binder) {

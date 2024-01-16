@@ -4,4 +4,8 @@ import library.management.entities.Admin;
 
 public interface AdminLoginDAO{
 	public List<Admin> validateAdmin(String adminEmailId,String adminPassword);
+	public int totalUser();
+	public int totalBooks();
+	public int totalBooksBorrowedToday();
+	public int totalBooksBoughtToday();
 }

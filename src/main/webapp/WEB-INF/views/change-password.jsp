@@ -4,6 +4,67 @@
 <head>
     <meta charset="UTF-8">
     <title>Change Password</title>
+    <style>body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    color: #333;
+}
+
+form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+}
+
+#oldPasswordError,
+#newPasswordError,
+#confirmPasswordError {
+    margin-top: -10px;
+    margin-bottom: 16px;
+}
+
+#oldPasswordError,
+#newPasswordError,
+#confirmPasswordError {
+    font-size: 12px;
+}
+
+input[type="submit"] {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+    </style>
     <script>
         function validateForm() {
             var oldPassword = document.getElementById("oldPassword").value;
@@ -48,10 +109,10 @@
 </head>
 <body>
 
-    <h2>Change Password</h2>
+   
 
     <form action="changePassword" method="post" onsubmit="return validateForm()">
-
+	<h2>Change Password</h2>
         <!-- Old Password -->
         <label for="oldPassword">Old Password:</label>
         <input type="password" id="oldPassword" name="oldPassword" required />
