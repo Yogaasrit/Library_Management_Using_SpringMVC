@@ -12,10 +12,13 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background-size: cover;
         }
 
         h1 {
             text-align: center;
+            margin-top : 100px;
         }
 
         table {
@@ -31,7 +34,7 @@
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: rgba(255,255,255,0.5);
         }
 
         img {
@@ -43,11 +46,39 @@
             display: inline;
         }
 
-        button {
-            padding: 5px 10px;
-            margin: 5px;
-            cursor: pointer;
-        }
+       /* Style for the "Approve" button */
+button[name="action"][value="approve"] {
+    padding: 8px 16px; /* Adjust the padding as needed */
+    background-color: #28a745; /* Button background color */
+    color: #fff; /* Button text color */
+    border: 1px solid #28a745; /* Button border color */
+    border-radius: 4px; /* Optional: Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Optional: Smooth hover effect */
+}
+
+/* Hover effect for the "Approve" button */
+button[name="action"][value="approve"]:hover {
+    background-color: #218838; /* Change the background color on hover */
+    border-color: #218838; /* Change the border color on hover */
+}
+
+a.reject {
+    display: inline-block;
+    padding: 8px 16px; /* Adjust the padding as needed */
+    text-decoration: none;
+    background-color: #dc3545; /* Button background color */
+    color: #fff; /* Button text color */
+    border: 1px solid #dc3545; /* Button border color */
+    border-radius: 4px; /* Optional: Rounded corners */
+    transition: background-color 0.3s ease; /* Optional: Smooth hover effect */
+
+}
+
+a.reject:hover {
+    background-color: #c82333; /* Change the background color on hover */
+    border-color: #c82333; /* Change the border color on hover */
+}
 
         button:disabled {
             background-color: #cccccc;
@@ -56,7 +87,9 @@
     </style>
 </head>
 <body>
-
+<header>
+        <jsp:include page="admin-header.jsp" />
+    </header>
 <h1>Return Book Approval</h1>
 
 <%
@@ -95,9 +128,9 @@
                         <form action="process-return-approval" method="post">
                             <input type="hidden" name="borrowedId" value="<%= bookApproval.getBorrowedId() %>">
                             <button type="submit" name="action" value="approve">Approve</button>
-                            <button>
-                            <a href = "handle-reject?borrowedId=<%=bookApproval.getBorrowedId()%>&userEmailId=<%=bookApproval.getUserEmailId()%>&bookName=<%=bookApproval.getBookName()%>">
-                            Reject</a></button>
+                            
+                            <a class ="reject" href = "handle-reject?borrowedId=<%=bookApproval.getBorrowedId()%>&userEmailId=<%=bookApproval.getUserEmailId()%>&bookName=<%=bookApproval.getBookName()%>">
+                            Reject</a>
                         </form>
                     </td>
                 </tr>

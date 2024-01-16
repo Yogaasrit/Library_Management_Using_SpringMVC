@@ -67,6 +67,36 @@ public class UserController {
 		return "UserRegister";
 	}
 
+	@GetMapping("/admin-view-profile")
+	public String viewAdminProfile( Model model) {
+		String password = adminLoginDAO.getPassword();
+		model.addAttribute("password",password);
+		return "view-admin-profile";
+	}
+	@PostMapping("/admin-changePassword")
+	public String openDashboard(Model model, 
+			@RequestParam("confirmPassword") String confirmPassword) {
+		int status = adminLoginDAO.updateAdminPassWord(confirmPassword);
+		
+		int totalUserCount = adminLoginDAO.totalUser();
+		int totalBookCount = adminLoginDAO.totalBooks();
+		int totalBooksBorrowed = adminLoginDAO.totalBooksBorrowed();
+		int totalPendingApproval=adminLoginDAO.totalBooksApproval();
+		int totalBooksBought = adminLoginDAO.totalBooksBought();
+		int totalBooksBorrowedToday = adminLoginDAO.totalBooksBorrowedToday();
+		int totalBooksBoughtToday = adminLoginDAO.totalBooksBoughtToday();
+		int totalUserOverDueCount = adminLoginDAO.totalUserOverDueCount();
+		
+		model.addAttribute("totalUserCount",totalUserCount);
+		model.addAttribute("totalBookCount",totalBookCount);
+		model.addAttribute("totalBooksBorrowed",totalBooksBorrowed);
+		model.addAttribute("totalBooksBought",totalBooksBought);
+		model.addAttribute("totalPendingApproval",totalPendingApproval);
+		model.addAttribute("totalBooksBorrowedToday",totalBooksBorrowedToday);
+		model.addAttribute("totalBooksBoughtToday",totalBooksBoughtToday);
+		model.addAttribute("totalUserOverDueCount",totalUserOverDueCount);
+		return "AdminDashboard";
+	}
 	@PostMapping("/handle-register")
 	public String showUserRegisterPage(@RequestParam("emailId") String emailId,
 			@RequestParam("userName") String userName, @RequestParam("phoneNo") String phoneNo,
@@ -102,8 +132,22 @@ public class UserController {
 			//add more data for admin dashboard
 			int totalUserCount = adminLoginDAO.totalUser();
 			int totalBookCount = adminLoginDAO.totalBooks();
+			int totalBooksBorrowed = adminLoginDAO.totalBooksBorrowed();
+			int totalPendingApproval=adminLoginDAO.totalBooksApproval();
+			int totalBooksBought = adminLoginDAO.totalBooksBought();
+			int totalBooksBorrowedToday = adminLoginDAO.totalBooksBorrowedToday();
+			int totalBooksBoughtToday = adminLoginDAO.totalBooksBoughtToday();
+			int totalUserOverDueCount = adminLoginDAO.totalUserOverDueCount();
+			
 			model.addAttribute("totalUserCount",totalUserCount);
 			model.addAttribute("totalBookCount",totalBookCount);
+			model.addAttribute("totalBooksBorrowed",totalBooksBorrowed);
+			model.addAttribute("totalBooksBought",totalBooksBought);
+			model.addAttribute("totalPendingApproval",totalPendingApproval);
+			model.addAttribute("totalBooksBorrowedToday",totalBooksBorrowedToday);
+			model.addAttribute("totalBooksBoughtToday",totalBooksBoughtToday);
+			model.addAttribute("totalUserOverDueCount",totalUserOverDueCount);
+			
 			admin = adminLoginDAO.validateAdmin(adminEmailId, adminPassword).get(0);
 			session.setAttribute("adminSession", admin);
 			return "AdminDashboard";

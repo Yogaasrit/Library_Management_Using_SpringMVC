@@ -5,12 +5,17 @@ body {
 }
 
 .admin-header {
-    background-color: #3498db; /* Blue color */
+    background-color: transparent;
+    border: none;
     color: #fff;
     padding: 15px; /* Padding adjusted */
     display: flex;
     justify-content: space-between;
     align-items: center; /* Center items vertically */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
 .brand {
@@ -29,7 +34,7 @@ body {
 }
 
 .dropdown-btn {
-    background-color: #3498db; /* Blue color */
+        background-color: transparent; /* Blue color */
     color: #fff;
     border: none;
     cursor: pointer;
@@ -39,7 +44,7 @@ body {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #3498db; /* Blue color */
+       background-color: transparent; /* Blue color */
     min-width: 160px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;
@@ -58,6 +63,8 @@ body {
 
 .logout a {
     color: #fff;
+    background-color: transparent;
+	border: none;
     text-decoration: none;
     padding: 10px 15px; /* Adjusted padding */
 }
@@ -66,3 +73,12 @@ body {
 .admin-header a:not(.profile-icon) {
     margin-right: 20px;
 }
+
+.user-icon{
+	border-radius: 50%;
+	padding: 10px;
+	background-color: transparent;
+	border: none;
+}
+
+

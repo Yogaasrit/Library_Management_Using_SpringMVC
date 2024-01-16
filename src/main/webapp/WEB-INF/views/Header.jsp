@@ -10,16 +10,50 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
+    padding-top: 60px; /* Adjusted top padding for fixed header */
 }
 
 header {
-    background-color: #333;
+    background-color: transparent;
+    border: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     color: #fff;
     padding: 10px 20px; /* Adjusted padding for a smaller header */
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 1000; /* Ensure the header is above other elements */
 }
+
+nav a {
+margin-left: 30px;
+    color: #fff;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+.button {
+margin-left: 30px;
+    padding: 10px;
+    margin-right: 20px; /* Adjusted margin for the dropdown button */
+}
+
+.profile-icon {
+	
+    margin-right: 30px; /* Adjusted margin for the profile icon */
+	margin-left: 30px;
+}
+
+.logout-btn {
+margin-left: 30px;
+    margin-right: 30px; /* Adjusted margin for the logout button */
+}
+
+/* Rest of your existing styles */
+
 
 nav {
     display: flex;
@@ -60,12 +94,15 @@ div {
 .dropdown {
     position: relative;
     display: inline-block;
+     background-color: transparent;
+    border: none;
 }
 
 .dropdown-content {
+ background-color: transparent;
+    border: none;
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     z-index: 1;
@@ -73,6 +110,8 @@ div {
 
 .dropdown:hover .dropdown-content {
     display: block;
+     background-color: transparent;
+    border: none;
 }
 
 .dropdown a {
@@ -80,10 +119,12 @@ div {
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+     background-color: transparent;
+    border: none;
 }
 
 .dropdown a:hover {
-    background-color: #ddd;
+    background-color: #2980b9;
 }
 
 .button {

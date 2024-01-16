@@ -237,7 +237,7 @@ public class UserDAOImplementation implements UserDAO{
 				+ "    borrowbook bb ON u.userId = bb.userId\r\n"
 				+ "JOIN\r\n"
 				+ "    books b ON bb.bookId = b.bookId"
-				+ " WHERE bb.returnStatus = 0";
+				+ " WHERE bb.approveStatus = 1";
 		return jdbcTemplate.query(approvalQuery, new viewApprovalRowMapper());
 	}
 

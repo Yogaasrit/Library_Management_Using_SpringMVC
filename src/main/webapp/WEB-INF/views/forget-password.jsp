@@ -16,10 +16,12 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
+            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background-size: cover;
         }
 
         form {
-            background-color: #fff;
+            background-color: rgba(255,255,255,0.3);
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -38,6 +40,7 @@
             box-sizing: border-box;
             border: 1px solid #ccc;
             border-radius: 4px;
+            background-color:rgba(255,255,255,0.5);
         }
 
         button {
@@ -56,6 +59,8 @@
     </style>
 </head>
 <body>
+<header><jsp:include page="user-header.jsp" /></header>
+
     <form action="verify-email" method="post">
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>

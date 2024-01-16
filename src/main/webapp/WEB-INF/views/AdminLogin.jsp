@@ -45,6 +45,7 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
+             background-color: rgba(255, 255, 255, 0.5);
         }
 
         #userInput {
@@ -53,7 +54,13 @@
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            background-color:rgb(255,255,255,0.5);
             width: 150px; /* Adjust the width as needed */
+        }
+        input {
+            
+           
+            background-color: rgba(255, 255, 255, 0.5);
         }
 
         .refresh-captcha {
@@ -63,6 +70,7 @@
             padding: 8px;
             border-radius: 5px;
             cursor: pointer;
+            
         }
 
         button {
@@ -105,6 +113,7 @@
         header h1 {
             margin: 10px;
             font-size: 32px;
+            color:#fff;
         }
 		header :hover {
         color: #001f3f; /* Dark blue color */

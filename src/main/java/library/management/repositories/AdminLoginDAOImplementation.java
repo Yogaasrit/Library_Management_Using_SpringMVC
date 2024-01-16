@@ -28,18 +28,51 @@ public class AdminLoginDAOImplementation implements AdminLoginDAO{
 	}
 	@Override
 	public int totalBooks() {
-		String totalUserQuery = "SELECT COUNT(*) AS totalBooks FROM user where bookStatus = 1";
+		String totalUserQuery = "SELECT COUNT(*) AS totalBooks FROM books where bookStatus = 1";
 		return jdbcTemplate.query(totalUserQuery, new TotalBookCountRowMapper()).get(0).getTotalBookCount();
 	}
 	@Override
-	public int totalBooksBorrowedToday() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int totalBooksBorrowed() {
+		String totalBooksBorrowed = "SELECT COUNT(*) AS borrowedBooks FROM borrowbook WHERE returnStatus = 0";
+		return jdbcTemplate.query(totalBooksBorrowed, new TotalBooksBorrowedRowMapper()).get(0).getTotalBorrowedBook();
 	}
 	@Override
 	public int totalBooksBoughtToday() {
-		// TODO Auto-generated method stub
-		return 0;
+		String totalBooksBoughtToday = "SELECT SUM(bookCount) AS boughtBook FROM orderedbooks WHERE orderDate = CURDATE()";
+		return jdbcTemplate.query(totalBooksBoughtToday, new totalBooksBoughtTodayRowMapper()).get(0).getTotalBooksBoughtToday();
+	}
+	@Override
+	public int totalBooksBought() {
+		String totalBooksBought = "select sum(bookCount) as orderedbooks from orderedbooks";
+		return jdbcTemplate.query(totalBooksBought, new totalBooksBoughtRowMapper()).get(0).getTotalBoughtBooks();
+	}
+	@Override
+	public int totalBooksBorrowedToday() {
+		String totalBooksBorrowedToday = "SELECT COUNT(*) AS borrowedBook FROM borrowbook WHERE returnStatus = 0 and borrowedDate = CURDATE()";	
+		return jdbcTemplate.query(totalBooksBorrowedToday, new totalBooksBorrowedTodayRowMapper()).get(0).getTotalBooksBorrowedToday();
+	}
+	
+	@Override
+	public int totalBooksApproval() {
+		String totalBooksApproval= "select count(*) as pendingApproval from borrowbook where approveStatus=1";
+		
+		return jdbcTemplate.query(totalBooksApproval, new totalBooksApprovalRowMapper()).get(0).getTotalPendingApproval();
+	}
+	@Override
+	public int totalUserOverDueCount() {
+		String totalUserOverDueCountQuery = "SELECT COUNT(*) AS overdueBooks FROM borrowbook WHERE returnStatus = 0 AND returnDate < CURDATE()";
+		
+		return jdbcTemplate.query(totalUserOverDueCountQuery, new totalUserOverDueCountQueryRowMapper()).get(0).getTotalUserOverDueCount();
+	}
+	@Override
+	public String getPassword() {
+		String getPassword = "select * from admin";
+		return jdbcTemplate.query(getPassword, new AdminLoginRowMapper()).get(0).getAdminPassword();
+	}
+	@Override
+	public int updateAdminPassWord(String confirmPassword) {
+		String updateAdminPassword = "update admin set adminPassword = ?";
+		return jdbcTemplate.update(updateAdminPassword,confirmPassword);
 	}
 
 }

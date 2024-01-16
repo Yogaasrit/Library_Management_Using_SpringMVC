@@ -11,22 +11,28 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
             padding: 0;
             display: flex;
-            align-items: center;
-            justify-content: center;
             height: 100vh;
+            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background-size: cover;
         }
 
         form {
-            background-color: #fff;
+            background-color: transparent;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 80%;
+            height:90%;
+            margin-left: 410px;
+            margin-top: 100px;
             max-width: 600px; /* Adjust the maximum width as needed */
+            justify-content: center;
+            margin-bottom:120px;
+            padding:50px;
+            
+             
         }
 
         label {
@@ -40,6 +46,7 @@
             padding: 8px;
             margin-bottom: 16px;
             box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.5);
         }
 
         input[type="file"] {
@@ -54,14 +61,20 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            margin-left:120px;
         }
 
         input[type="submit"]:hover {
             background-color: #45a049;
+            
         }
     </style>
 </head>
+<header>
+        <jsp:include page="admin-header.jsp" />
+    </header>
 <body>
+
     <form action="handle-add-books" method = "post" enctype="multipart/form-data">
 
         <label for="bookName">Book Name:</label>
@@ -91,15 +104,16 @@
         <!-- <label for="bookCover">Book Cover:</label>
         <input type="file" id="bookCover" name="bookCover" required><br> -->
         
-        <label for="bookCover"><b>Book Cover : </b></label>
+        <label for="bookCover">Book Cover : </label>
             <input type="file" placeholder="Choose cover" 
             name="bookCover" id="bookCover"  required>
             <br><br>
 
         <input type="submit">
-    </form>
-<div class="button-container">
+        <div class="button-container">
         <button class="button" onclick="goBack()">Back</button></div> 
+    </form>
+
   
 </body>
 </html>

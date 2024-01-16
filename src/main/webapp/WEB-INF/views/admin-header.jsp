@@ -10,7 +10,7 @@
 <body>
     <header class="admin-header">
         <div class="brand">
-            <span class="brand-name">Admin Dashboard</span>
+            <span class="brand-name">APJ Abdul Kalam Library</span>
         </div>
         <div class="profile-section">
             <div class="actions-dropdown">
@@ -22,7 +22,7 @@
                     <a href="approve-return-book" onclick="performAction('approveReturnedBooks')">Approve Returned Books</a>
                 </div>
             </div>
-            <a href="#" class="user-icon" onclick="performAction('viewProfile')"><i class="fas fa-user"></i></a>
+            <a href="admin-view-profile" class="user-icon" onclick="performAction('viewProfile')"><i class="fas fa-user"></i></a>
             <span class="logout"><a href="#" onclick="performAction('logout')">Logout</a></span>
         </div>
     </header>

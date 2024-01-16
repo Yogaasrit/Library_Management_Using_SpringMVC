@@ -4,27 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Change Password</title>
-    <style>body {
+    <style>
+    body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+     background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background-size: cover;
 }
 
 h2 {
     color: #333;
+    
 }
 
 form {
     max-width: 400px;
-    margin: 20px auto;
+    margin: 100px auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: rgba(255,255,255,0.2);
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-header h1{
-color:#fff;
+
 }
 
 label {
@@ -38,6 +39,7 @@ input {
     padding: 8px;
     margin-bottom: 16px;
     box-sizing: border-box;
+    background-color: rgba(255,255,255,0.5);
 }
 
 #oldPasswordError,
@@ -113,8 +115,10 @@ input[type="submit"]:hover {
 <body>
 
    
-<header><jsp:include page="user-header.jsp" /></header>
-    <form action="changePassword" method="post" onsubmit="return validateForm()">
+<header>
+        <jsp:include page="admin-header.jsp" />
+    </header>
+    <form action="admin-changePassword" method="post" onsubmit="return validateForm()">
 	<h2>Change Password</h2>
         <!-- Old Password -->
         <label for="oldPassword">Old Password:</label>

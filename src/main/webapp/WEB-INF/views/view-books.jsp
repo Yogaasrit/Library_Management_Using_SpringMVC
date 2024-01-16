@@ -3,59 +3,6 @@
 <%@page import="java.util.Base64"%>
 <%@page import="library.management.entities.Book"%>
 <%@page import="java.util.List"%>
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%> 
- <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script >
-function goBack() {
-    window.history.back();
-}
-</script>
-</head>
-<body>
-	<h1>List of books</h1>
-	<% List<Book> books1 = (List<Book>)request.getAttribute("bookList"); 
-	
-	%>
-	
-	<%
-		if(books.isEmpty()){ 
-	%>
-		No books found!!
-	<%} 
-	else{
-		for(Book book : books)
-		{
-			
-			String bookCover = Base64.getEncoder().encodeToString(
-					(book.getBookCover())
-							.getBytes(1, (int) 
-							(book.getBookCover()
-									.length())));
-			
-			
-		%>	
-			<!-- print all columns in table -->
-			<% if(book.getBookQuantity()>0 || book.isBookStatus()){ %>
-			<h3><%= book.getBookName()%></h3>
-			
-			 <a href = "handleViewBooks?bookId=<%=book.getBookId()%>"><img src="data:image/png;base64, 
-			 <%=bookCover%>"
-				width="100" /></a>
-			
-		<%}
-	} %>
-	<%} %>
-	<div class="button-container">
-        <button class="button" onclick="goBack()">Back</button></div> 
-	
-</body>
-</html> --%>
-
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -78,7 +25,7 @@ function goBack() {
             margin: 20px 0;
         }
 
-        .book-container {
+     /*    .book-container {
             width: 250px;
             margin: 20px;
             padding: 10px;
@@ -90,6 +37,17 @@ function goBack() {
             vertical-align: top;
             text-align: left;
         }
+ */
+  .book-container {
+        width: 137px;
+        height: 217px;
+        border: 1px solid #ccc; /* Optional: Add a border for visualization */
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+    }
 
         .book-container:hover {
             transform: scale(1.05);
@@ -149,7 +107,28 @@ function goBack() {
 
         button:hover {
             background-color: #555;
-        }
+        }.book-container {
+        width: 200px; /* Set a fixed width */
+        height: 300px; /* Set a fixed height */
+        border: 1px solid #ccc; /* Optional: Add a border for visualization */
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .book-title {
+        margin-top: 0;
+    }
+
+    .author,
+    .genre {
+        margin: 5px 0;
+    }
+
+      img {
+        width: 100%;
+        height: auto; /* Maintain the image's aspect ratio */
+        object-fit: contain; /* Center the image within the container */
+    }
     </style>
 
     <script>
@@ -229,13 +208,13 @@ function goBack() {
                                     .length()))); 
     %>
             <div class="book-container">
-                <h3 class="book-title"><%= book.getBookName()%></h3>
-                <p class="author"><strong>Author:</strong> <%= book.getAuthorName() %></p>
-                <p class="genre"><strong>Genre:</strong> <%= book.getBookGenre() %></p>
-                <a href="handleViewBooks?bookId=<%= book.getBookId()%>">
-                    <img src="data:image/png;base64,<%= bookCover %>" width="100" />
-                </a>
-            </div>
+    <h3 class="book-title"><%= book.getBookName()%></h3>
+    <p class="author"><strong>Author:</strong> <%= book.getAuthorName() %></p>
+    <p class="genre"><strong>Genre:</strong> <%= book.getBookGenre() %></p>
+    <a href="handleViewBooks?bookId=<%= book.getBookId()%>">
+        <img src="data:image/png;base64,<%= bookCover %>" alt="<%= book.getBookName()%> Cover" />
+    </a>
+</div>
     <% } } %>
 
 </body>

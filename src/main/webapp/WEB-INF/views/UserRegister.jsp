@@ -4,6 +4,71 @@
 <head>
     <meta charset="UTF-8">
     <title>User Register</title>
+    <style>
+        body {
+            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        header h1{
+        color:#fff;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.3); /* Adjust alpha value for transparency */
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        form p {
+            margin: 10px 0;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px;
+            display: inline-block;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: rgba(255,255,255,0.5);
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left : 150px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        h1,h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+    </style>
      <script>
         function validateForm() {
             var emailId = document.forms["registerForm"]["emailId"].value;
@@ -64,7 +129,9 @@
     </script>
 </head>
 <body>
+<header><jsp:include page="user-header.jsp" /></header>
     <form name="registerForm" action="handle-register" method="post" onsubmit="return validateForm()">
+    <h2>Register</h2>
         <p>Email Id:</p>
         <input type="text" name="emailId">
         <p>User Name:</p>

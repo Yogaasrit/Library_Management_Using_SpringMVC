@@ -70,7 +70,7 @@
         }
 
         .quotes p {
-            font-size: 18px;
+            font-size: 22px;
             margin: 10px 0;
             
             
@@ -105,7 +105,7 @@
         <div class="quotes">
             <p>Welcome to the APJ Abdul Kalam Library. Our library is a place of knowledge, exploration, and learning. Dive into a world of books that will inspire, educate, and entertain you.</p>
             <p>“Learning gives creativity, creativity leads to thinking, thinking provides knowledge, and knowledge makes you great.”</p>
-            <p class="quote-author">― Abdul Kalam</p>
+            <p class="quote-author">― APJ Abdul Kalam</p>
         </div>
     </div>
 
