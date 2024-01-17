@@ -1,136 +1,149 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>About Us - APJ Abdul Kalam Library</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-          integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wy9ad6XZ5uqU5CG6Qpx2m3Jh2lQzI5e3eC" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About APJ Abdul Kalam Library</title>
     <style>
         body {
-            font-family: 'Raleway', sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
             margin: 0;
-            padding: 0;
+            padding: 20px;
+            text-align: center;
+         
+            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background-size: cover;
         }
 
-        nav {
-            background-color: #343a40 !important;
+        header {
+            padding: 20px;
         }
 
-        nav a {
-            color: #fff !important;
+	
+        .content-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            max-width: 800px;
+            margin: auto;
         }
 
-        .carousel-item img {
-            height: 500px;
-            object-fit: cover;
-        }
-
-        .about-content {
+        .carousel-container {
             max-width: 800px;
             margin: 20px auto;
-            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer; /* Add cursor pointer */
+        }
+
+        .quote {
+            font-style: italic;
+            color: #555;
+            margin-top: 20px;
+        }
+
+        .text-section {
+            background-color: rgba(255, 255, 255, 0.5);
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        h2 {
-            color: #343a40;
-        }
-
-        .additional-images {
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
             text-align: center;
+            display:block;
+            word-spacing:2px; 
+            line-height: 30px;
         }
 
-        .additional-images img {
-            max-width: 100%;
-            height: auto;
-            margin: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .additional-images img:hover {
-            transform: scale(1.1);
+        .text-section h2,
+        .text-section p {
+            margin: 0;
         }
     </style>
 </head>
+
 <body>
+    <header>
+        <jsp:include page="Header.jsp" />
+    </header>
 
-<!-- Navigation Bar -->
-	<jsp:include page="Header.jsp" />
+    <div class="content-container">
+        <div class="carousel-container">
+            <div class="carousel">
+                <img src="/LibraryManagement/resources/images/image4.jpg" alt="Library Image 1">
+                <img src="/LibraryManagement/resources/images/image10.jpg" alt="Library Image 2">
+                <img src="/LibraryManagement/resources/images/image5.jpg" alt="Library Image 1">
+                <img src="/LibraryManagement/resources/images/image6.jpg" alt="Library Image 2">
+                <img src="/LibraryManagement/resources/images/image7.jpg" alt="Library Image 1">
+                <img src="/LibraryManagement/resources/images/image8.jpg" alt="Library Image 2">
+                <img src="/LibraryManagement/resources/images/image9.jpg" alt="Library Image 1">
+            </div>
+        </div>
 
-<!-- Image Carousel -->
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="/LibraryManagement/resources/images/image1.jpg" class="d-block w-100" alt="Image 1">
+        <div class="text-section">
+            <h2>Welcome to Our Library</h2>
+
+            <p>The APJ Abdul Kalam Library is a place of knowledge, inspiration, and innovation. Named after the
+                renowned scientist and former President of India, Dr. APJ Abdul Kalam, our library is committed to
+                fostering a love for learning and empowering individuals through access to a diverse collection of
+                books, journals, and digital resources.</p>
+
+            <p>Our state-of-the-art facility provides a conducive environment for reading, research, and collaborative
+                study. With a focus on promoting education and research, we strive to be a hub of intellectual
+                exploration for students, researchers, and the community.</p>
+
+            <p>At APJ Abdul Kalam Library, we believe in the power of knowledge to transform lives. Our dedicated team
+                of librarians and staff are here to assist you in your academic journey. Whether you're a student,
+                faculty member, or a curious mind, we welcome you to explore the vast world of information within our
+                walls.</p>
+
+            <p>Join us on a journey of discovery, innovation, and enlightenment. Let the APJ Abdul Kalam Library be
+                your gateway to a world of possibilities.</p>
         </div>
-        <div class="carousel-item">
-            <img src="/LibraryManagement/resources/images/image2.jpg" class="d-block w-100" alt="Image 2">
-        </div>
-        <div class="carousel-item">
-            <img src="/LibraryManagement/resources/images/image3.jpg" class="d-block w-100" alt="Image 3">
-        </div>
-        <!-- Add more carousel items as needed -->
+
+        <div class="quote">"Dream, dream, dream. Dreams transform into thoughts and thoughts result in action." - Dr.
+            APJ Abdul Kalam</div>
     </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-</div>
 
-<!-- About Us Content -->
-<div class="container about-content">
-    <h2>About APJ Abdul Kalam Library</h2>
-    <p>
-        Welcome to APJ Abdul Kalam Library! We are dedicated to providing a vast collection of books,
-        resources, and a comfortable reading environment for our patrons. Our library is committed to
-        fostering a love for learning and knowledge.
-    </p>
-    <p>
-        Feel free to explore our diverse collection and make the most of the resources we offer.
-        Whether you are a student, researcher, or an avid reader, we have something for everyone.
-    </p>
-</div>
+    <script>
+        const carousel = document.querySelector('.carousel');
+        const images = document.querySelectorAll('.carousel img');
 
-<!-- Additional Images -->
-<div class="container additional-images">
-    <h3>Explore More</h3>
-    <div class="row">
-        <div class="col-md-4">
-            <img src="/LibraryManagement/resources/images/image1.jpg" class="img-fluid" alt="Additional Image 1">
-        </div>
-        <div class="col-md-4">
-            <img src="/LibraryManagement/resources/images/image2.jpg" class="img-fluid" alt="Additional Image 2">
-        </div>
-        <div class="col-md-4">
-            <img src="/LibraryManagement/resources/images/image3.jpg" class="img-fluid" alt="Additional Image 3">
-        </div>
-    </div>
-</div>
+        // Counter for image index
+        let counter = 0;
 
-<!-- Bootstrap JS and jQuery (make sure to include them at the end of the body) -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-pzjw8Y+JcdwGzAAwxAP1n0qACQ5/5fLlD/1CPKIjwNf/fqC1Lr5aF93vIzp+Ms"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wy9ad6XZ5uqU5CG6Qpx2m3Jh2lQzI5e3eC"
-        crossorigin="anonymous"></script>
+        // Set interval for automatic image change
+        setInterval(() => {
+            counter = (counter + 1) % images.length;
+            updateCarousel();
+        }, 3000); // Change image every 3 seconds
 
+        // Add event listener for mouseover to change image
+        carousel.addEventListener('mouseover', () => {
+            counter = (counter + 1) % images.length;
+            updateCarousel();
+        });
+
+        // Function to update carousel position
+        function updateCarousel() {
+            const size = images[0].clientWidth;
+            carousel.style.transform = `translateX(${-size * counter}px)`;
+        }
+    </script>
 </body>
+
 </html>

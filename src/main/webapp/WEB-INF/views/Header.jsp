@@ -5,6 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Add any additional CSS styles if needed -->
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <style>
 body {
     margin: 0;
@@ -69,10 +73,6 @@ nav a:hover {
     text-decoration: underline;
 }
 
-div {
-    display: flex;
-    align-items: center;
-}
 
 .profile-icon {
     margin-right: 10px;
@@ -114,8 +114,14 @@ div {
     border: none;
 }
 
+.header-div {
+    display: flex;
+    align-items: center;
+}
+
+
 .dropdown a {
-    color: #333;
+    color: #fff;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -139,11 +145,11 @@ div {
     <nav>
         <a href="UserDashboard">Home</a>
         <a href="about-us">About Us</a>
-        <a href="#">Contact Us</a>
-        <a href="#">Gallery</a>
+        <a href="contact-us">Contact Us</a>
+        <a href="Gallery">Gallery</a>
     </nav>
     
-    <div>
+    <div class="header-div">
         <div class="dropdown">
             <span class="button">User Operations</span>
             <div class="dropdown-content">

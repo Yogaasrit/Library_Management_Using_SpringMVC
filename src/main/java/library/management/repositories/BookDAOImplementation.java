@@ -89,8 +89,8 @@ public class BookDAOImplementation implements BookDAO {
 								0
 								) == 1) {
 			
-			String updateBorrowBookCount = "UPDATE books SET bookQuantity = bookQuantity - 1";
-			status = jdbcTemplate.update(updateBorrowBookCount);
+			String updateBorrowBookCount = "UPDATE books SET bookQuantity = bookQuantity - 1 where bookId = ?";
+			status = jdbcTemplate.update(updateBorrowBookCount, bookId);
 		}
 		return status;
 	}

@@ -36,7 +36,7 @@ body {
     margin: 20px;
     padding: 20px;
     margin-right:150px;
-    height:400px;
+    height:420px;
     background-color:rgba(255,255,255,0.2);
     color:#fff;
     font-size:18px;
@@ -64,6 +64,11 @@ header img {
 blockquote {
     font-style: italic;
     margin-bottom: 10px;
+}
+
+.library-info{
+	padding-bottom: 30px;
+	
 }
 
 </style>

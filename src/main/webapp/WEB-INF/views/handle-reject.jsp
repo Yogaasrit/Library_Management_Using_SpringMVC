@@ -9,6 +9,8 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
+            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background-size: cover;
         }
 
         form {
@@ -16,20 +18,27 @@
             text-align: left;
             border: 1px solid #dddddd;
             padding: 20px;
+            margin-top:150px;
         }
-
+		h2{
+		color:#fff;
+		}
         label {
             display: block;
             margin-bottom: 10px;
+            color:#fff;
         }
 
         textarea {
             width: 100%;
             height: 100px;
             resize: none;
+            background-color :rgba(255,255,255,0.5);
             margin-bottom: 20px;
         }
-
+		input{
+		background-color :rgba(255,255,255,0.5);
+		}
         button {
             padding: 10px 20px;
             background-color: #ff0000;
@@ -40,6 +49,9 @@
     </style>
 </head>
 <body>
+<header>
+        <jsp:include page="admin-header.jsp" />
+    </header>
     <form action="process-reject-return">
         <h2>Reject Return Book</h2>
        <!--  <label for="borrowedId">Borrowed ID:</label>

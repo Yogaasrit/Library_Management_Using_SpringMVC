@@ -22,9 +22,12 @@ function goBack() {
             margin: 0;
             padding: 20px;
             text-align: center;
+            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background-size: cover;
         }
 
         h1 {
+        margin-top:40px;
             color: #333;
         }
 
@@ -38,17 +41,19 @@ function goBack() {
 
         .order-card {
             width: 300px;
+        	display:block; 	
             border: 1px solid #ddd;
             border-radius: 8px;
             margin: 10px;
             padding: 15px;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.3);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
-
+        
         .book-details {
             margin-top: 10px;
+            display:block;
         }
 
         .book-name {
@@ -56,9 +61,11 @@ function goBack() {
             font-weight: bold;
             color: #333;
             margin-bottom: 10px;
+            display:block;
         }
 
         .book-price {
+        display:block;
             margin-top: 5px;
             font-size: 16px;
             color: #333;
@@ -74,6 +81,7 @@ function goBack() {
             margin-top: 10px;
             max-width: 100%;
             height: auto;
+            display:block;
         }
 
         .order-date,
@@ -81,10 +89,14 @@ function goBack() {
             margin-top: 10px;
             color: #555;
             font-weight: bold;
+            display:block;
         }
     </style>
 </head>
 <body>
+<header>
+        <jsp:include page="Header.jsp" />
+    </header>
 <h1>Your purchased books</h1>
 <% List<PurchasedBook> bookList = (List<PurchasedBook>)request.getAttribute("bookList"); %>
 

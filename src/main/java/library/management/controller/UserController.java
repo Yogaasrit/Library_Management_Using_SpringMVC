@@ -46,10 +46,21 @@ public class UserController {
 
 	@Autowired
 	AdminLoginDAO adminLoginDAO;
-
+	@GetMapping("/UserDashboard")
+	public String showUserDashboard() {
+		return "UserDashboard";
+	}
 	@GetMapping("/about-us")
 	public String showAboutUs() {
 		return "about-us";
+	}
+	@GetMapping("/Gallery")
+	public String showGallery() {
+		return "Gallery";
+	}
+	@GetMapping("/contact-us")
+	public String showContactUs() {
+		return "contact-us";
 	}
 	
 	@GetMapping("/AdminLogin")

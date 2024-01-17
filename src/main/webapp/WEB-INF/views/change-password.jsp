@@ -9,6 +9,8 @@
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+    background-size: cover;
 }
 
 h2 {
@@ -19,9 +21,10 @@ form {
     max-width: 400px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: rgba(255,255,255,0.5);
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
 }
 header h1{
 color:#fff;
@@ -38,6 +41,7 @@ input {
     padding: 8px;
     margin-bottom: 16px;
     box-sizing: border-box;
+    background-color: rgba(255,255,255,0.8);
 }
 
 #oldPasswordError,
@@ -54,7 +58,7 @@ input {
 }
 
 input[type="submit"] {
-    background-color: #4caf50;
+    background-color:  #2980b9;
     color: #fff;
     padding: 10px 15px;
     border: none;
@@ -64,7 +68,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #45a049;
+    background-color:  #2980d9;
 }
 
     </style>
@@ -112,8 +116,9 @@ input[type="submit"]:hover {
 </head>
 <body>
 
-   
-<header><jsp:include page="user-header.jsp" /></header>
+<header>
+        <jsp:include page="Header.jsp" />
+    </header>
     <form action="changePassword" method="post" onsubmit="return validateForm()">
 	<h2>Change Password</h2>
         <!-- Old Password -->

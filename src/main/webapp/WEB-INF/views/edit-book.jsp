@@ -14,20 +14,23 @@
             margin: 0;
             padding: 0;
             text-align: center;
+            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background-size: cover;
         }
 
         h2 {
-            color: #3498db;
+            color: black;
             margin-top: 20px;
         }
 
         form {
             max-width: 400px;
             margin: 20px auto;
-            background-color: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top : 100px;
+            background-color:rgba(255,255,255,0.5);
         }
 
         label {
@@ -54,11 +57,16 @@
             font-size: 16px;
             cursor: pointer;
         }
+        input{
+        	background-color:rgba(255,255,255,0.5);
+        }
     </style>
 </head>
 <body>
-
-    <h2>Book Form</h2>
+<header>
+        <jsp:include page="admin-header.jsp" />
+    </header>
+    
     <%
     
     Blob bookCover = (Blob)request.getAttribute("bookCover");
@@ -72,7 +80,7 @@
     %>
 
     <form:form action="edit-book-details" method="post" modelAttribute="book" enctype="multipart/form-data">
-
+	<h2>Edit Book</h2>
         <label for="bookName">Book Name:</label>
         <form:input path="bookName" id="bookName" />
 

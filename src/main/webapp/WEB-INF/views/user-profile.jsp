@@ -17,12 +17,14 @@
     padding: 20px;
     color: #333;
     display: flex;
+    background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+    background-size: cover;
     align-items: center;
     justify-content: center;
     height: 100vh;
 }
 
-header {
+/* header {
     background-color: #007bff;
     color: #fff;
     padding: 5px; /* Adjust the padding to control the height */
@@ -32,14 +34,14 @@ header {
     z-index: 1000;
     text-align: center;
 }
+ */
 
-
-.logo {
+/* .logo {
     font-size: 24px;
     font-weight: bold;
     text-decoration: none;
     color: #fff;
-}
+} */
 
 footer {
     background-color: #007bff;
@@ -71,6 +73,7 @@ footer {
 .profile-container {
     border-radius: 12px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    background-color:rgba(255,255,255,0.5);
     padding: 40px;
     width: 400px;
     text-align: center;
@@ -81,18 +84,18 @@ footer {
     z-index: 999; /* Ensure profile container is above the header */
 }
 
-
-.profile-icon {
-    font-size: 48px;
+/* 
+ .profile-icon {
+    font-size: 29px;
     margin-bottom: 20px;
-}
+} */
 
 .profile-image {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     margin-bottom: 20px;
-}
+} 
 
 h1 {
     font-size: 24px;
@@ -131,7 +134,7 @@ a {
 .change-password-button {
     background-color: #0056b3;
     color: #fff;
-    padding: 15px 20px;
+    padding: 10px 15px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -174,7 +177,9 @@ button:hover {
     </style>
 </head>
 <body>
-<jsp:include page="Header.jsp" />
+<header>
+        <jsp:include page="Header.jsp" />
+    </header>
 <%
 	User user = (User) request.getAttribute("userProfile");
 
@@ -191,7 +196,7 @@ button:hover {
         <img class="profile-image" src="data:image/png;base64, <%=profileImage%>" width="200" />
     <% } else { %>
         <!-- Display fallback favicon or default image -->
-        <span class="profile-icon"><a href="user-profile"><i class="fas fa-user"></i></a></span>
+       <span class="profile-icon"><a href="user-profile"><i class="fas fa-user"></i></a></span>
     <% } %>
 
         

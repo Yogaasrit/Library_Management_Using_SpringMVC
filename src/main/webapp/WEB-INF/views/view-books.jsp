@@ -11,79 +11,62 @@
     <meta charset="UTF-8">
     <title>List of Books</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-            text-align: center;
-        }
-
-        h1 {
-            color: #333;
-            margin: 20px 0;
-        }
-
-     /*    .book-container {
-            width: 250px;
-            margin: 20px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-in-out;
-            display: inline-block;
-            vertical-align: top;
-            text-align: left;
-        }
- */
-  .book-container {
-        width: 137px;
-        height: 217px;
-        border: 1px solid #ccc; /* Optional: Add a border for visualization */
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        overflow: hidden;
+   <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+        background-size: cover;
     }
 
-        .book-container:hover {
-            transform: scale(1.05);
-        }
+    h1 {
+        color: #fff;
+        margin-top: 70px;
+    }
 
-        .book-title {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
+    .book-card {
+        background-color: rgba(255,255,255,0.2);
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin: 20px;
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: inline-block;
+        text-align: left;
+        
+    }
 
-        .author,
-        .genre {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 5px;
-        }
+    .book-cover {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+    }
 
-        .button-container {
-            text-align: center;
-            margin-top: 20px;
-        }
+    .button-container {
+        margin-top: 20px;
+    }
 
-        .button {
-            padding: 10px 20px;
-            background-color: #ff0000;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
+    .button {
+        padding: 10px 20px;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
 
-        .button:hover {
-            background-color: #cc0000;
-        }
+    .edit-button {
+        background-color: #2ecc71; /* Green for edit button */
+    }
 
-        /* Optional: Add styling for the search bar */
+    .delete-button {
+        background-color: #e74c3c; /* Red for delete button */
+    }
+     /* Optional: Add styling for the search bar */
         label {
             display: inline-block;
             margin-right: 10px;
@@ -94,7 +77,9 @@
             padding: 8px;
             font-size: 14px;
             margin-bottom: 10px;
+            background-color : rgba(255,255,255,0.5);
         }
+        
 
         button {
             padding: 10px 20px;
@@ -107,29 +92,8 @@
 
         button:hover {
             background-color: #555;
-        }.book-container {
-        width: 200px; /* Set a fixed width */
-        height: 300px; /* Set a fixed height */
-        border: 1px solid #ccc; /* Optional: Add a border for visualization */
-        padding: 10px;
-        box-sizing: border-box;
-    }
-
-    .book-title {
-        margin-top: 0;
-    }
-
-    .author,
-    .genre {
-        margin: 5px 0;
-    }
-
-      img {
-        width: 100%;
-        height: auto; /* Maintain the image's aspect ratio */
-        object-fit: contain; /* Center the image within the container */
-    }
-    </style>
+        }
+</style>
 
     <script>
         function searchBooks() {
@@ -159,6 +123,9 @@
     </script>
 </head>
 <body>
+<header>
+        <jsp:include page="Header.jsp" />
+    </header>
     <h1>List of books</h1>
 
     <label for="bookName">Search by Book Name:</label>
@@ -189,37 +156,49 @@
 
     <!-- Search button -->
     <button onclick="searchBooks()">Search</button>
+    <br><br>
 
-    <!-- <div class="button-container">
-        <button class="button" onclick="goBack()">Back</button>
-    </div> -->
-
-    <% 
-        List<Book> books = (List<Book>)request.getAttribute("bookList"); 
-        if (books.isEmpty()) { 
-    %>
-        No books found!!
-    <% } else { 
-        for (Book book : books) {
-            String bookCover = Base64.getEncoder().encodeToString(
-                    (book.getBookCover())
-                            .getBytes(1, (int) 
-                            (book.getBookCover()
-                                    .length()))); 
-    %>
-            <div class="book-container">
-    <h3 class="book-title"><%= book.getBookName()%></h3>
-    <p class="author"><strong>Author:</strong> <%= book.getAuthorName() %></p>
-    <p class="genre"><strong>Genre:</strong> <%= book.getBookGenre() %></p>
-    <a href="handleViewBooks?bookId=<%= book.getBookId()%>">
-        <img src="data:image/png;base64,<%= bookCover %>" alt="<%= book.getBookName()%> Cover" />
-    </a>
-</div>
-    <% } } %>
-
+    <!-- Book rows container -->
+    <!-- <div class="book-row"> -->
+        <% 
+            List<Book> books = (List<Book>)request.getAttribute("bookList"); 
+            if (books.isEmpty()) { 
+        %>
+            No books found!!
+        <% } else { 
+            for (Book book : books) {
+                String bookCover = Base64.getEncoder().encodeToString(
+                        (book.getBookCover())
+                                .getBytes(1, (int) 
+                                (book.getBookCover()
+                                        .length()))); 
+        %>
+             <%--    <div class="book-container">
+                    <h3 class="book-title"><%= book.getBookName()%></h3>
+                    <p class="author"><strong>Author:</strong> <%= book.getAuthorName() %></p>
+                    <p class="genre"><strong>Genre:</strong> <%= book.getBookGenre() %></p>
+                    <a href="handleViewBooks?bookId=<%= book.getBookId()%>">
+                        <img class="book-cover" src="data:image/png;base64,<%= bookCover %>" alt="<%= book.getBookName()%> Cover" />
+                    </a>
+                </div> --%>
+                
+                <div class="book-card">
+                <h3><%= book.getBookName()%></h3>
+                <a href="handleViewBooks?bookId=<%=book.getBookId()%>">
+                    <img class="book-cover" src="data:image/png;base64, <%=bookCover%>" width="200" />
+                </a>
+                
+                <p class="author">Author: <%= book.getAuthorName() %></p>
+                <p class="genre">Genre: <%= book.getBookGenre() %></p>
+            </div>
+                
+                
+                
+                
+                
+                
+                
+        <% } } %>
+    <!-- </div> -->
 </body>
 </html>
-
-
-
-

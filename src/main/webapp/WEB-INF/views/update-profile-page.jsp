@@ -5,23 +5,25 @@
 <head>
     <title>User Form</title>
 
-    <style>
+     <style>
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 20px;
             color: #333;
+            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background-size: cover;
         }
 
-        form {
-            margin-bottom: 20px;
-        }
-
-        div {
+        .card {
             border: 1px solid #ccc;
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
+            max-width: 400px;
+            margin: auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         h2 {
@@ -34,13 +36,17 @@
             margin: 15px 0 10px;
         }
 
-        input, select {
+        input,
+        select {
             width: 100%;
             padding: 10px;
             font-size: 14px;
-            margin-bottom: 10px;
+            margin: 10px auto;
             border: 1px solid #ccc;
             border-radius: 4px;
+            box-sizing: border-box;
+          	background-color: rgba(255, 255, 255, 0.8);
+            
         }
 
         input[type="submit"] {
@@ -62,7 +68,23 @@
             color: #ff0000;
             margin-top: 5px;
         }
+        
+        
+       .form-div {
+		    background-color: rgba(255, 255, 255, 0.5);
+		    width: 100%;
+		    display:flex;
+		    flex-direction:column;
+		    max-width: 400px; /* Set your desired max width */
+		    margin: auto; /* Center the element horizontally */
+		    padding: 20px; /* Add padding for better appearance */
+		    border-radius: 8px; /* Add border radius for rounded corners */
+			}
+        
+        
+        
     </style>
+
 
     <script>
         function validateForm() {
@@ -104,7 +126,10 @@
     </script>
 </head>
 <body>
-	
+	<header>
+        <jsp:include page="Header.jsp" />
+    </header>
+    <div class = "form-div">
     <form:form modelAttribute="user" method="post" action="userForm" onsubmit="return validateForm();">
 
         <!-- Profile Update -->
@@ -145,10 +170,10 @@
         <input type="submit" value="Submit" />
 
     </form:form>
-    
-    
-    
-    <div>
+    </div>
+    <br><br>
+<!--     	 add profile pic into the above form
+ -->    <div class = "form-div">
             <h2>Profile Photo Update</h2>
 
             <form action="profile-pic" method="post" enctype="multipart/form-data">

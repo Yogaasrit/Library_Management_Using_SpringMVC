@@ -9,12 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ordering Page</title>
     <style>
-        body {
+         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 20px;
             text-align: center;
+            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background-size: cover;
         }
 
         .book-card {
@@ -23,15 +25,20 @@
             border-radius: 8px;
             margin: 20px;
             padding: 20px;
-            background-color: #fff;
+            background-color: rgba(255,255,255,0.3);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
+            max-width: 600px;
             margin: auto;
         }
 
+        .book-wrapper {
+            display: flex;
+            align-items: left; /* Vertically center align items */
+        }
+
         .book-image-container {
-            flex: 1;
-            text-align: center;
+            flex: 2;
+            text-align: left;
             padding: 10px;
         }
 
@@ -43,9 +50,8 @@
         }
 
         .book-details-container {
-            flex: 2;
-            text-align: left;
-            padding: 10px;
+           display: block;
+           align-items: left;
         }
 
         .book-details p {
@@ -92,24 +98,51 @@
             justify-content: center;
         }
 
-        .button {
+        .back-button {
             background-color: #4caf50;
             color: #fff;
             padding: 10px 20px;
             border: none;
-            border-radius: 4px;
+            
+            border-radius: 20px;
             cursor: pointer;
             margin: 0 10px;
             font-size: 16px;
             transition: background-color 0.3s;
         }
 
-        .button:hover {
+        .back-button:hover {
             background-color: #45a049;
         }
+        
+         div {
+                 display: block;
+                 align-items: center;
+             }
+             
+         h1 {
+         	color:#fff;
+         }
+         
+         .action-button a{
+         	text-decoration: none;
+         	color:#fff;
+         	
+         }
+         
+         .action-button{
+         	padding: 10px 20px;
+         	background-color: #2980b9;
+         	border-radius: 20px;
+         	border: none;
+         	margin-top: 5px;
+         	}
     </style>
 </head>
 <body>
+<header>
+        <jsp:include page="Header.jsp" />
+    </header>
     <h1>Ordering Page</h1>
 
     <% Book book = (Book) request.getAttribute("book");
@@ -122,7 +155,7 @@
     
     %>
 
-    <div class="book-card">
+    <%-- <div class="book-card">
         <!-- Left side: Book Image -->
         <div class="book-image-container">
             <img class="book-image" src="data:image/png;base64, <%= bookCover %>" alt="<%= book.getBookName() %>" />
@@ -140,8 +173,29 @@
             <p><strong>Book Quantity:</strong> <%= book.getBookQuantity() %></p>
             <p><strong>Author Name:</strong> <%= book.getAuthorName() %></p>
         </div>
-    </div>
+    </div> --%>
+	 <div class="book-card">
+        <!-- Wrapper for Book Image and Container Details -->
+        <div class="book-wrapper">
+            <!-- Left side: Book Image -->
+            <div class="book-image-container">
+                <img class="book-image" src="data:image/png;base64, <%= bookCover %>" alt="<%= book.getBookName() %>" />
+            </div>
 
+            <!-- Right side: Book Details -->
+            <div class="book-details-container">
+                <p><strong>Book ID:</strong> <%= book.getBookId() %></p>
+                <p><strong>Book Name:</strong> <%= book.getBookName() %></p>
+                <p><strong>Book Price:</strong> <%= book.getBookPrice() %></p>
+                <p><strong>Book Genre:</strong> <%= book.getBookGenre() %></p>
+                <p><strong>Book Publication:</strong> <%= book.getBookPublication() %></p>
+                <p><strong>Book Publish Date:</strong> <%= book.getBookPublishDate() %></p>
+                <p><strong>Book Edition:</strong> <%= book.getBookEdition() %></p>
+                <p><strong>Book Quantity:</strong> <%= book.getBookQuantity() %></p>
+                <p><strong>Author Name:</strong> <%= book.getAuthorName() %></p>
+            </div>
+        </div>
+    </div>
     <!-- Book counter -->
     <div class="counter-container">
         <label for="bookCount" class="counter">Book Count:</label>
@@ -155,9 +209,9 @@
 
      <!-- Buttons -->
     <div class="button-container">
-        <button class="button" onclick="goBack()">Back</button>
+        <button class="back-button" onclick="goBack()">Back</button>
        
-	 <button class="button" onclick="confirmOrder()">
+	 <button class="action-button" onclick="confirmOrder()">
 		<a href ="#" id="confirmLink">
 			Confirm</a></button>
     	</div> 
