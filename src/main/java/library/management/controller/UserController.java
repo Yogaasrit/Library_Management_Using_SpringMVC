@@ -26,6 +26,7 @@ import library.management.entities.Admin;
 import library.management.entities.Book;
 import library.management.entities.BookApproval;
 import library.management.entities.BorrowBook;
+import library.management.entities.FreeBook;
 import library.management.entities.PurchasedBook;
 import library.management.entities.User;
 import library.management.entities.ViewUserDetails;
@@ -46,6 +47,16 @@ public class UserController {
 
 	@Autowired
 	AdminLoginDAO adminLoginDAO;
+	@GetMapping("/add-freebook")
+	public String addFreeBooks() {
+		return "add-freebook";
+	}
+	@GetMapping("/free-books")
+	public String showFreeBooks(Model model) {
+		List<FreeBook> freeBooks = bookDAO.displayFreeBooks();
+		model.addAttribute("freeBooks",freeBooks.get(0));
+		return "free-books";
+	}
 	@GetMapping("/UserDashboard")
 	public String showUserDashboard() {
 		return "UserDashboard";
@@ -77,7 +88,40 @@ public class UserController {
 	public String showUserRegisterForm() {
 		return "UserRegister";
 	}
-
+	@PostMapping("/addFreeBook")
+	public String addFreeBook(@RequestParam("pdfName") String pdfName,
+			@RequestParam("pdfAuthorName") String pdfAuthorName,
+			@RequestParam("pdf") MultipartFile pdf,
+			@RequestParam("pdfCover") MultipartFile pdfCover,
+			Model model) {
+		byte[] pdfCoverArr;
+		Blob pdfCoverBlob = null;
+		try {
+			pdfCoverArr = pdfCover.getBytes();
+			pdfCoverBlob = new SerialBlob(pdfCoverArr);
+		} catch (IOException | SQLException e) {
+			e.printStackTrace();
+		}
+		byte[] pdfArr;
+		Blob pdfBlob = null;
+		try {
+			pdfArr = pdfCover.getBytes();
+			pdfBlob = new SerialBlob(pdfArr);
+		} catch (IOException | SQLException e) {
+			e.printStackTrace();
+		}
+		FreeBook freebook;
+		freebook=new FreeBook(pdfName,pdfAuthorName,pdfBlob,pdfCoverBlob);
+		int status=bookDAO.addFreeBook(freebook);
+		if(status==1) {
+			model.addAttribute("message", "Free Book Added Successfully!");
+		}
+		else {
+			model.addAttribute("message", "No Free Book Added, Try again correctly!");
+		}
+		
+		return "add-freebook";
+	}
 	@GetMapping("/admin-view-profile")
 	public String viewAdminProfile( Model model) {
 		String password = adminLoginDAO.getPassword();
@@ -282,6 +326,7 @@ public class UserController {
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
 		}
+		
 		Book book;
 
 		book = new Book(bookName, Integer.parseInt(bookPrice), bookGenre, bookPublication,

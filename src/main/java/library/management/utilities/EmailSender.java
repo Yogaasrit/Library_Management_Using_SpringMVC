@@ -31,7 +31,7 @@ public class EmailSender {
 			message.setFrom(new InternetAddress(username));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
 			message.setSubject("Verification Email");
-			message.setText("Dear Candidate," + "\n\n Please Enter the OTP to verify your email."
+			message.setText("Dear User," + "\n\n Please Enter the OTP to verify your email."
 					+ "Your one time password id : " + OTP);
 
 			Transport.send(message);

@@ -147,6 +147,7 @@ nav a:hover {
         <a href="about-us">About Us</a>
         <a href="contact-us">Contact Us</a>
         <a href="Gallery">Gallery</a>
+        <a href="free-books">Free Books</a>
     </nav>
     
     <div class="header-div">

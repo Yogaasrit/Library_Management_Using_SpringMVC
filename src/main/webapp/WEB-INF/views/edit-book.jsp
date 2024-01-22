@@ -108,7 +108,7 @@
         <label for="bookCover">Book Cover (Base64):</label>
         <form:input path="bookCover" type = "file" id="bookCover" />
         
-		 <img class="book-image" src="data:image/png;base64, <%= bookCoverStr %>" alt="image %>" />
+		 <img class="book-image" src="data:image/png;base64, <%= bookCoverStr %>" alt="image %>" width=200 />
         <button type="submit">Submit</button>
 
     </form:form>

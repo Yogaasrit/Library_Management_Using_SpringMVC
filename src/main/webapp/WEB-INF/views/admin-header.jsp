@@ -20,6 +20,7 @@
                     <a href="add-books" onclick="performAction('addBook')">Add Book</a>
                     <a href="handle-view-user" onclick="performAction('viewUser')">View User</a>
                     <a href="approve-return-book" onclick="performAction('approveReturnedBooks')">Approve Returned Books</a>
+ 					<a href="add-freebook" >Add Free book</a>               
                 </div>
             </div>
             <a href="admin-view-profile" class="user-icon" onclick="performAction('viewProfile')"><i class="fas fa-user"></i></a>

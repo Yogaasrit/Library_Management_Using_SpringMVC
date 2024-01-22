@@ -159,7 +159,7 @@ public class BookController {
 		String bookId=(String)session.getAttribute("bookId");
 		System.out.println(bookId);
 		int editBook=bookDao.editBookDetails(Integer.parseInt(bookId),book);
-		return "redirect:view-books";
+		return "redirect:admin-book-operation";
 	}
 	
 	@InitBinder

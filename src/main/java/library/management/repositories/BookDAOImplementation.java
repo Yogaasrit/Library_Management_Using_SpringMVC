@@ -1,11 +1,13 @@
 package library.management.repositories;
 
+import java.sql.Blob;
 import java.sql.Date;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import library.management.entities.Book;
+import library.management.entities.FreeBook;
 
 public class BookDAOImplementation implements BookDAO {
 	JdbcTemplate jdbcTemplate;
@@ -123,6 +125,26 @@ public class BookDAOImplementation implements BookDAO {
 	public int deleteBook(int bookId) {
 		String deleteBook = "UPDATE books SET bookStatus = 0 where bookId = ?";
 		return jdbcTemplate.update(deleteBook,bookId);
+	}
+
+	@Override
+	public int addFreeBook(FreeBook freebook) {
+		// TODO Auto-generated method stub
+		String insertFreeBookQuery = "INSERT INTO freebook "
+				+ " ( `pdfName`, `pdfAuthorName`, `pdf`, `pdfCover`) "
+				+ " VALUES "
+				+ " (?,?,?,?) ";
+		return jdbcTemplate.update(insertFreeBookQuery,
+				freebook.getPdfName(),
+				freebook.getPdfAuthorName(),
+				freebook.getPdf(),
+				freebook.getPdfCover());
+	}
+
+	@Override
+	public List<FreeBook> displayFreeBooks() {
+		String displayFreeBooks = "select * from freebook";
+		return jdbcTemplate.query(displayFreeBooks, new displayFreeBookRowMapper());
 	}
 
 }
