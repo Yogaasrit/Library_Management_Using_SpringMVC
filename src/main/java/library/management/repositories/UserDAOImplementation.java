@@ -11,6 +11,9 @@ import library.management.entities.Book;
 import library.management.entities.BookApproval;
 import library.management.entities.BorrowBook;
 import library.management.entities.PurchasedBook;
+import library.management.entities.RequestBook;
+import library.management.entities.RequestBookHistory;
+import library.management.entities.ReserveBook;
 import library.management.entities.User;
 import library.management.entities.ViewUserDetails;
 
@@ -252,6 +255,110 @@ public class UserDAOImplementation implements UserDAO{
 		
 		String insertImage = "UPDATE user SET profilePic = ? WHERE userEmailId = ?";
 		return jdbcTemplate.update(insertImage,profilePicBlob,emailId);
+	}
+
+	@Override
+	public int handleRequestBooks(int userId, int bookId,int count) {
+		String handleRequestBooksQuery = "Insert into requestbook(userId,bookId,requestStatus,orderCount) values(?,?,?,?)";
+		return jdbcTemplate.update(handleRequestBooksQuery,userId,bookId,0,count);
+	}
+
+	@Override
+	public List<RequestBook> viewRequestedBooks(int userId) {
+		String viewRequestedBooks="SELECT b.bookId, b.bookName, b.bookPrice, b.bookGenre,b.bookQuantity, b.bookPublication, b.bookPublishDate, b.bookEdition, b.authorName, b.bookCover,rb.orderCount\r\n"
+				+ "FROM requestbook rb\r\n"
+				+ "JOIN books b ON rb.bookId = b.bookId\r\n"
+				+ "WHERE rb.userId = ? AND rb.requestStatus = 0";
+		return jdbcTemplate.query(viewRequestedBooks, new RequestBookRowMapper(),userId);
+	}
+
+	@Override
+	public List<RequestBookHistory> viewUserRequestedBook() {
+		String viewUserRequestedBookQuery = "SELECT\r\n"
+				+ "    u.userName,\r\n"
+				+ "    r.userId,\r\n"
+				+ "    r.bookId,\r\n"
+				+ "    b.bookName,\r\n"
+				+ "    b.bookCover,\r\n"
+				+ "    r.orderCount,\r\n"
+				+"     b.authorName "
+				+ "FROM\r\n"
+				+ "    user u\r\n"
+				+ "JOIN\r\n"
+				+ "    requestbook r ON u.userId = r.userId\r\n"
+				+ "JOIN\r\n"
+				+ "    books b ON r.bookId = b.bookId;\r\n"
+				+ "";
+		return jdbcTemplate.query(viewUserRequestedBookQuery, new RequestBookHistoryRowMapper());
+	}
+
+	@Override
+	public List<RequestBook> getRequestedBookById(int userId) {
+		String getRequestedBookByIdQuery = "SELECT\r\n"
+				+ "    u.userName,\r\n"
+				+ "    r.userId,\r\n"
+				+ "    r.bookId,\r\n"
+				+ "    b.bookName,\r\n"
+				+ "    b.bookCover,\r\n"
+				+ "    r.orderCount,\r\n"
+				+ "    b.authorName,\r\n"
+				+ "    b.bookQuantity "	
+				+ "FROM\r\n"
+				+ "    user u\r\n"
+				+ "JOIN\r\n"
+				+ "    requestbook r ON u.userId = r.userId\r\n"
+				+ "JOIN\r\n"
+				+ "    books b ON r.bookId = b.bookId\r\n"
+				+ "where u.userId = ?";				
+		return jdbcTemplate.query(getRequestedBookByIdQuery,new RequestBookByIdRowMapper(), userId);
+	}
+
+	@Override
+	public int insertHandleReserve(int userId,int bookId) {
+		String insertHandleReserveQuery = "insert into reservebook (`userId`, `bookId`, `reserveStatus`) values (?,?,?)";
+		return jdbcTemplate.update(insertHandleReserveQuery,userId,bookId,0);
+	}
+	
+	//----------------------------------
+
+	@Override
+	public List<ReserveBook> getReserveBookByUserId(int userId) {
+		String getReserveBookByUserId = "SELECT\r\n"
+				+ "    u.userName,\r\n"
+				+ "    r.userId,\r\n"
+				+ "    r.bookId,\r\n"
+				+ "    b.bookName,\r\n"
+				+ "    b.bookCover,\r\n"
+				+ "    b.authorName,\r\n"
+				+ "    b.bookQuantity "	
+				+ "FROM\r\n"
+				+ "    user u\r\n"
+				+ "JOIN\r\n"
+				+ "    reservebook r ON u.userId = r.userId\r\n"
+				+ "JOIN\r\n"
+				+ "    books b ON r.bookId = b.bookId\r\n"
+				+ "where u.userId = ?";	
+		return jdbcTemplate.query(getReserveBookByUserId, new ReserveBookRowMapper(), userId);
+	}
+
+	@Override
+	public List<ReserveBook> viewUserReservedBook() {
+		String viewUserRequestedBookQuery = "SELECT\r\n"
+				+ "    u.userName,\r\n"
+				+ "    r.userId,\r\n"
+				+ "    r.bookId,\r\n"
+				+ "    b.bookName,\r\n"
+				+ "    b.bookCover,\r\n"
+				+"     b.authorName,\r\n "
+				+"     b.bookQuantity "	
+				+ "FROM\r\n"
+				+ "    user u\r\n"
+				+ "JOIN\r\n"
+				+ "    reservebook r ON u.userId = r.userId\r\n"
+				+ "JOIN\r\n"
+				+ "    books b ON r.bookId = b.bookId;\r\n"
+				+ "";
+		return jdbcTemplate.query(viewUserRequestedBookQuery, new ReserveBookRowMapper());
 	}
 
 

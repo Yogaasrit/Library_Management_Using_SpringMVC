@@ -90,11 +90,13 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.webjars/pdf-js -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>pdf-js</artifactId>
 			<version>4.0.269</version>
-		</dependency>
+		</dependency>-->
+
+		
 
 		<dependency>
 			<groupId>com.itextpdf</groupId>
@@ -113,10 +115,17 @@
 
 	<repositories>
 		<repository>
-			<id>webjars</id>
+			<id>spring-webjars</id>
 			<url>https://repo.spring.io/webjars</url>
 		</repository>
+
+
+		<repository>
+			<id>central</id>
+			<url>https://repo.maven.apache.org/maven2</url>
+		</repository>
 	</repositories>
+
 
 	<build>
 		<finalName>LibraryManagement</finalName>

@@ -23,5 +23,4 @@ public class BookRowMapper implements RowMapper<Book> {
 		book.setBookStatus(rs.getBoolean("bookStatus"));
 		return book;
 	}
-
 }

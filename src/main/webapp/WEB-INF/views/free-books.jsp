@@ -1,4 +1,4 @@
-<%@page import="library.management.entities.FreeBook"%>
+<%-- <%@page import="library.management.entities.FreeBook"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ page import="java.io.OutputStream"%>
 <%@ page import="java.util.Base64"%>
@@ -96,4 +96,188 @@
 </script>
 
 </body>
+</html> --%>
+<%-- <%@page import="java.util.Base64"%>
+<%@page import="library.management.entities.FreeBook"%>
+<%@page import="java.util.List"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Free Books</title>
+</head>
+<body>
+
+<h2>Free Books</h2>
+
+<%
+    // Loop through the list of free books
+    List<FreeBook> freeBooks = (List<FreeBook>) request.getAttribute("freeBooks");
+    for (FreeBook book : freeBooks) {
+        // Convert Blob to base64 encoded string
+        byte[] pdfBytes = book.getPdfAsBytes();
+        // Implement this method in your FreeBook class
+        out.println(pdfBytes.length);
+        String base64Pdf = Base64.getEncoder().encodeToString(pdfBytes);
+%>
+    <div>
+        <h3><%= book.getPdfName() %> by <%= book.getPdfAuthorName() %></h3>
+
+        Display the PDF using an iframe
+		<iframe src="data:application/pdf;base64, <%= base64Pdf %>" width="100%" height="600px"></iframe>
+
+        <hr>
+    </div>
+<%
+    }
+%>
+
+</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+ --%>
+
+
+
+
+
+
+
+<%-- <html>
+<head>
+    <title>Free Books</title>
+    <!-- Include PDF.js library -->
+<script src="/LibraryManagement/webapp//static/js/pdf.mjs"></script>
+<script src="/LibraryManagement/static/js/pdf.worker.mjs"></script>
+
+</head>
+<body>
+
+<h2>Free Books</h2>
+
+<%
+    // Loop through the list of free books
+    List<FreeBook> freeBooks = (List<FreeBook>) request.getAttribute("freeBooks");
+    for (FreeBook book : freeBooks) {
+    	
+    	String bookCover = Base64.getEncoder().encodeToString(
+    			(book.getPdfCover())
+    					.getBytes(1, (int) 
+    					(book.getPdfCover()
+    							.length())));
+    	
+%>
+    <div>
+        <h3><%= book.getPdfName() %> by <%= book.getPdfAuthorName() %></h3>
+
+        Display the PDF using PDF.js
+        <canvas id="pdfCanvas_<%= book.getPdfId() %>"></canvas>
+
+        Display the cover image
+        <img src="data:image/jpeg;base64,<%= bookCover %>" alt="Cover Image" width="200" height="300">
+
+        <hr>
+    </div>
+
+   <script>
+        // Convert Blob to Uint8Array
+        function blobToUint8Array(blob) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    resolve(new Uint8Array(reader.result));
+                };
+                reader.readAsArrayBuffer(blob);
+            });
+        }
+
+        // Initialize PDF.js for each book
+        blobToUint8Array(<%= book.getPdf() %>).then(function (pdfData_<%= book.getPdfId() %>) {
+            var loadingTask_<%= book.getPdfId() %> = pdfjsLib.getDocument({ data: pdfData_<%= book.getPdfId() %> });
+
+            loadingTask_<%= book.getPdfId() %>.promise.then(function(pdf_<%= book.getPdfId() %>) {
+                // Fetch the first page
+                pdf_<%= book.getPdfId() %>.getPage(1).then(function(page_<%= book.getPdfId() %>) {
+                    var scale_<%= book.getPdfId() %> = 1;
+                    var canvas_<%= book.getPdfId() %> = document.getElementById('pdfCanvas_<%= book.getPdfId() %>');
+                    var context_<%= book.getPdfId() %> = canvas_<%= book.getPdfId() %>.getContext('2d');
+                    var viewport_<%= book.getPdfId() %> = page_<%= book.getPdfId() %>.getViewport({ scale: scale_<%= book.getPdfId() %> });
+
+                    // Set the canvas size to match the PDF page size
+                    canvas_<%= book.getPdfId() %>.height = viewport_<%= book.getPdfId() %>.height;
+                    canvas_<%= book.getPdfId() %>.width = viewport_<%= book.getPdfId() %>.width;
+
+                    // Render the first page
+                    var renderContext_<%= book.getPdfId() %> = {
+                        canvasContext: context_<%= book.getPdfId() %>,
+                        viewport: viewport_<%= book.getPdfId() %>
+                    };
+                    page_<%= book.getPdfId() %>.render(renderContext_<%= book.getPdfId() %>);
+                });
+            });
+        });
+    </script>
+<%
+    }
+%>
+
+</body>
+</html> --%>
+
+
+
+
+<%@page import="java.util.List"%>
+<%@page import="java.nio.file.Files"%>
+<%@page import="java.nio.file.Path"%>
+<%@page import="java.util.Base64"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Free Books</title>
+</head>
+<body>
+
+<h2>Free Books</h2>
+
+<%
+    // List of hardcoded paths to PDF files
+    List<String> pdfPaths = List.of(
+        "C:\\Users\\user\\Downloads\\Wings of Fire(Malayalam).pdf"
+        
+    );
+
+    for (String pdfPath : pdfPaths) {
+        // Read the content of the PDF file as bytes
+        byte[] pdfBytes = Files.readAllBytes(Path.of(pdfPath));
+
+        // Base64 encode the PDF content
+        String base64Pdf = Base64.getEncoder().encodeToString(pdfBytes);
+%>
+    <div>
+        <h3>PDF Title</h3>
+
+        <%-- Display the PDF using an iframe --%>
+        <iframe src="data:application/pdf;base64, <%= base64Pdf %>" width="100%" height="600px"></iframe>
+
+        <hr>
+    </div>
+<%
+    }
+%>
+
+</body>
+</html>
+
+
+
+ 

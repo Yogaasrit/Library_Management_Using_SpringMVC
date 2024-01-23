@@ -1,6 +1,10 @@
 package library.management.entities;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Blob;
+import java.sql.SQLException;
 
 public class FreeBook {
 	private int pdfId;
@@ -50,4 +54,33 @@ public class FreeBook {
 	public void setPdfCover(Blob pdfCover) {
 		this.pdfCover = pdfCover;
 	}
+	
+	
+	
+	 public byte[] getPdfAsBytes() throws SQLException {
+	        // Check if the Blob is not null
+	        if (pdf == null) {
+	            return null;
+	        }
+
+	        // Convert the Blob to a byte array
+	        try (InputStream inputStream = pdf.getBinaryStream()) {
+	            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+	            byte[] buffer = new byte[4096];
+	            int bytesRead;
+
+	            while ((bytesRead = inputStream.read(buffer)) != -1) {
+	                outputStream.write(buffer, 0, bytesRead);
+	            }
+
+	            return outputStream.toByteArray();
+	        } catch (IOException e) {
+	            // Handle IOException if necessary
+	            e.printStackTrace();
+	        }
+
+	        return null;
+	    }
+	
+	
 }

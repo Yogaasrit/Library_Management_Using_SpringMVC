@@ -28,6 +28,9 @@ import library.management.entities.BookApproval;
 import library.management.entities.BorrowBook;
 import library.management.entities.FreeBook;
 import library.management.entities.PurchasedBook;
+import library.management.entities.RequestBook;
+import library.management.entities.RequestBookHistory;
+import library.management.entities.ReserveBook;
 import library.management.entities.User;
 import library.management.entities.ViewUserDetails;
 import library.management.repositories.AdminLoginDAO;
@@ -54,7 +57,7 @@ public class UserController {
 	@GetMapping("/free-books")
 	public String showFreeBooks(Model model) {
 		List<FreeBook> freeBooks = bookDAO.displayFreeBooks();
-		model.addAttribute("freeBooks",freeBooks.get(0));
+		model.addAttribute("freeBooks",freeBooks);
 		return "free-books";
 	}
 	@GetMapping("/UserDashboard")
@@ -122,12 +125,16 @@ public class UserController {
 		
 		return "add-freebook";
 	}
+	
+	
 	@GetMapping("/admin-view-profile")
 	public String viewAdminProfile( Model model) {
 		String password = adminLoginDAO.getPassword();
 		model.addAttribute("password",password);
 		return "view-admin-profile";
 	}
+	
+	
 	@PostMapping("/admin-changePassword")
 	public String openDashboard(Model model, 
 			@RequestParam("confirmPassword") String confirmPassword) {
@@ -388,6 +395,14 @@ public class UserController {
 		model.addAttribute("book", book);
 		return "borrow-book-details";
 	}
+	//handleReserveBorrowBook --------------------------------------------------------------
+	@GetMapping("/handleReserveBorrowBook")
+	public String handleReserveBorrowBook(@RequestParam("bookId") String bookId, Model model) {
+		Book book = bookDAO.displayByBookId(Integer.parseInt(bookId));
+//		int status = bookDAO.updateReserveStatus();// add reserve id in query and in rowmapper
+		model.addAttribute("book", book);
+		return "borrow-book-details";
+	}
 
 	@GetMapping("/confirm-borrowbook")
 	public String confirmBorrowBook(@RequestParam("bookId") String bookId, @RequestParam("count") String bookCount,
@@ -632,5 +647,72 @@ public class UserController {
 		model.addAttribute("userProfile", userProfile);
 		return "user-profile";
 	}
+	
+	@GetMapping("/handleRequest")
+	public String handleRequestBook(
+			@RequestParam("bookId") String bookId, Model model) {
+		Book book = bookDAO.displayByBookId(Integer.parseInt(bookId));
+		model.addAttribute("book",book);
+		
+		return "request-book-details";
+	}
+	
+	@GetMapping("/request-book-handle")
+	public String requestBookHandle(
+			@RequestParam("bookId") String bookId,
+			@RequestParam("count") String count,
+			HttpSession session,Model model) {
+		User userSession = (User) session.getAttribute("User");
+		int status = userDAO.handleRequestBooks(userSession.getUserId(),Integer.parseInt(bookId),Integer.parseInt(count));
+		List<RequestBook> requestBooks = userDAO.viewRequestedBooks(userSession.getUserId());
+		System.out.println(requestBooks.get(0).getBookName());
+		List<RequestBook> list = userDAO.getRequestedBookById(userSession.getUserId());
+//		model.addAttribute("requestBooks", requestBooks);
+		model.addAttribute("list",list);
+		return "view-requested-book";
+	}
+	
+	@GetMapping("/view-requested-book")
+	public String openRequestBook(Model model,HttpSession session) {
+		User userSession = (User) session.getAttribute("User");
+
+		List<RequestBook> list = userDAO.getRequestedBookById(userSession.getUserId());
+		
+//		model.addAttribute("requestBooks", requestBooks);
+		model.addAttribute("list",list);
+		return "view-requested-book";
+	}
+	
+	@GetMapping("/view-user-requested-book")
+	public String viewUserRequestedBook(Model model) {
+		List<RequestBookHistory>list=  userDAO.viewUserRequestedBook();
+		model.addAttribute("list",list);	
+		return "view-user-requested-book";
+	}
+	
+	@GetMapping("/handleReserve")
+	public String handleReserve(@RequestParam("bookId") String bookId,HttpSession session) {
+		User user = (User)session.getAttribute("User");
+		int status = userDAO.insertHandleReserve(user.getUserId(),Integer.parseInt(bookId));
+		return "UserDashboard";
+	}
+	
+	@GetMapping("/view-reserve-page")
+	public String openReservePage(Model model, HttpSession session) {
+		User user = (User)session.getAttribute("User");
+		//----------------------------------
+		List<ReserveBook> list = userDAO.getReserveBookByUserId(user.getUserId());
+		model.addAttribute("list",list);
+		return "view-reserve-page";
+	}
+	
+	@GetMapping("/view-user-reserved-book")
+	public String viewUserReservedBook(Model model) {
+		List<ReserveBook> list = userDAO.viewUserReservedBook();
+		model.addAttribute("list",list);
+		return "view-user-reserved-book";
+	}
+	
+	
 	
 }

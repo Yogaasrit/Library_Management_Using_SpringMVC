@@ -22,7 +22,7 @@ public class BookDAOImplementation implements BookDAO {
 
 	@Override
 	public List<Book> viewAllBooks() {
-		String displayAllBooksQuery = "select * from books where bookStatus = 1 and bookQuantity > 0";
+		String displayAllBooksQuery = "select * from books where bookStatus = 1";
 		return jdbcTemplate.query(displayAllBooksQuery, new BookRowMapper());
 	}
 

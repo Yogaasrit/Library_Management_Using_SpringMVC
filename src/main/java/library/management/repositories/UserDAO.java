@@ -8,6 +8,9 @@ import library.management.entities.Book;
 import library.management.entities.BookApproval;
 import library.management.entities.BorrowBook;
 import library.management.entities.PurchasedBook;
+import library.management.entities.RequestBook;
+import library.management.entities.RequestBookHistory;
+import library.management.entities.ReserveBook;
 import library.management.entities.User;
 import library.management.entities.ViewUserDetails;
 
@@ -34,4 +37,12 @@ public interface UserDAO {
 	public List<BookApproval>viewApprovalList();
 	public int updateBookApproveStatus(int borrowedId);
 	public int insertImage(Blob profilePicBlob,String emailId);
+	public int handleRequestBooks(int userId, int bookId, int count);
+	public List<RequestBook> viewRequestedBooks(int userId);
+	public List<RequestBookHistory> viewUserRequestedBook();
+	public List<RequestBook> getRequestedBookById(int userId);
+	public int insertHandleReserve(int userId,int bookId);
+	//----------------------------------
+	public List<ReserveBook> getReserveBookByUserId(int userId);
+	public List<ReserveBook> viewUserReservedBook();
 }

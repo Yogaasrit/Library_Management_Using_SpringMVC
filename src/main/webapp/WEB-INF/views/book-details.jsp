@@ -155,25 +155,6 @@
     
     %>
 
-    <%-- <div class="book-card">
-        <!-- Left side: Book Image -->
-        <div class="book-image-container">
-            <img class="book-image" src="data:image/png;base64, <%= bookCover %>" alt="<%= book.getBookName() %>" />
-        </div>
-
-        <!-- Right side: Book Details -->
-        <div class="book-details-container">
-            <p><strong>Book ID:</strong> <%= book.getBookId() %></p>
-            <p><strong>Book Name:</strong> <%= book.getBookName() %></p>
-            <p><strong>Book Price:</strong> <%= book.getBookPrice() %></p>
-            <p><strong>Book Genre:</strong> <%= book.getBookGenre() %></p>
-            <p><strong>Book Publication:</strong> <%= book.getBookPublication() %></p>
-            <p><strong>Book Publish Date:</strong> <%= book.getBookPublishDate() %></p>
-            <p><strong>Book Edition:</strong> <%= book.getBookEdition() %></p>
-            <p><strong>Book Quantity:</strong> <%= book.getBookQuantity() %></p>
-            <p><strong>Author Name:</strong> <%= book.getAuthorName() %></p>
-        </div>
-    </div> --%>
 	 <div class="book-card">
         <!-- Wrapper for Book Image and Container Details -->
         <div class="book-wrapper">
@@ -237,10 +218,8 @@
             }
         }
 
-        function updateCount() {
-        	
+        function updateCount() {        	
                 document.getElementById("bookCount").innerText = count;
-        	
         }
 
         function goBack() {

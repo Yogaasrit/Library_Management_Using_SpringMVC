@@ -157,6 +157,8 @@ nav a:hover {
                 <a href="book/view-books">View Books</a>
                 <a href="view-your-books">Your Book orders</a>
                 <a href="view-borrowed-books">Borrowed Books</a>
+                <a href="view-requested-book">Request books</a>
+                <a href="view-reserve-page">Request books</a>
                 <a href="#">Your Borrow history</a>
             </div>
         </div>
