@@ -150,13 +150,16 @@
 
 
 
+<%--  <%@page import="java.util.Base64"%>
+<%@page import="library.management.entities.FreeBook"%>
+<%@page import="java.util.List"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-
-<%-- <html>
+ <html>
 <head>
     <title>Free Books</title>
     <!-- Include PDF.js library -->
-<script src="/LibraryManagement/webapp//static/js/pdf.mjs"></script>
+<script src="/LibraryManagement/static/js/pdf.mjs"></script>
 <script src="/LibraryManagement/static/js/pdf.worker.mjs"></script>
 
 </head>
@@ -179,10 +182,8 @@
     <div>
         <h3><%= book.getPdfName() %> by <%= book.getPdfAuthorName() %></h3>
 
-        Display the PDF using PDF.js
         <canvas id="pdfCanvas_<%= book.getPdfId() %>"></canvas>
 
-        Display the cover image
         <img src="data:image/jpeg;base64,<%= bookCover %>" alt="Cover Image" width="200" height="300">
 
         <hr>
@@ -201,7 +202,7 @@
         }
 
         // Initialize PDF.js for each book
-        blobToUint8Array(<%= book.getPdf() %>).then(function (pdfData_<%= book.getPdfId() %>) {
+        blobToUint8Array(<%= book.getPdf() %>).then(function (pdfData_<%= book.getPdfId() %>)) {
             var loadingTask_<%= book.getPdfId() %> = pdfjsLib.getDocument({ data: pdfData_<%= book.getPdfId() %> });
 
             loadingTask_<%= book.getPdfId() %>.promise.then(function(pdf_<%= book.getPdfId() %>) {
@@ -231,12 +232,12 @@
 %>
 
 </body>
-</html> --%>
+</html>  --%>
 
 
 
 
-<%@page import="java.util.List"%>
+<%-- <%@page import="java.util.List"%>
 <%@page import="java.nio.file.Files"%>
 <%@page import="java.nio.file.Path"%>
 <%@page import="java.util.Base64"%>
@@ -266,7 +267,7 @@
     <div>
         <h3>PDF Title</h3>
 
-        <%-- Display the PDF using an iframe --%>
+        Display the PDF using an iframe
         <iframe src="data:application/pdf;base64, <%= base64Pdf %>" width="100%" height="600px"></iframe>
 
         <hr>
@@ -280,4 +281,91 @@
 
 
 
+ 
+ 
+ 
+<%@page import="library.management.entities.FreeBook"%>
+<%@page import="java.util.Base64"%>
+<%@page import="java.util.List"%>
+<%@page import="java.io.InputStream"%>
+<%@page import="java.io.ByteArrayOutputStream"%>
+<%@page import="java.io.IOException"%>
+<%@page import="java.sql.Blob"%>
+<%@page import="java.sql.SQLException"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://example.com/utility" prefix="util" %>
+<%@ page import="library.management.utilities.UtilityFunctions"%>
+
+
+<html>
+<head>
+    <title>Free Books</title>
+    <!-- Include PDF.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+    
+</head>
+<body>
+
+<h2>Free Books</h2>
+
+<%
+List<FreeBook> freeBooks = (List<FreeBook>) request.getAttribute("freeBooks");
+for (FreeBook book : freeBooks) {
+    // Assuming getPdf() returns a Blob
+    Blob pdfBlob = book.getPdf();
+
+    // Convert Blob to byte array
+     byte[] pdfBytes = util:blobToBytes(pdfBlob); */
+
+    // Encode byte array to Base64
+    String pdfBase64 = Base64.getEncoder().encodeToString(pdfBytes);
+%>
+    <div>
+        <h3><%= book.getPdfName() %> by <%= book.getPdfAuthorName() %></h3>
+
+        Display the PDF using PDF.js
+        <canvas id="pdfCanvas_<%= book.getPdfId() %>"></canvas>
+
+        <script>
+            var pdfBase64_<%= book.getPdfId() %> = '<%= pdfBase64 %>';
+            
+            // Convert Base64 to Uint8Array
+            var pdfData_<%= book.getPdfId() %> = new Uint8Array(atob(pdfBase64_<%= book.getPdfId() %>).split("").map(function(c) { return c.charCodeAt(0); }));
+
+            // Convert Uint8Array to Blob
+            var pdfBlob_<%= book.getPdfId() %> = new Blob([pdfData_<%= book.getPdfId() %>], { type: 'application/pdf' });
+
+            pdfjsLib.getDocument({ url: URL.createObjectURL(pdfBlob_<%= book.getPdfId() %>) }).promise.then(function(pdf) {
+                pdf.getPage(1).then(function(page) {
+                    var scale = 1;
+                    var viewport = page.getViewport({ scale: scale });
+                    var canvas = document.getElementById('pdfCanvas_<%= book.getPdfId() %>');
+                    var context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+                    var renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+                    page.render(renderContext);
+                });
+            });
+        </script>
+
+        <hr>
+    </div>
+<%
+    }
+%>
+</body>
+</html>
+
+Book Donation Platform:
+
+Create a feature for users to donate books to the library or to other users.
+
+
+--%> 
+ 
+ 
  

@@ -20,7 +20,7 @@ public class RequestBookByIdRowMapper implements RowMapper<RequestBook> {
 		requestBook.setUserId(rs.getInt("userId"));
 		requestBook.setAuthorName(rs.getString("authorName"));
 		requestBook.setCount(rs.getInt("bookQuantity"));
-		
+		requestBook.setRequestId(rs.getInt("requestId"));
 		return requestBook;
 	}
 

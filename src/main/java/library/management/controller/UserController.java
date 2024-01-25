@@ -323,7 +323,7 @@ public class UserController {
 			@RequestParam("bookGenre") String bookGenre, @RequestParam("bookPublication") String bookPublication,
 			@RequestParam("bookPublishDate") String bookPublishDate, @RequestParam("bookEdition") String bookEdition,
 			@RequestParam("bookQuantity") String bookQuantity, @RequestParam("authorName") String authorName,
-			@RequestParam("bookCover") MultipartFile bookCover, Model model) {
+			@RequestParam("bookCover") MultipartFile bookCover, Model model,HttpSession session) {
 
 		byte[] bookCoverArr;
 		Blob bookCoverBlob = null;
@@ -341,6 +341,31 @@ public class UserController {
 				authorName, true, bookCoverBlob);
 		int status = userDAO.addBooks(book);
 		model.addAttribute("status", status);
+		
+		
+		Admin admin = new Admin();
+		
+		int totalUserCount = adminLoginDAO.totalUser();
+		int totalBookCount = adminLoginDAO.totalBooks();
+		int totalBooksBorrowed = adminLoginDAO.totalBooksBorrowed();
+		int totalPendingApproval=adminLoginDAO.totalBooksApproval();
+		int totalBooksBought = adminLoginDAO.totalBooksBought();
+		int totalBooksBorrowedToday = adminLoginDAO.totalBooksBorrowedToday();
+		int totalBooksBoughtToday = adminLoginDAO.totalBooksBoughtToday();
+		int totalUserOverDueCount = adminLoginDAO.totalUserOverDueCount();
+		
+		model.addAttribute("totalUserCount",totalUserCount);
+		model.addAttribute("totalBookCount",totalBookCount);
+		model.addAttribute("totalBooksBorrowed",totalBooksBorrowed);
+		model.addAttribute("totalBooksBought",totalBooksBought);
+		model.addAttribute("totalPendingApproval",totalPendingApproval);
+		model.addAttribute("totalBooksBorrowedToday",totalBooksBorrowedToday);
+		model.addAttribute("totalBooksBoughtToday",totalBooksBoughtToday);
+		model.addAttribute("totalUserOverDueCount",totalUserOverDueCount);
+		
+		admin = (Admin)session.getAttribute("adminSession");
+		adminLoginDAO.validateAdmin(admin.getAdminEmailId(), admin.getAdminPassword()).get(0);
+		session.setAttribute("adminSession", admin);
 
 		return "AdminDashboard";
 	}
@@ -395,11 +420,14 @@ public class UserController {
 		model.addAttribute("book", book);
 		return "borrow-book-details";
 	}
+	
 	//handleReserveBorrowBook --------------------------------------------------------------
 	@GetMapping("/handleReserveBorrowBook")
-	public String handleReserveBorrowBook(@RequestParam("bookId") String bookId, Model model) {
+	public String handleReserveBorrowBook(@RequestParam("bookId") String bookId,
+			@RequestParam("reserveId") String reserveId,
+			Model model) {
 		Book book = bookDAO.displayByBookId(Integer.parseInt(bookId));
-//		int status = bookDAO.updateReserveStatus();// add reserve id in query and in rowmapper
+		int status = bookDAO.updateReserveStatus(reserveId);// add reserve id in query and in rowmapper
 		model.addAttribute("book", book);
 		return "borrow-book-details";
 	}
@@ -672,6 +700,16 @@ public class UserController {
 		return "view-requested-book";
 	}
 	
+	@GetMapping("/handleRequestPlaceOrder")
+	public String handleRequestPlaceOrder(@RequestParam("bookId") String bookId,
+			@RequestParam("requestId") String requestId, Model model) {
+		System.out.println("Running");
+		Book book = bookDAO.displayByBookId(Integer.parseInt(bookId));
+		int status = userDAO.updateRequestStatus(Integer.parseInt(requestId));
+		model.addAttribute("book", book);
+		return "book-details";
+	}
+	
 	@GetMapping("/view-requested-book")
 	public String openRequestBook(Model model,HttpSession session) {
 		User userSession = (User) session.getAttribute("User");
@@ -713,6 +751,39 @@ public class UserController {
 		return "view-user-reserved-book";
 	}
 	
+	@GetMapping("/add-upcoming-events")
+	public String addUpcomingEvents() {
+		return "addUpcomingEvents";
+	}
 	
-	
+	@PostMapping("/upcoming-events-detail")
+	public String upcomingEventDetails(@RequestParam("eventDetails") String eventDetails,
+			@RequestParam("eventDate") String eventDate, Model model, HttpSession session) {
+		
+		Admin admin = new Admin();
+		
+		int status = userDAO.addUpcomingEvents(eventDetails,eventDate);
+		int totalUserCount = adminLoginDAO.totalUser();
+		int totalBookCount = adminLoginDAO.totalBooks();
+		int totalBooksBorrowed = adminLoginDAO.totalBooksBorrowed();
+		int totalPendingApproval=adminLoginDAO.totalBooksApproval();
+		int totalBooksBought = adminLoginDAO.totalBooksBought();
+		int totalBooksBorrowedToday = adminLoginDAO.totalBooksBorrowedToday();
+		int totalBooksBoughtToday = adminLoginDAO.totalBooksBoughtToday();
+		int totalUserOverDueCount = adminLoginDAO.totalUserOverDueCount();
+		
+		model.addAttribute("totalUserCount",totalUserCount);
+		model.addAttribute("totalBookCount",totalBookCount);
+		model.addAttribute("totalBooksBorrowed",totalBooksBorrowed);
+		model.addAttribute("totalBooksBought",totalBooksBought);
+		model.addAttribute("totalPendingApproval",totalPendingApproval);
+		model.addAttribute("totalBooksBorrowedToday",totalBooksBorrowedToday);
+		model.addAttribute("totalBooksBoughtToday",totalBooksBoughtToday);
+		model.addAttribute("totalUserOverDueCount",totalUserOverDueCount);
+		
+		admin = (Admin)session.getAttribute("adminSession");
+		adminLoginDAO.validateAdmin(admin.getAdminEmailId(), admin.getAdminPassword()).get(0);
+		session.setAttribute("adminSession", admin);
+		return "AdminDashboard";
+	}
 }

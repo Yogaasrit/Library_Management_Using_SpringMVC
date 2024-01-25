@@ -147,4 +147,11 @@ public class BookDAOImplementation implements BookDAO {
 		return jdbcTemplate.query(displayFreeBooks, new displayFreeBookRowMapper());
 	}
 
+	@Override
+	public int updateReserveStatus(String reserveId) {
+		
+		String updateReserveStatus = "UPDATE reservebook SET reserveStatus = 1 WHERE reserveId = ?";
+		return jdbcTemplate.update(updateReserveStatus,Integer.parseInt(reserveId));
+	}
+
 }

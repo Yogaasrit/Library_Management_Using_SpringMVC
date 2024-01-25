@@ -21,6 +21,7 @@ public class ReserveBookRowMapper implements RowMapper<ReserveBook>{
 		book.setBookCover(rs.getBlob("bookCover"));
 		book.setAuthorName(rs.getString("authorName"));
 		book.setBookQuantity(rs.getInt("bookQuantity"));
+		book.setReserveId(rs.getInt("reserveId"));
 		return book;
 	}
 

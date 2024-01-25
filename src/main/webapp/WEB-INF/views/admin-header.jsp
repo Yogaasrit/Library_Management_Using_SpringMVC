@@ -22,7 +22,8 @@
                     <a href="approve-return-book" onclick="performAction('approveReturnedBooks')">Approve Returned Books</a>
  					<a href="add-freebook" >Add Free book</a>  
  					<a href="view-user-requested-book">View Requested book</a>   
- 					<a href="view-user-reserved-book">View Reserved book</a>          
+ 					<a href="view-user-reserved-book">View Reserved book</a>  
+ 					<a href = "add-upcoming-events">Add upcoming events</a>        
                 </div>
             </div>
             <a href="admin-view-profile" class="user-icon" onclick="performAction('viewProfile')"><i class="fas fa-user"></i></a>

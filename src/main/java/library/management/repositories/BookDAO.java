@@ -23,4 +23,5 @@ public interface BookDAO {
 	int deleteBook(int bookId);
 	int addFreeBook(FreeBook freebook);
 	List<FreeBook> displayFreeBooks();
+	int updateReserveStatus(String reserveId);
 }

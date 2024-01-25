@@ -58,7 +58,7 @@
             <%if(book.getBookQuantity() > book.getCount()){ %>
             Out of stock
             <%}else{ %>
-            <a href = "handlePlaceOrder?bookId=<%= book.getBookId() %>">Place order</a>
+            <a href = "handleRequestPlaceOrder?bookId=<%= book.getBookId() %>&requestId=<%= book.getRequestId()%>">Place order</a>
             <%} %>
         </div>
     <% } %>

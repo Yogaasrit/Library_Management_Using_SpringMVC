@@ -44,7 +44,7 @@
     <h1>Reserve Books</h1>
 
     <% List<ReserveBook> bookList = (List<ReserveBook>)request.getAttribute("list"); %>
-
+	
     <% for (ReserveBook book : bookList) { %>
         <div class="card">
             <h2><%= book.getBookName() %></h2>
@@ -59,7 +59,8 @@
             <%if(book.getBookQuantity() == 0){ %>
             Out of stock
             <%}else{ %>
-            <a href = "handleReserveBorrowBook?bookId=<%= book.getBookId() %>">Borrow Book</a>
+            <a href = "handleReserveBorrowBook?bookId=<%= book.getBookId() %>&reserveId=<%= book.getReserveId()%>">
+            Borrow Book</a>
             <%} %>
         </div>
     <% } %>

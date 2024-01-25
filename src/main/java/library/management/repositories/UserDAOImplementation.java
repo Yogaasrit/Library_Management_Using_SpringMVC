@@ -302,14 +302,15 @@ public class UserDAOImplementation implements UserDAO{
 				+ "    b.bookCover,\r\n"
 				+ "    r.orderCount,\r\n"
 				+ "    b.authorName,\r\n"
-				+ "    b.bookQuantity "	
+				+ "    b.bookQuantity,  "	
+				+"	   r.requestId "	
 				+ "FROM\r\n"
 				+ "    user u\r\n"
 				+ "JOIN\r\n"
 				+ "    requestbook r ON u.userId = r.userId\r\n"
 				+ "JOIN\r\n"
 				+ "    books b ON r.bookId = b.bookId\r\n"
-				+ "where u.userId = ?";				
+				+ "where u.userId = ? and requestStatus = 0";				
 		return jdbcTemplate.query(getRequestedBookByIdQuery,new RequestBookByIdRowMapper(), userId);
 	}
 
@@ -330,14 +331,15 @@ public class UserDAOImplementation implements UserDAO{
 				+ "    b.bookName,\r\n"
 				+ "    b.bookCover,\r\n"
 				+ "    b.authorName,\r\n"
-				+ "    b.bookQuantity "	
+				+ "    b.bookQuantity,"
+				+ "    r.reserveId "	
 				+ "FROM\r\n"
 				+ "    user u\r\n"
 				+ "JOIN\r\n"
 				+ "    reservebook r ON u.userId = r.userId\r\n"
 				+ "JOIN\r\n"
 				+ "    books b ON r.bookId = b.bookId\r\n"
-				+ "where u.userId = ?";	
+				+ "where u.userId = ? and reserveStatus = 0";	
 		return jdbcTemplate.query(getReserveBookByUserId, new ReserveBookRowMapper(), userId);
 	}
 
@@ -350,7 +352,8 @@ public class UserDAOImplementation implements UserDAO{
 				+ "    b.bookName,\r\n"
 				+ "    b.bookCover,\r\n"
 				+"     b.authorName,\r\n "
-				+"     b.bookQuantity "	
+				+"     b.bookQuantity,"
+				+ "	   r.reserveId "	
 				+ "FROM\r\n"
 				+ "    user u\r\n"
 				+ "JOIN\r\n"
@@ -359,6 +362,18 @@ public class UserDAOImplementation implements UserDAO{
 				+ "    books b ON r.bookId = b.bookId;\r\n"
 				+ "";
 		return jdbcTemplate.query(viewUserRequestedBookQuery, new ReserveBookRowMapper());
+	}
+
+	@Override
+	public int updateRequestStatus(int requestId) {
+		String updatRequestStatus = "Update requestbook set requestStatus = 1 where requestId = ?";
+		return jdbcTemplate.update(updatRequestStatus, requestId);
+	}
+
+	@Override
+	public int addUpcomingEvents(String eventDetails, String eventDate) {
+		String addUpcomingEventsQuery = "insert into upcomingevents (eventDetail,eventDate) values (?,?)";
+		return jdbcTemplate.update(addUpcomingEventsQuery,eventDetails,eventDate );
 	}
 
 

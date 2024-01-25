@@ -45,4 +45,6 @@ public interface UserDAO {
 	//----------------------------------
 	public List<ReserveBook> getReserveBookByUserId(int userId);
 	public List<ReserveBook> viewUserReservedBook();
+	public int updateRequestStatus(int requestId);
+	public int addUpcomingEvents(String eventDetails, String eventDate);
 }

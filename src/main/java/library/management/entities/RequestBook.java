@@ -10,6 +10,15 @@ public class RequestBook {
 	private Blob bookCover;
 	private String authorName;
 	private int count;
+	private int requestId;
+	
+	
+	public int getRequestId() {
+		return requestId;
+	}
+	public void setRequestId(int requestId) {
+		this.requestId = requestId;
+	}
 	public int getCount() {
 		return count;
 	}
