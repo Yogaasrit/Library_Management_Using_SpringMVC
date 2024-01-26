@@ -231,7 +231,7 @@
             alert("Order confirmed for " + count + " books!");
 
             // Update count in the href and navigate to the link
-            var href = "confirm-placeorder?bookId=<%= book.getBookId() %>&count=" + count;
+            var href = "add-to-cart?bookId=<%= book.getBookId() %>&count=" + count;
             window.location.href = href;
 
             // Add additional logic for confirming the order, if needed

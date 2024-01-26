@@ -152,6 +152,7 @@ nav a:hover {
     </nav>
     
     <div class="header-div">
+    
         <div class="dropdown">
             <span class="button">User Operations</span>
             <div class="dropdown-content">
@@ -165,6 +166,7 @@ nav a:hover {
             </div>
         </div>
         <span class="profile-icon"><a href="user-profile"><i class="fas fa-user"></i></a></span>
+        <a href = "your-cart"><i class="fa fa-shopping-cart" style="font-size:28px;"></i></a>
         <button class="logout-btn">Logout</button>
     </div>
 </header>

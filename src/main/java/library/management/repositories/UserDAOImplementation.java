@@ -425,6 +425,26 @@ public class UserDAOImplementation implements UserDAO{
 		return jdbcTemplate.query(getBadgeCountQuery, new LeaderBoardRowMapper(), userId).get(0).getBadgeCount();
 	}
 
+	@Override
+	public int updateBookQuantityAddToCart(String bookId,String bookQuantity) {
+		String updateBookQuantityAddToCartQuery = "UPDATE books "
+				+ "SET bookQuantity = bookQuantity - ? where bookId = ?";
+		
+		return jdbcTemplate.update(updateBookQuantityAddToCartQuery,
+				Integer.parseInt(bookQuantity),
+				Integer.parseInt(bookId));
+	}
+
+	@Override
+	public int updateBookCount(String bookId, String quantity) {
+		String updateBookCount = "UPDATE books "
+				+ "SET bookQuantity = bookQuantity + ? where bookId = ?";
+		
+		return jdbcTemplate.update(updateBookCount,
+				Integer.parseInt(quantity),
+				Integer.parseInt(bookId));
+	}
+
 
 
 
