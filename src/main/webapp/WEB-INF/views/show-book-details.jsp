@@ -184,7 +184,7 @@
 	<%if(book.getBookQuantity()>0){%>
     <div class="button-container">
         <button class="action-button"> 
-            <a href="<%=targetUrl%>/handlePlaceOrder?bookId=<%=book.getBookId()%>">Place Order</a>
+            <a href="<%=targetUrl%>/handlePlaceOrder?bookId=<%=book.getBookId()%>">Add to cart</a>
         </button>
         <button class="action-button">
             <a href="<%=targetUrl%>/handleBorrowBook?bookId=<%=book.getBookId()%>">Borrow book</a>

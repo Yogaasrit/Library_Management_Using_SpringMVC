@@ -810,9 +810,12 @@ public class UserController {
 	}
 	
 	@GetMapping("/leaderboard")
-	public String showLeaderboard(Model model) {
+	public String showLeaderboard(Model model, HttpSession session) {
+		User user = (User)session.getAttribute("User");
 		List<LeaderBoard> list = userDAO.leaderboard();
 		model.addAttribute("list",list);
+		int badgeCount = userDAO.getBadgeCount(user.getUserId());
+		model.addAttribute("badgeCount",badgeCount);
 		return "leaderboard";
 	}
 }

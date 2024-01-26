@@ -54,4 +54,5 @@ public interface UserDAO {
 	public List<ReturnedBook> getReturnedBookDetails(int userId);
 	public int addFeedBack(int bookId, String rating, String comment, String borrowedId, int userId);
 	public List<LeaderBoard> leaderboard();
+	public int getBadgeCount(int userId);
 }

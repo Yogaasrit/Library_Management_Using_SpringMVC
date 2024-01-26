@@ -419,6 +419,12 @@ public class UserDAOImplementation implements UserDAO{
 		return jdbcTemplate.query(viewLeaderBoardQuery, new LeaderBoardRowMapper());
 	}
 
+	@Override
+	public int getBadgeCount(int userId) {
+		String getBadgeCountQuery = "select userName, profilePic, badgeCount from user where userId = ?";
+		return jdbcTemplate.query(getBadgeCountQuery, new LeaderBoardRowMapper(), userId).get(0).getBadgeCount();
+	}
+
 
 
 

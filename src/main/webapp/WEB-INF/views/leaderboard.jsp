@@ -47,6 +47,13 @@
 <body>
     <h1>Leaderboard</h1>
 <%List<LeaderBoard> list = (List<LeaderBoard>)request.getAttribute("list"); %>
+<%int badgeCount = (Integer)request.getAttribute("badgeCount"); %>
+
+            <div class="leaderboard-item">
+                <h1>Your badges</h1>
+                <p>BadgeCount: <%= badgeCount %></p>
+                
+            </div>
     <div class="leaderboard">
         <% for (LeaderBoard leader : list) { %>
             <div class="leaderboard-item">
