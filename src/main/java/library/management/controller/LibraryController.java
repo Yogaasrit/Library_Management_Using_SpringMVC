@@ -1,13 +1,17 @@
 package library.management.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import library.management.entities.Admin;
+import library.management.entities.UpcomingEvent;
 import library.management.entities.User;
 import library.management.repositories.AdminLoginDAO;
 import library.management.repositories.UserDAO;
@@ -20,7 +24,9 @@ public class LibraryController {
 	UserDAO userDAO;
 	
 	@GetMapping("/")
-	public String showWelcomePage() {
+	public String showWelcomePage(Model model) {
+		List<UpcomingEvent> list = userDAO.getUpComingEvent();
+		model.addAttribute("list",list);
 		return "WelcomePage";
 	}
 	@GetMapping("/AdminLogin")

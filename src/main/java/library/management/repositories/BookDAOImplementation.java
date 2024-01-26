@@ -76,9 +76,9 @@ public class BookDAOImplementation implements BookDAO {
 		//`borrowedId`, `userId`, `borrowedDate`, `bookFine`, `bookId`, `returnStatus`
 		
 		String insertBorrowBookQuery = "INSERT INTO borrowbook "
-				+ " (`userId`, `borrowedDate`, `bookFine`, `bookId`, `returnStatus`,`returnDate`,`approveStatus`) "
+				+ " (`userId`, `borrowedDate`, `bookFine`, `bookId`, `returnStatus`,`returnDate`,`approveStatus`,`feedBackStatus`) "
 				+ " VALUES "
-				+ " (?,?,?,?,?,?,?) ";
+				+ " (?,?,?,?,?,?,?,?) ";
 	
 		int status = 0;
 		if(jdbcTemplate.update(insertBorrowBookQuery,
@@ -88,11 +88,14 @@ public class BookDAOImplementation implements BookDAO {
 								bookId,
 								0,
 								returnDate,
+								0,
 								0
 								) == 1) {
 			
 			String updateBorrowBookCount = "UPDATE books SET bookQuantity = bookQuantity - 1 where bookId = ?";
 			status = jdbcTemplate.update(updateBorrowBookCount, bookId);
+			String updateBadgeCount = "Update user set badgeCount = badgeCount + 15 where userId = ?";
+			jdbcTemplate.update(updateBadgeCount,userId);
 		}
 		return status;
 	}

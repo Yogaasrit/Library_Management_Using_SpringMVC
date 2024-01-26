@@ -13,7 +13,7 @@ public class User {
 	private String gender;
 	private String userPassword;
 	private Blob profilePic;
-	
+		
 	public User(int userId, String userEmailId, String userName, String phoneNo, Date dob, String address,
 			String gender, String userPassword,Blob profilePic) {
 		super();
@@ -27,6 +27,7 @@ public class User {
 		this.userPassword = userPassword;
 		this.profilePic = profilePic;
 	}
+	
 	public String getPhoneNo() {
 		return phoneNo;
 	}

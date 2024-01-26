@@ -10,10 +10,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import library.management.entities.Book;
 import library.management.entities.BookApproval;
 import library.management.entities.BorrowBook;
+import library.management.entities.LeaderBoard;
 import library.management.entities.PurchasedBook;
 import library.management.entities.RequestBook;
 import library.management.entities.RequestBookHistory;
 import library.management.entities.ReserveBook;
+import library.management.entities.ReturnedBook;
+import library.management.entities.UpcomingEvent;
 import library.management.entities.User;
 import library.management.entities.ViewUserDetails;
 
@@ -87,8 +90,12 @@ public class UserDAOImplementation implements UserDAO{
 
 	@Override
 	public int placeOrder(int userId,int bookId, int bookCount,Date orderDate) {
+		int status = 0;
 		String placeOrderQuery = "insert into orderedbooks values (?,?,?,?)";
-		return jdbcTemplate.update(placeOrderQuery,userId,bookId,bookCount,orderDate);
+		status = jdbcTemplate.update(placeOrderQuery,userId,bookId,bookCount,orderDate);
+		String updateBadgeCount = "Update user set badgeCount = badgeCount + 25 where userId = ?";
+		jdbcTemplate.update(updateBadgeCount,userId);
+		return status;
 	}
 
 	@Override
@@ -179,8 +186,8 @@ public class UserDAOImplementation implements UserDAO{
 	@Override
 	public int userRegister(String userEmailId, String userName, String phoneNo, Date dob, String address, String gender,
 			String userPassword) {
-		String userRegisterQuery = "INSERT IGNORE INTO user (userEmailId, userName, phoneNo, dob, address, gender, userPassword, status)\r\n"
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, 1)";
+		String userRegisterQuery = "INSERT IGNORE INTO user (userEmailId, userName, phoneNo, dob, address, gender, userPassword, status, badgeCount)\r\n"
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, 1, 10)";
 		return jdbcTemplate.update(userRegisterQuery,userEmailId,userName,phoneNo,dob,address, gender, userPassword);
 	}
 
@@ -374,6 +381,42 @@ public class UserDAOImplementation implements UserDAO{
 	public int addUpcomingEvents(String eventDetails, String eventDate) {
 		String addUpcomingEventsQuery = "insert into upcomingevents (eventDetail,eventDate) values (?,?)";
 		return jdbcTemplate.update(addUpcomingEventsQuery,eventDetails,eventDate );
+	}
+
+	@Override
+	public List<UpcomingEvent> getUpComingEvent() {
+		String getUpComingEventQuery = "select * from upcomingevents";
+		return jdbcTemplate.query(getUpComingEventQuery, new UpcomingEventRowMapper());
+	}
+
+	@Override
+	public List<ReturnedBook> getReturnedBookDetails(int userId) {
+		String getReturnedBookDetailsQuery = "select b.bookId, b.bookCover,bb.returnStatus,bb.borrowedId from books as b left join\r\n"
+				+ " borrowbook as bb on bb.bookId = b.bookId where bb.returnStatus = 1 and bb.userId = ? and bb.feedBackStatus=0";
+		return jdbcTemplate.query(getReturnedBookDetailsQuery, new GetReturnedBookDetailsRowMapper(),userId);
+	}
+
+	@Override
+	public int addFeedBack(int bookId, String rating, String comment, String borrowedId, int userId) {
+		int status = 0;
+		String addFeedBackQuery = "Insert into feedback (bookId, star, comment) values(?,?,?)";
+		if(jdbcTemplate.update(addFeedBackQuery, bookId, Integer.parseInt(rating), comment) == 1) {
+			String updateFeedBackStatusInBorrowBook = "update borrowbook set feedBackStatus = 1 where borrowedId = ?";
+			status=  jdbcTemplate.update(updateFeedBackStatusInBorrowBook,borrowedId);
+			
+			String updateBadgeCount = "Update user set badgeCount = badgeCount + 5 where userId = ?";
+			jdbcTemplate.update(updateBadgeCount,userId);
+		}
+		return status;
+	}
+
+	@Override
+	public List<LeaderBoard> leaderboard() {
+		String viewLeaderBoardQuery = "SELECT userName, profilePic, badgeCount\r\n"
+				+ "FROM user\r\n"
+				+ "ORDER BY badgeCount DESC\r\n"
+				+ "LIMIT 3";
+		return jdbcTemplate.query(viewLeaderBoardQuery, new LeaderBoardRowMapper());
 	}
 
 

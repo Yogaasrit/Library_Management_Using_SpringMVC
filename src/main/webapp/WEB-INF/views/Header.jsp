@@ -148,6 +148,7 @@ nav a:hover {
         <a href="contact-us">Contact Us</a>
         <a href="Gallery">Gallery</a>
         <a href="free-books">Free Books</a>
+        <a href="leaderboard">Leaderboard</a>
     </nav>
     
     <div class="header-div">
@@ -158,7 +159,8 @@ nav a:hover {
                 <a href="view-your-books">Your Book orders</a>
                 <a href="view-borrowed-books">Borrowed Books</a>
                 <a href="view-requested-book">Request books</a>
-                <a href="view-reserve-page">Request books</a>
+                <a href="view-reserve-page">Reserve books</a>
+                <a href ="write-feedback-page">Write your feedback</a>
                 <a href="#">Your Borrow history</a>
             </div>
         </div>

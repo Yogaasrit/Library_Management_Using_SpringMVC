@@ -7,10 +7,13 @@ import java.util.List;
 import library.management.entities.Book;
 import library.management.entities.BookApproval;
 import library.management.entities.BorrowBook;
+import library.management.entities.LeaderBoard;
 import library.management.entities.PurchasedBook;
 import library.management.entities.RequestBook;
 import library.management.entities.RequestBookHistory;
 import library.management.entities.ReserveBook;
+import library.management.entities.ReturnedBook;
+import library.management.entities.UpcomingEvent;
 import library.management.entities.User;
 import library.management.entities.ViewUserDetails;
 
@@ -47,4 +50,8 @@ public interface UserDAO {
 	public List<ReserveBook> viewUserReservedBook();
 	public int updateRequestStatus(int requestId);
 	public int addUpcomingEvents(String eventDetails, String eventDate);
+	public List<UpcomingEvent> getUpComingEvent();
+	public List<ReturnedBook> getReturnedBookDetails(int userId);
+	public int addFeedBack(int bookId, String rating, String comment, String borrowedId, int userId);
+	public List<LeaderBoard> leaderboard();
 }

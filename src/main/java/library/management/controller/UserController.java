@@ -27,10 +27,12 @@ import library.management.entities.Book;
 import library.management.entities.BookApproval;
 import library.management.entities.BorrowBook;
 import library.management.entities.FreeBook;
+import library.management.entities.LeaderBoard;
 import library.management.entities.PurchasedBook;
 import library.management.entities.RequestBook;
 import library.management.entities.RequestBookHistory;
 import library.management.entities.ReserveBook;
+import library.management.entities.ReturnedBook;
 import library.management.entities.User;
 import library.management.entities.ViewUserDetails;
 import library.management.repositories.AdminLoginDAO;
@@ -785,5 +787,32 @@ public class UserController {
 		adminLoginDAO.validateAdmin(admin.getAdminEmailId(), admin.getAdminPassword()).get(0);
 		session.setAttribute("adminSession", admin);
 		return "AdminDashboard";
+	}
+	
+	@GetMapping("/write-feedback-page")
+	public String writeFeedbackPage(HttpSession session, Model model) {
+		User user = (User)session.getAttribute("User");
+		List<ReturnedBook> returnedBook = userDAO.getReturnedBookDetails(user.getUserId());
+		model.addAttribute("returnedBook", returnedBook);
+		return "write-feedback";
+	}
+	
+	@GetMapping("/feedback")
+	public String getFeedback(Model model, 
+			@RequestParam("rating") String rating,
+			@RequestParam("bookId") String bookId,
+			@RequestParam("comments") String comment,
+			@RequestParam("borrowedId") String borrowedId,
+			HttpSession session){
+		User user = (User)session.getAttribute("User");
+		int status = userDAO.addFeedBack(Integer.parseInt(bookId),rating,comment,borrowedId, user.getUserId());		
+		return "write-feedback-page";
+	}
+	
+	@GetMapping("/leaderboard")
+	public String showLeaderboard(Model model) {
+		List<LeaderBoard> list = userDAO.leaderboard();
+		model.addAttribute("list",list);
+		return "leaderboard";
 	}
 }
