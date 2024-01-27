@@ -62,4 +62,5 @@ public interface UserDAO {
 	public List<ReturnBookRemainder> showNotReturnedBooks();
 	public List<ForumHistory> getForumHistory();
 	public int addForum(int userId, String userName, String content);
+	public int calcFine(int borrowedId, int userId);
 }

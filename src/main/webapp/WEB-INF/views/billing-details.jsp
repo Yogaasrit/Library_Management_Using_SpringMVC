@@ -32,6 +32,19 @@
             text-decoration: none;
             display: inline-block;
         }
+        .shipping-form {
+            margin-top: 20px;
+        }
+        .shipping-label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .shipping-input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -72,6 +85,19 @@
 
     <p class="total-amount">Grand Total: <%= grandTotal %></p>
 
+    <!-- Add the shipping address form -->
+    <div class="shipping-form">
+        <label class="shipping-label" for="shippingAddress">Shipping Address:</label>
+        <input class="shipping-input" type="text" id="shippingAddress" name="shippingAddress" required>
+
+        <label class="shipping-label" for="contactEmail">Contact Email:</label>
+        <input class="shipping-input" type="email" id="contactEmail" name="contactEmail" required>
+
+        <label class="shipping-label" for="phoneNo">Phone Number:</label>
+        <input class="shipping-input" type="tel" id="phoneNo" name="phoneNo" required>
+    </div>
+
+    <!-- Proceed to Pay button -->
     <a href="payment-page?grandTotal=<%=grandTotal %>" class="proceed-to-pay-btn">Proceed to Pay</a>
 </body>
 </html>

@@ -473,4 +473,13 @@ public class UserDAOImplementation implements UserDAO{
 				+ "VALUES (?, ?, ?, CURRENT_DATE());";
 		return jdbcTemplate.update(addForumQuery,userId,userName,content);
 	}
+
+	@Override
+	public int calcFine(int borrowedId, int userId) {
+
+		String calcFineQuery = "update borrowbook SET "
+				+ "bookFine =  DATEDIFF(CURRENT_DATE, returnDate) * 10 "
+				+ "where userId = ? and borrowedId = ? and returnDate < curdate(); \r\n";
+		return jdbcTemplate.update(calcFineQuery,userId,borrowedId);
+	}
 }

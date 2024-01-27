@@ -551,16 +551,16 @@ public class UserController {
 		return "view-books";
 	}
 	
-//	@GetMapping("/handleViewBooks")
-//	public String handleViewBooks(@RequestParam("bookId") String bookId,Model model)
-//	{	
-//		Book book = bookDAO.displayByBookId(Integer.parseInt(bookId));
-//		List<FeedBack> list = bookDAO.getBookFeedback(Integer.parseInt(bookId));
-//		System.out.println("List: "+list);
-////		model.addAttribute("book",book);
-//		model.addAttribute("list",list);
-//		return "show-book-details";
-//	}
+	@GetMapping("/handleViewBooks")
+	public String handleViewBooks(@RequestParam("bookId") String bookId,Model model)
+	{	
+		Book book = bookDAO.displayByBookId(Integer.parseInt(bookId));
+		List<FeedBack> list = bookDAO.getBookFeedback(Integer.parseInt(bookId));
+		System.out.println("List: "+list);
+//		model.addAttribute("book",book);
+		model.addAttribute("list",list);
+		return "show-book-details";
+	}
 	
 	@GetMapping("/your-cart")
 	public String openCart(HttpSession session, Model model) {
@@ -691,17 +691,26 @@ public class UserController {
 	public String showBorrowedBooks(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("User");
 		List<BorrowBook> borrowedBooks = userDAO.viewBorrowedBooks(user.getUserId());
+		// 
 		model.addAttribute("borrowedBooks", borrowedBooks);
 		return "view-borrowed-books";
 	}
 
 	@GetMapping("/return-book")
-	public String handleReturnBook(@RequestParam("borrowedId") String borrowedId, Model model) {
-		
+	public String handleReturnBook(@RequestParam("borrowedId") String borrowedId, Model model,HttpSession session) {
+		User user = (User) session.getAttribute("User");
+
+		int fineStatus = userDAO.calcFine(Integer.parseInt(borrowedId),user.getUserId());
 		int status = userDAO.updateApproveStatus(Integer.parseInt(borrowedId));
 //		int status = userDAO.updateBorrowedBook(Integer.parseInt(borrowedId));
-		model.addAttribute("status", status);
-		return "redirect:view-borrowed-books";
+		if(fineStatus == 0) {
+			model.addAttribute("status", status);
+			return "redirect:view-borrowed-books";	
+		}
+		else {
+			return "view-fine";
+		}
+		
 	}
 
 	@GetMapping("/pay-fine")
