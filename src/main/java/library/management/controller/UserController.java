@@ -8,12 +8,19 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,12 +34,15 @@ import library.management.entities.Admin;
 import library.management.entities.Book;
 import library.management.entities.BookApproval;
 import library.management.entities.BorrowBook;
+import library.management.entities.FeedBack;
+import library.management.entities.ForumHistory;
 import library.management.entities.FreeBook;
 import library.management.entities.LeaderBoard;
 import library.management.entities.PurchasedBook;
 import library.management.entities.RequestBook;
 import library.management.entities.RequestBookHistory;
 import library.management.entities.ReserveBook;
+import library.management.entities.ReturnBookRemainder;
 import library.management.entities.ReturnedBook;
 import library.management.entities.User;
 import library.management.entities.ViewUserDetails;
@@ -65,10 +75,81 @@ public class UserController {
 
 	@GetMapping("/free-books")
 	public String showFreeBooks(Model model) {
-		List<FreeBook> freeBooks = bookDAO.displayFreeBooks();
-		model.addAttribute("freeBooks", freeBooks);
-		return "free-books";
+	    List<FreeBook> freeBooks = bookDAO.displayFreeBooks();
+	    System.out.println(freeBooks.size());
+	    model.addAttribute("freeBooks", freeBooks);
+	    return "free-books";
 	}
+	
+	@GetMapping("/free-books-pdf")
+	public ResponseEntity<byte[]> showFreeBooks(@RequestParam("id") int id) {
+	    List<FreeBook> freeBooks = bookDAO.displayFreeBooks();
+
+	    // Assuming the first free book contains the PDF content
+	    byte[] pdfContent = null;
+		try {
+			pdfContent = freeBooks.isEmpty() ? new byte[0] : freeBooks.get(id-1).getPdf().getBytes(1,
+					(int)freeBooks.get(id-1).getPdf().length());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_PDF);
+	    headers.setContentDisposition(ContentDisposition.builder("inline").filename("book.pdf").build());
+
+	    return new ResponseEntity<>(pdfContent, headers, HttpStatus.OK);
+	}
+	
+	
+
+//	public ResponseEntity<byte[]> showFreeBooksPdf() {
+//	    List<FreeBook> freeBooks = bookDAO.displayFreeBooks();
+//
+//	    // Assuming your FreeBook class has a method to retrieve PDF content as Blob
+//	    List<byte[]> pdfContents = freeBooks.stream()
+//	            .map(FreeBook::getPdf)
+//	            .map(this::blobToByteArray)
+//	            .collect(Collectors.toList());
+//
+//	    // Combine PDF contents into a single byte array (you may need a PDF library for this)
+//	    byte[] combinedPdfContent = combinePdfContents(pdfContents);
+//
+//	    HttpHeaders headers = new HttpHeaders();
+//	    headers.setContentType(MediaType.APPLICATION_PDF);
+//	    headers.setContentDisposition(ContentDisposition.builder("inline").filename("books.pdf").build());
+//
+//	    return new ResponseEntity<>(combinedPdfContent, headers, HttpStatus.OK);
+//	}
+//
+//	// Convert Blob to byte[]
+//	private byte[] blobToByteArray(Blob blob) {
+//	    try {
+//	        if (blob != null) {
+//	            return blob.getBytes(1, (int) blob.length());
+//	        }
+//	    } catch (SQLException e) {
+//	        e.printStackTrace();
+//	    }
+//	    return new byte[0];
+//	}
+//
+//	// Assuming you have a method to combine multiple PDF contents into a single byte array
+//	private byte[] combinePdfContents(List<byte[]> pdfContents) {
+//	    // Implement logic to combine multiple PDF contents into a single byte array
+//	    // This might involve using a PDF library like iText or PDFBox
+//	    // For simplicity, this example assumes a single PDF document
+//	    return pdfContents.isEmpty() ? new byte[0] : pdfContents.get(0);
+//	}
+	
+	
+	
+	/*
+	 * public String showFreeBooks(Model model) { List<FreeBook> freeBooks =
+	 * bookDAO.displayFreeBooks(); model.addAttribute("freeBooks", freeBooks);
+	 * return "free-books"; }
+	 */
 
 	@GetMapping("/UserDashboard")
 	public String showUserDashboard() {
@@ -406,15 +487,13 @@ public class UserController {
 	 * 
 	 * List<PurchasedBook> bookList = userDAO.viewPurchasedBooks(user.getUserId());
 	 * bookDAO.updateBookCount(Integer.parseInt(bookCount),
-	 * Integer.parseInt(bookId)); model.addAttribute("bookList", bookList); return
-	 * "view-your-books"; }
+	 * Integer.parseInt(bookId));
+	 * 
+	 *  model.addAttribute("bookList", bookList);
+	 *  return "view-your-books"; }
 	 */
-
 	
-//	@PostMapping("/view-your-books")
-//	public String viewYourBooks(@) {
-//		return "";
-//	}
+	
 	@GetMapping("/add-to-cart")
 	public String addToCart(@RequestParam("bookId") String bookId,
 			@RequestParam("count") String bookCount, Model model,
@@ -472,13 +551,16 @@ public class UserController {
 		return "view-books";
 	}
 	
-	@GetMapping("/handleViewBooks")
-	public String handleViewBooks(@RequestParam("bookId") String bookId,Model model)
-	{	
-		Book book = bookDAO.displayByBookId(Integer.parseInt(bookId));
-		model.addAttribute("book",book);
-		return "show-book-details";
-	}
+//	@GetMapping("/handleViewBooks")
+//	public String handleViewBooks(@RequestParam("bookId") String bookId,Model model)
+//	{	
+//		Book book = bookDAO.displayByBookId(Integer.parseInt(bookId));
+//		List<FeedBack> list = bookDAO.getBookFeedback(Integer.parseInt(bookId));
+//		System.out.println("List: "+list);
+////		model.addAttribute("book",book);
+//		model.addAttribute("list",list);
+//		return "show-book-details";
+//	}
 	
 	@GetMapping("/your-cart")
 	public String openCart(HttpSession session, Model model) {
@@ -512,13 +594,35 @@ public class UserController {
 	        // Handle JSON parsing exception
 	    }
 	    
-	    session.invalidate();
+		Map<String, Integer> cart = (Map<String, Integer>) session.getAttribute("cart");
+		cart = null;
+		session.setAttribute("cart", cart);
+	    
 	    // Redirect or return the appropriate view
 	    List<Book> books = bookDAO.viewAllBooks();
 	    model.addAttribute("books",books);
 	    model.addAttribute("updatedCart",updatedCart);
+	    session.setAttribute("updatedCart", updatedCart);
 	    return "billing-details";
 	}
+	
+	
+	@PostMapping("/view-your-books")
+	public String viewYourBooks(HttpSession session,Model model) {
+		 Map<String, Integer> updatedCart = ( Map<String, Integer>) session.getAttribute("updatedCart");
+		 User user = (User)session.getAttribute("User");
+		  
+		 for(Entry<String, Integer> entry : updatedCart.entrySet()) {
+			 int status = userDAO.placeOrder(user.getUserId(), Integer.parseInt(entry.getKey()),
+					 entry.getValue(), Date.valueOf(LocalDate.now()));
+		 }
+	 
+		  List<PurchasedBook> bookList = userDAO.viewPurchasedBooks(user.getUserId());
+		  model.addAttribute("bookList", bookList);
+		  return "view-your-books";
+	}
+	
+	
 
 	@PostMapping("/removeFromCart")
 	public void removeFromcart(@RequestParam("bookId") String bookId,
@@ -565,17 +669,21 @@ public class UserController {
 	}
 
 	@GetMapping("/confirm-borrowbook")
-	public String confirmBorrowBook(@RequestParam("bookId") String bookId, @RequestParam("count") String bookCount,
+	public String confirmBorrowBook(@RequestParam("bookId") String bookId,
+			@RequestParam("count") String bookCount,
 			Model model, HttpSession session) {
 
 		User user = (User) session.getAttribute("User");
 		int status = bookDAO.updateBorrowBookCount(user.getUserId(), Integer.parseInt(bookId),
 				Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusWeeks(2)));
 
+		
+		//------------------------fine
+		
+		
 		List<BorrowBook> borrowBooks = userDAO.viewBorrowedBooks(user.getUserId());
 
 		model.addAttribute("borrowedBooks", borrowBooks);
-
 		return "view-borrowed-books";
 	}
 
@@ -589,6 +697,7 @@ public class UserController {
 
 	@GetMapping("/return-book")
 	public String handleReturnBook(@RequestParam("borrowedId") String borrowedId, Model model) {
+		
 		int status = userDAO.updateApproveStatus(Integer.parseInt(borrowedId));
 //		int status = userDAO.updateBorrowedBook(Integer.parseInt(borrowedId));
 		model.addAttribute("status", status);
@@ -919,5 +1028,43 @@ public class UserController {
 		int badgeCount = userDAO.getBadgeCount(user.getUserId());
 		model.addAttribute("badgeCount", badgeCount);
 		return "leaderboard";
+	}
+	
+	@GetMapping("/send-return-book-remainder")
+	public String showNotReturnedBooks(Model model) {
+		List<ReturnBookRemainder> list = userDAO.showNotReturnedBooks();
+		model.addAttribute("list",list);
+		return "return-book-remainder";
+	}
+	
+	@PostMapping("/send-email-remainder")
+	public String sendEmailRemainder(
+			@RequestParam("emailId") String emailId,
+			@RequestParam("borrowedId") int borrowedId,
+			@RequestParam("bookName") String bookName,
+			HttpSession session,
+			Model model) {
+			sendRemainderEmail(emailId,borrowedId,bookName);
+		return "redirect:send-return-book-remainder";
+	}
+
+	private void sendRemainderEmail(String emailId, int borrowedId, String bookName) {
+		EmailSender emailSender = new EmailSender();
+		emailSender.sendRemainder(emailId, borrowedId,bookName);	
+	}
+	
+	@GetMapping("/forum")
+	public String openForumPage(Model model) {
+		List<ForumHistory> list = userDAO.getForumHistory();
+		model.addAttribute("list",list);
+		return "forum";
+	}
+	
+	@PostMapping("/add-forum")
+	public String addForum(@RequestParam("content") String content,
+			HttpSession session) {
+		User user = (User) session.getAttribute("User");
+		int status = userDAO.addForum(user.getUserId(),user.getUserName(),content);
+		return "redirect:forum";
 	}
 }

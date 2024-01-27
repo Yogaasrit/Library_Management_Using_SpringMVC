@@ -1,3 +1,5 @@
+<%@page import="library.management.entities.FeedBack"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.Base64"%>
 <%@page import="library.management.entities.Book"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -128,6 +130,7 @@
          	
          }
          
+         
          .action-button{
          	padding: 10px 20px;
          	background-color: #2980b9;
@@ -135,6 +138,36 @@
          	border: none;
          	margin-top: 5px;
          	}
+         	.reviews-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+
+    .review-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin: 10px;
+        padding: 15px;
+        background-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 300px;
+        text-align: center;
+    }
+
+    .star-rating {
+        margin-bottom: 10px;
+    }
+
+    .star {
+        color: gold;
+        font-size: 20px;
+    }
+
+    .comment {
+        color: #555;
+    }
     </style>
 </head>
 <body>
@@ -149,8 +182,9 @@
 	%>
 
     <h1>Book Detail</h1>
-
+	<h1>Book</h1>
     <% Book book = (Book) request.getAttribute("book");
+    
     
     String bookCover = Base64.getEncoder().encodeToString(
         (book.getBookCover())
@@ -200,6 +234,26 @@
         </button>
     </div>
 	<%} %>
+	<% List<FeedBack> list = (List<FeedBack>)request.getAttribute("list");
+	
+	if (list != null && !list.isEmpty()) { %>
+    <h2>Book Reviews</h2>
+    <div class="reviews-container">
+        <% for (FeedBack feedback : list) { %>
+            <div class="review-card">
+                <div class="star-rating">
+                    <%-- Display stars based on the star count --%>
+                    <% for (int i = 0; i < feedback.getStar(); i++) { %>
+                        <span class="star">&#9733;</span>
+                    <% } %>
+                </div>
+                <p class="comment"><strong>Comment:</strong> <%= feedback.getComment() %></p>
+            </div>
+        <% } %>
+    </div>
+<% } else { %>
+    <p>No reviews available for this book.</p>
+<% } %>
     <!-- Buttons -->
     <div class="button-container">
         <button class="back-button" onclick="goBack()">Back</button>

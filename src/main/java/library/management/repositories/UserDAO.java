@@ -7,11 +7,13 @@ import java.util.List;
 import library.management.entities.Book;
 import library.management.entities.BookApproval;
 import library.management.entities.BorrowBook;
+import library.management.entities.ForumHistory;
 import library.management.entities.LeaderBoard;
 import library.management.entities.PurchasedBook;
 import library.management.entities.RequestBook;
 import library.management.entities.RequestBookHistory;
 import library.management.entities.ReserveBook;
+import library.management.entities.ReturnBookRemainder;
 import library.management.entities.ReturnedBook;
 import library.management.entities.UpcomingEvent;
 import library.management.entities.User;
@@ -57,4 +59,7 @@ public interface UserDAO {
 	public int getBadgeCount(int userId);
 	public int updateBookQuantityAddToCart(String bookId, String bookCount);
 	public int updateBookCount(String bookId, String quantity);
+	public List<ReturnBookRemainder> showNotReturnedBooks();
+	public List<ForumHistory> getForumHistory();
+	public int addForum(int userId, String userName, String content);
 }

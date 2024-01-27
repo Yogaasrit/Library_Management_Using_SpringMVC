@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.List;
 
 import library.management.entities.Book;
+import library.management.entities.FeedBack;
 import library.management.entities.FreeBook;
 
 public interface BookDAO {
@@ -24,4 +25,7 @@ public interface BookDAO {
 	int addFreeBook(FreeBook freebook);
 	List<FreeBook> displayFreeBooks();
 	int updateReserveStatus(String reserveId);
+	int calculateFine(int userId);
+	List<FeedBack> getBookFeedback(int bookId);
+	
 }

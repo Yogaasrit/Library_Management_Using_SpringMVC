@@ -23,6 +23,7 @@
  					<a href="add-freebook" >Add Free book</a>  
  					<a href="view-user-requested-book">View Requested book</a>   
  					<a href="view-user-reserved-book">View Reserved book</a>  
+ 					<a href="send-return-book-remainder">Send Remainder</a>
  					<a href = "add-upcoming-events">Add upcoming events</a>        
                 </div>
             </div>

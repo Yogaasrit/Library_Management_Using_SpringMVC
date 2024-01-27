@@ -10,11 +10,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import library.management.entities.Book;
 import library.management.entities.BookApproval;
 import library.management.entities.BorrowBook;
+import library.management.entities.ForumHistory;
 import library.management.entities.LeaderBoard;
 import library.management.entities.PurchasedBook;
 import library.management.entities.RequestBook;
 import library.management.entities.RequestBookHistory;
 import library.management.entities.ReserveBook;
+import library.management.entities.ReturnBookRemainder;
 import library.management.entities.ReturnedBook;
 import library.management.entities.UpcomingEvent;
 import library.management.entities.User;
@@ -445,7 +447,30 @@ public class UserDAOImplementation implements UserDAO{
 				Integer.parseInt(bookId));
 	}
 
+	@Override
+	public List<ReturnBookRemainder> showNotReturnedBooks() {
+		String returnBookRemainder = "SELECT bb.userId,u.userEmailId, bb.bookId, bb.borrowedId, b.bookName,\r\n"
+				+ "       bb.borrowedDate, bb.returnDate, bb.bookFine, bb.returnStatus\r\n"
+				+ "FROM borrowbook bb\r\n"
+				+ "JOIN user u ON bb.userId = u.userId\r\n"
+				+ "JOIN books b ON bb.bookId = b.bookId\r\n"
+				+ "WHERE (bb.returnDate <= CURRENT_DATE() OR bb.returnDate = DATE_ADD(CURRENT_DATE(), INTERVAL 2 DAY))\r\n"
+				+ "      AND bb.returnStatus = 0;\r\n"
+				+ "";
+				
+		return jdbcTemplate.query(returnBookRemainder, new ReturnBookRemainderRowMapper());
+	}
 
+	@Override
+	public List<ForumHistory> getForumHistory() {
+		String getForumHistoryQuery = "select * from forum";
+		return jdbcTemplate.query(getForumHistoryQuery, new ForumHistoryRowMapper());
+	}
 
-
+	@Override
+	public int addForum(int userId, String userName, String content) {
+		String addForumQuery = "INSERT INTO forum (userId, userName, content, date)\r\n"
+				+ "VALUES (?, ?, ?, CURRENT_DATE());";
+		return jdbcTemplate.update(addForumQuery,userId,userName,content);
+	}
 }

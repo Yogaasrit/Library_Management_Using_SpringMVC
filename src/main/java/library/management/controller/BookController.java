@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 import library.management.entities.Book;
+import library.management.entities.FeedBack;
 import library.management.repositories.BookDAO;
 import library.management.utilities.MultipartFileToBlobPropertyEditor;
 
@@ -53,6 +54,8 @@ public class BookController {
 	public String handleViewBooks(@RequestParam("bookId") String bookId,Model model)
 	{	
 		Book book = bookDao.displayByBookId(Integer.parseInt(bookId));
+		List<FeedBack> list = bookDao.getBookFeedback(Integer.parseInt(bookId));
+		model.addAttribute("list",list);
 		model.addAttribute("book",book);
 		return "show-book-details";
 	}

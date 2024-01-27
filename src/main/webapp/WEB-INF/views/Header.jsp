@@ -149,6 +149,7 @@ nav a:hover {
         <a href="Gallery">Gallery</a>
         <a href="free-books">Free Books</a>
         <a href="leaderboard">Leaderboard</a>
+        <a href="forum">Forum</a>
     </nav>
     
     <div class="header-div">

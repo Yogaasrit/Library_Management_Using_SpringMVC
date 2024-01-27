@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import library.management.entities.Book;
+import library.management.entities.FeedBack;
 import library.management.entities.FreeBook;
 
 public class BookDAOImplementation implements BookDAO {
@@ -155,6 +156,18 @@ public class BookDAOImplementation implements BookDAO {
 		
 		String updateReserveStatus = "UPDATE reservebook SET reserveStatus = 1 WHERE reserveId = ?";
 		return jdbcTemplate.update(updateReserveStatus,Integer.parseInt(reserveId));
+	}
+
+	@Override
+	public int calculateFine(int userId) {
+		String calculateFineQuery = "";
+		return 0;
+	}
+
+	@Override
+	public List<FeedBack> getBookFeedback(int bookId) {
+		String getBookFeedbackQuery = "Select star, comment from feedback where bookId = ?";
+		return jdbcTemplate.query(getBookFeedbackQuery, new FeedBackRowMapper(),bookId);
 	}
 
 }

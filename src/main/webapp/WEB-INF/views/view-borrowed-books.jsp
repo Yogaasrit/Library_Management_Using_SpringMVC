@@ -146,7 +146,6 @@ function goBack() {
                         <% } %>
                     </form>
                 </div>
-                
             <% } %>
         </div>
     <%} else{%>
