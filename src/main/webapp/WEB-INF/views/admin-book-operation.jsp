@@ -117,6 +117,9 @@
             var bookGenre = document.getElementById('genreFilter').value.toLowerCase();
 
             var bookContainers = document.querySelectorAll('.book-card');
+            var noBooksFoundMessage = document.getElementById('noBooksFoundMessage');
+
+            var booksFound = false;
 
             for (var i = 0; i < bookContainers.length; i++) {
                 var container = bookContainers[i];
@@ -130,9 +133,17 @@
 
                 if (matchName && matchAuthor && matchGenre) {
                     container.style.display = 'inline-block';
+                    booksFound = true;
                 } else {
                     container.style.display = 'none';
                 }
+            }
+
+            // Show or hide the "No books found" message
+            if (booksFound) {
+                noBooksFoundMessage.style.display = 'none';
+            } else {
+                noBooksFoundMessage.style.display = 'block';
             }
         }
     </script>
@@ -183,7 +194,7 @@
     %>
             <div class="book-card">
                 <h3><%= book.getBookName()%></h3>
-                <a href="handleViewBooks?bookId=<%=book.getBookId()%>">
+                <a href="handle-admin-view-book-details?bookId=<%=book.getBookId()%>">
                     <img class="book-cover" src="data:image/png;base64, <%=bookCover%>" width="200" />
                 </a>
                 <div>
@@ -199,6 +210,7 @@
     } else { %>
         <p>No books found!!</p>
     <% } %>
+    <p id="noBooksFoundMessage" style="display:none;">No books found!!</p>
 </body>
 </html>
 

@@ -7,104 +7,145 @@
 <head>
     <meta charset="UTF-8">
     <title>Book Details</title>
-    <style>
-        /* Add your CSS styles for the card here */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+        background-size: cover;
+    }
 
-        .card {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 20px;
-            margin: 20px auto;
-            max-width: 600px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+    .card {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: rgba(255,255,255,0.3);
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+        border-radius: 5px;
+    }
 
-        h2 {
-            color: #333;
-        }
+    h2 {
+        color: black;
+        text-align: center;
+    }
 
-        p {
-            margin: 10px 0;
-        }
+    .book-details-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
 
-        img {
-            max-width: 100%;
-            height: auto;
-            margin-top: 10px;
-        }
+    .book-image-container {
+        flex: 1;
+    }
 
-        /* Add any additional styling as needed */
-        .button-container {
-            text-align: center;
-            margin-top: 20px;
-        }
+    .book-info {
+        flex: 2;
+        padding-left: 20px;
+    }
 
-        .confirm-btn, .back-btn {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
+    .book-image {
+        max-width: 100%;
+        height: auto;
+    }
 
-        .confirm-btn {
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-        }
+    .action-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
-        .back-btn {
-            background-color: #f44336;
-            color: #fff;
-            border: none;
-        }
-    </style>
+    .action-button, .back-btn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .action-button:hover, .back-btn:hover {
+        background-color: #45a049;
+    }
+
+    .counter-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .counter {
+        margin-right: 10px;
+    }
+
+    .counter-buttons {
+        display: flex;
+        align-items: center;
+    }
+
+    .counter-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 8px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .counter-button:hover {
+        background-color: #45a049;
+    }
+</style>
 
 </head>
 <body>
+<header>
+        <jsp:include page="Header.jsp" />
+    </header>
+    
     <div class="card">
-    <%
-		String ctx = application.getContextPath();
-		//out.print(ctx);
-		String targetUrl = ctx + "/User";
-	%>
-    <h2>Confirm your order</h2>
-        <% Book book = (Book) request.getAttribute("book");
-        String bookCover = Base64.getEncoder().encodeToString(
-        (book.getBookCover())
-            .getBytes(1, (int) 
-                (book.getBookCover()
-                    .length())));
-         %>
-        <h2><%= book.getBookName() %></h2>
-        <p><strong>ID:</strong> <%= book.getBookId() %></p>
-        <p><strong>Price:</strong> <%= book.getBookPrice() %></p>
-        <p><strong>Genre:</strong> <%= book.getBookGenre() %></p>
-        <p><strong>Publication:</strong> <%= book.getBookPublication() %></p>
-        <p><strong>Publish Date:</strong> <%= book.getBookPublishDate() %></p>
-        <p><strong>Edition:</strong> <%= book.getBookEdition() %></p>
-        <p><strong>Author:</strong> <%= book.getAuthorName() %></p>
-		<img class="book-image" src="data:image/png;base64, <%= bookCover %>" alt="<%= book.getBookName() %>" />
-        
+        <%
+            String ctx = application.getContextPath();
+            String targetUrl = ctx + "/User";
+        %>
+        <h2>Confirm your order</h2>
 
-        
-            <button class="action-button" onclick="confirmOrder()">
-		<a href ="#" id="confirmLink">
-			Confirm</a></button>
-        
-        <div class="counter-container">
-        <label for="bookCount" class="counter">Book Count:</label>
-        <div class="counter-buttons">
-            <button class="counter-button" onclick="decrementCount()">-</button>
-            <span id="bookCount">1</span>
-            <button class="counter-button" onclick="incrementCount()">+</button>
+        <div class="book-details-container">
+            <div class="book-image-container">
+                <% Book book = (Book) request.getAttribute("book");
+                    String bookCover = Base64.getEncoder().encodeToString(
+                    (book.getBookCover())
+                        .getBytes(1, (int) 
+                            (book.getBookCover()
+                                .length())));
+                %>
+                <img class="book-image" src="data:image/png;base64, <%= bookCover %>" alt="<%= book.getBookName() %>" />
+            </div>
+
+            <div class="book-info">
+                <h2><%= book.getBookName() %></h2>
+                <p><strong>ID:</strong> <%= book.getBookId() %></p>
+                <p><strong>Price:</strong> <%= book.getBookPrice() %></p>
+                <p><strong>Genre:</strong> <%= book.getBookGenre() %></p>
+                <p><strong>Publication:</strong> <%= book.getBookPublication() %></p>
+                <p><strong>Publish Date:</strong> <%= book.getBookPublishDate() %></p>
+                <p><strong>Edition:</strong> <%= book.getBookEdition() %></p>
+                <p><strong>Author:</strong> <%= book.getAuthorName() %></p>
+            </div>
         </div>
-    </div>
+
+        <div class="action-container">
+            <button class="action-button" onclick="confirmOrder()">
+                <a href ="#" id="confirmLink">
+                    Confirm</a>
+            </button>
+        
+            <div class="counter-container">
+                <label for="bookCount" class="counter">Book Count:</label>
+                <div class="counter-buttons">
+                    <button class="counter-button" onclick="decrementCount()">-</button>
+                    <span id="bookCount">1</span>
+                    <button class="counter-button" onclick="incrementCount()">+</button>
+                </div>
+            </div>
 
             <form action="backAction" method="post">
                 <input type="submit" class="back-btn" value="Back">

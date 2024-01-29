@@ -63,4 +63,5 @@ public interface UserDAO {
 	public List<ForumHistory> getForumHistory();
 	public int addForum(int userId, String userName, String content);
 	public int calcFine(int borrowedId, int userId);
+	public int updateFineAmount(String borrowedId);
 }

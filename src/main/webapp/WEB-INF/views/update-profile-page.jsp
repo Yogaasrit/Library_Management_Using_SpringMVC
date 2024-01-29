@@ -1,3 +1,5 @@
+<%@page import="java.util.Base64"%>
+<%@page import="java.sql.Blob"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
@@ -129,6 +131,23 @@
 	<header>
         <jsp:include page="Header.jsp" />
     </header>
+    
+    <%-- <% 
+    
+ 	Blob profileImage = (Blob)request.getAttribute("profileImage");
+    String bookCoverStr = null;
+    if(profileImage != null){
+    
+    	bookCoverStr = Base64.getEncoder().encodeToString(
+    			(profileImage
+    					.getBytes(1, (int) 
+    					(profileImage
+    							.length()))));
+    	
+    }
+    		
+    
+    %> --%>
     <div class = "form-div">
     <form:form modelAttribute="user" method="post" action="userForm" onsubmit="return validateForm();">
 
@@ -155,11 +174,18 @@
             <span class="error-message" id="dobError"></span>
             
             <label for="gender">Gender:</label>
-        <form:select path="gender">
-            <form:option value="Male" label="Male" />
-            <form:option value="Female" label="Female" />
-            <!-- Add more options as needed -->
-        </form:select>
+	        <form:select path="gender">
+	            <form:option value="Male" label="Male" />
+	            <form:option value="Female" label="Female" />
+	            <!-- Add more options as needed -->
+	        </form:select>
+	        
+	        <%-- <label for="bookCover">Profile picture:</label>
+        	<form:input path="profilePic" type = "file" id="profilePic" />
+        
+		 	<img class="profilePic" src="data:image/png;base64, <%= bookCoverStr %>" 
+		 	alt="image %>" width=100 /> --%>
+	        
         </div>
 
         <!-- Profile Photo Update -->

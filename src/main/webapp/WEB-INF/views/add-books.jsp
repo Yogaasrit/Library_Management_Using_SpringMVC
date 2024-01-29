@@ -7,6 +7,32 @@
     <title>Add Book Form</title>
     <script>function goBack() {
         window.history.back();
+    }
+        function validateForm() {
+            var quantity = document.getElementById('bookQuantity').value;
+            var edition = document.getElementById('bookEdition').value;
+            var price = document.getElementById('bookPrice').value;
+            var publishDate = document.getElementById('bookPublishDate').value;
+
+            if (!isInteger(quantity) || !isInteger(edition) || !isInteger(price)) {
+                alert('Quantity, Edition, and Price must be integers.');
+                return false;
+            }
+
+            var currentDate = new Date();
+            var selectedDate = new Date(publishDate);
+
+            if (selectedDate > currentDate) {
+                alert('Publish date must be in the past.');
+                return false;
+            }
+
+            return true;
+        }
+
+        function isInteger(value) {
+            return /^\d+$/.test(value);
+        
     }</script>
     <style>
         body {
@@ -68,6 +94,9 @@
             background-color: #45a049;
             
         }
+        h2{
+        text-align: center;
+        }
     </style>
 </head>
 <header>
@@ -75,8 +104,8 @@
     </header>
 <body>
 
-    <form action="handle-add-books" method = "post" enctype="multipart/form-data">
-
+    <form action="handle-add-books" onsubmit="return validateForm()" method = "post" enctype="multipart/form-data">
+<h2>Add book</h2>
         <label for="bookName">Book Name:</label>
         <input type="text" id="bookName" name="bookName" required><br>
 

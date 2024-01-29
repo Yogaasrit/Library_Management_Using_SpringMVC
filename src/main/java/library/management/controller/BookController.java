@@ -1,11 +1,13 @@
 package library.management.controller;
 
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -158,10 +160,14 @@ public class BookController {
 	@PostMapping("/edit-book-details")
 	public String handleUpdate(HttpSession session, @ModelAttribute Book book) {
 		System.out.println(book);
-		
 		String bookId=(String)session.getAttribute("bookId");
 		System.out.println(bookId);
-		int editBook=bookDao.editBookDetails(Integer.parseInt(bookId),book);
+		try {
+			int editBook=bookDao.editBookDetails(Integer.parseInt(bookId),book);
+		} catch (DataAccessException | NumberFormatException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "redirect:admin-book-operation";
 	}
 	
@@ -170,5 +176,14 @@ public class BookController {
         binder.registerCustomEditor(Blob.class, new MultipartFileToBlobPropertyEditor());
     }
 	
+	@GetMapping("/handle-admin-view-book-details")
+	public String handleAdminViewBookDetails(@RequestParam("bookId") String bookId, Model model) {
+		Book book = bookDao.displayByBookId(Integer.parseInt(bookId));
+		List<FeedBack> list = bookDao.getBookFeedback(Integer.parseInt(bookId));
+//		System.out.println("List: "+list);
+		model.addAttribute("book",book);
+		model.addAttribute("list",list);
+		return "handle-admin-view-book-details";
+	}
 	
 }

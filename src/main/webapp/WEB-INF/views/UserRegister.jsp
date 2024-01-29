@@ -146,6 +146,7 @@
         <select name="gender">
             <option value="male">Male</option>
             <option value="female">Female</option>
+            <option value="other">others</option>
             <!-- Add more options as needed -->
         </select>
         <p>Password:</p>

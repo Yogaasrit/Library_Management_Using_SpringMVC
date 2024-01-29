@@ -166,13 +166,13 @@
     }
 
     .comment {
-        color: black;
+        color: #555;
     }
     </style>
 </head>
 <body>
     <header>
-        <jsp:include page="Header.jsp" />
+        <jsp:include page="admin-header.jsp" />
     </header>
     
     <%
@@ -214,25 +214,6 @@
             </div>
         </div>
     </div>
-	<%if(book.getBookQuantity()>0){%>
-    <div class="button-container">
-        <button class="action-button"> 
-            <a href="<%=targetUrl%>/handlePlaceOrder?bookId=<%=book.getBookId()%>">Add to cart</a>
-        </button>
-        <button class="action-button">
-            <a href="<%=targetUrl%>/handleBorrowBook?bookId=<%=book.getBookId()%>">Borrow book</a>
-        </button>
-    </div>
-	<%}else{ %>
-	<div class="button-container">
-        <button class="action-button"> 
-            <a href="<%=targetUrl%>/handleRequest?bookId=<%=book.getBookId()%>">Request</a>
-        </button>
-        <button class="action-button" onclick="reserveBook()">
-            <a href="<%=targetUrl%>/handleReserve?bookId=<%=book.getBookId()%>">Reserve</a>
-        </button>
-    </div>
-	<%} %>
 	<% List<FeedBack> list = (List<FeedBack>)request.getAttribute("list");
 	
 	if (list != null && !list.isEmpty()) { %>
@@ -259,10 +240,6 @@
     </div>
 
     <script>
-    function reserveBook() {
-        // Display an alert when the "Reserve" button is clicked
-        alert("Reserved confirmed!");
-    }
         function goBack() {
             window.history.back();
         }

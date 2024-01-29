@@ -81,6 +81,15 @@ public class LibraryController {
 			}
 	}
 	
+//	@GetMapping("/logout")
+//	public String adminLogout(HttpSession session) {
+//		Admin admin = (Admin)session.getAttribute("adminSession");
+//		if(admin != null) {
+//			session.invalidate();
+//		}
+//		return "AdminLogin";
+//	}
+	
 	@PostMapping("/validate-user")
 	public String showUserDashboard(
 			@RequestParam("emailId") String userEmailId,

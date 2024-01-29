@@ -78,8 +78,52 @@
 							.length()))));	
     
     %>
+	<script>
+    function validateForm() {
+        var authorName = document.getElementById('authorName').value;
+        var bookEdition = document.getElementById('bookEdition').value;
+        var bookPrice = document.getElementById('bookPrice').value;
+        var bookQuantity = document.getElementById('bookQuantity').value;
+        var bookPublishDate = document.getElementById('bookPublishDate').value;
 
-    <form:form action="edit-book-details" method="post" modelAttribute="book" enctype="multipart/form-data">
+        // Validation for Author Name
+        if (authorName.trim() === "") {
+            alert('Author Name is required.');
+            return false;
+        }
+
+        // Validation for Book Edition
+        if (isNaN(bookEdition) || parseInt(bookEdition) <= 0) {
+            alert('Book Edition must be a positive integer.');
+            return false;
+        }
+
+        // Validation for Book Price
+        if (isNaN(bookPrice) || parseInt(bookPrice) <= 0) {
+            alert('Book Price must be a positive number.');
+            return false;
+        }
+
+        // Validation for Book Quantity
+        if (isNaN(bookQuantity) || parseInt(bookQuantity) <= 0) {
+            alert('Book Quantity must be a positive integer.');
+            return false;
+        }
+
+        // Validation for Book Publish Date
+        var currentDate = new Date();
+        var publishDate = new Date(bookPublishDate);
+
+        if (isNaN(publishDate.getTime()) || publishDate > currentDate) {
+            alert('Book Publish Date must be a valid date in the past.');
+            return false;
+        }
+
+        // If all validations pass, return true to allow form submission
+        return true;
+    }
+</script>
+    <form:form action="edit-book-details" onsubmit="return validateForm()" method="post" modelAttribute="book" enctype="multipart/form-data">
 	<h2>Edit Book</h2>
         <label for="bookName">Book Name:</label>
         <form:input path="bookName" id="bookName" />
@@ -87,23 +131,30 @@
         <label for="bookGenre">Book Genre:</label>
         <form:input path="bookGenre" id="bookGenre" />
 
-        <label for="bookPrice">Book Price:</label>
-        <form:input path="bookPrice" id="bookPrice" />
-
-        <label for="bookPublication">Book Publication:</label>
+        <label for="authorName">Author Name:</label>
+    <form:input path="authorName" id="authorName" />
+    <form:errors path="authorName" cssClass="error" />
+    
+	<label for="bookPublication">Book Publication:</label>
         <form:input path="bookPublication" id="bookPublication" />
+        
+    <label for="bookEdition">Book Edition:</label>
+    <form:input path="bookEdition" id="bookEdition" />
+    <form:errors path="bookEdition" cssClass="error" />
 
-        <label for="bookPublishDate">Book Publish Date:</label>
-        <form:input path="bookPublishDate" id="bookPublishDate" type="date" />
+    <label for="bookPrice">Book Price:</label>
+    <form:input path="bookPrice" id="bookPrice" />
+    <form:errors path="bookPrice" cssClass="error" />
 
-        <label for="bookEdition">Book Edition:</label>
-        <form:input path="bookEdition" id="bookEdition" />
+    <label for="bookQuantity">Book Quantity:</label>
+    <form:input path="bookQuantity" id="bookQuantity" />
+    <form:errors path="bookQuantity" cssClass="error" />
 
-        <label for="bookQuantity">Book Quantity:</label>
-        <form:input path="bookQuantity" id="bookQuantity" type="number" />
+    <label for="bookPublishDate">Book Publish Date:</label>
+    <form:input path="bookPublishDate" id="bookPublishDate" type="date" />
+    <form:errors path="bookPublishDate" cssClass="error" />
 		
-		<label for="authorName">Author Name:</label>
-        <form:input path="authorName" id="authorName" />
+		
         
         <label for="bookCover">Book Cover (Base64):</label>
         <form:input path="bookCover" type = "file" id="bookCover" />

@@ -8,72 +8,110 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Requested Books</title>
+    <title>Requested Books</title> 
     <style>
-        /* Add your CSS styles for the card here */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background-size: cover;
             margin: 0;
             padding: 0;
+        }
+
+        .card-container {
+            text-align: center; /* Center the content */
         }
 
         .card {
             border: 1px solid #ccc;
             border-radius: 5px;
             padding: 20px;
-            margin: 20px;
-            max-width: 300px;
-            background-color: #fff;
+            max-width: 200px; /* Adjust the card width as needed */
+            background-color: rgba(255,255,255,0.3);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            margin: 20px;
+            text-align: left; /* Reset text alignment for card content */
         }
 
-        h2 {
-            color: #333;
-        }
-
-        img {
+        .card img {
             max-width: 100%;
             height: auto;
-            margin-top: 10px;
+            margin-bottom: 10px;
         }
+
+        .details {
+            margin-left: 20px;
+        }
+
+        .book-cover {
+            max-width: 100px; /* Adjust the image size as needed */
+            height: auto;
+        }
+
+        .action-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+
+        .action-button:hover {
+            background-color: #45a049;
+        }
+        
+        h2{
+        text-align: center;}
     </style>
 </head>
 <body>
-    <h1>Requested Books</h1>
+    <header>
+        <jsp:include page="Header.jsp" />
+    </header>
+    <h2>Requested Books</h2>
 
-    <% List<RequestBook> bookList = (List<RequestBook>)request.getAttribute("list"); %>
+    <% List<RequestBook> bookList = (List<RequestBook>)request.getAttribute("list");
 
-    <% for (RequestBook book : bookList) { %>
-        <div class="card">
-            <h2><%= book.getBookName() %></h2>
-            <p><strong>User ID:</strong> <%= book.getUserId() %></p>
-            <p><strong>Book ID:</strong> <%= book.getBookId() %></p>
-            <p><strong>Request Status:</strong> <%= book.isRequestStatus() %></p>
-            <p><strong>Quantity:</strong> <%= book.getBookQuantity() %></p>
-            <p><strong>Book Quantity:</strong> <%= book.getCount() %></p>
-            <!-- Assuming bookCover is stored as a Blob -->
-            <% Blob blob = book.getBookCover(); %>
-            <img src="<%= blobToBase64(blob) %>" alt="Book Cover" style="max-width: 100%; height: auto;">
-            <%if(book.getBookQuantity() > book.getCount()){ %>
-            Out of stock
-            <%}else{ %>
-            <a href = "handleRequestPlaceOrder?bookId=<%= book.getBookId() %>&requestId=<%= book.getRequestId()%>">Place order</a>
-            <%} %>
+    if (bookList.isEmpty()) { %>
+        <p>No requested books.</p>
+    <% } else { %>
+        <div class="card-container">
+            <% for (RequestBook book : bookList) {
+                String bookCover = Base64.getEncoder().encodeToString(
+                    (book.getBookCover())
+                    .getBytes(1, (int) 
+                    (book.getBookCover()
+                            .length()))); %>
+                
+                <div class="card">
+                    <img class="book-cover" src="data:image/png;base64, <%=bookCover%>" alt="<%= book.getBookName() %>" />
+                    <div class="details">
+                        <h2><%= book.getBookName() %></h2>
+                        <p><strong>User ID:</strong> <%= book.getUserId() %></p>
+                        <p><strong>Book ID:</strong> <%= book.getBookId() %></p>
+                        <p><strong>Request Status:</strong> <%= book.isRequestStatus() %></p>
+                        <p><strong>Quantity:</strong> <%= book.getBookQuantity() %></p>
+                        <p><strong>Book Quantity:</strong> <%= book.getCount() %></p>
+                        <% if(book.getBookQuantity() > book.getCount()) { %>
+                            <p>Out of stock</p>
+                        <% } else { %>
+                           <a class="action-button" href="handleRequestPlaceOrder?bookId=<%= book.getBookId() %>&requestId=<%= book.getRequestId()%>">Place order</a>
+                        <% } %>
+                    </div>
+                </div>
+            <% } %>
         </div>
     <% } %>
 
-    <%-- Method to convert Blob to Base64 --%>
-    <%!
-        private String blobToBase64(Blob blob) {
-            try {
-                byte[] bytes = blob.getBytes(1, (int) blob.length());
-                return Base64.getEncoder().encodeToString(bytes);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return "";
-            }
+    <script>
+        function placeOrder(bookId, requestId) {
+            // Add logic to handle placing the order for the specified book and request
+            alert("Place order clicked for Book ID: " + bookId + ", Request ID: " + requestId);
+            // You can redirect or perform additional actions as needed
         }
-    %>
+    </script>
 </body>
 </html>

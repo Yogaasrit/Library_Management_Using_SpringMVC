@@ -52,7 +52,7 @@
 <header>
         <jsp:include page="admin-header.jsp" />
     </header>
-    <form action="process-reject-return">
+    <form action="process-reject-return" onsubmit="return validateForm()">
         <h2>Reject Return Book</h2>
        <!--  <label for="borrowedId">Borrowed ID:</label>
         <input type="text" id="borrowedId" name="borrowedId" required> -->
@@ -67,5 +67,15 @@
          value = "<%=request.getAttribute("userEmailId") %>" readonly/>
         <button type="submit" name="action" value="sendEmail">Send Email</button>
     </form>
+    
+<script>
+    function validateForm() {
+        // Your existing validation logic
+
+        // If validation is successful, show the alert
+        alert('Email sent successfully!');
+        return true; // Allow the form submission
+    }
+</script>
 </body>
 </html>

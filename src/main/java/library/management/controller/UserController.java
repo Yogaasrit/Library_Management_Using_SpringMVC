@@ -23,7 +23,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +52,7 @@ import library.management.repositories.AdminLoginDAO;
 import library.management.repositories.BookDAO;
 import library.management.repositories.UserDAO;
 import library.management.utilities.EmailSender;
+import library.management.utilities.MultipartFileToBlobPropertyEditor;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -228,25 +231,7 @@ public class UserController {
 	@PostMapping("/admin-changePassword")
 	public String openDashboard(Model model, @RequestParam("confirmPassword") String confirmPassword) {
 		int status = adminLoginDAO.updateAdminPassWord(confirmPassword);
-
-		int totalUserCount = adminLoginDAO.totalUser();
-		int totalBookCount = adminLoginDAO.totalBooks();
-		int totalBooksBorrowed = adminLoginDAO.totalBooksBorrowed();
-		int totalPendingApproval = adminLoginDAO.totalBooksApproval();
-		int totalBooksBought = adminLoginDAO.totalBooksBought();
-		int totalBooksBorrowedToday = adminLoginDAO.totalBooksBorrowedToday();
-		int totalBooksBoughtToday = adminLoginDAO.totalBooksBoughtToday();
-		int totalUserOverDueCount = adminLoginDAO.totalUserOverDueCount();
-
-		model.addAttribute("totalUserCount", totalUserCount);
-		model.addAttribute("totalBookCount", totalBookCount);
-		model.addAttribute("totalBooksBorrowed", totalBooksBorrowed);
-		model.addAttribute("totalBooksBought", totalBooksBought);
-		model.addAttribute("totalPendingApproval", totalPendingApproval);
-		model.addAttribute("totalBooksBorrowedToday", totalBooksBorrowedToday);
-		model.addAttribute("totalBooksBoughtToday", totalBooksBoughtToday);
-		model.addAttribute("totalUserOverDueCount", totalUserOverDueCount);
-		return "AdminDashboard";
+		return "AdminLogin";
 	}
 
 	@PostMapping("/handle-register")
@@ -557,7 +542,7 @@ public class UserController {
 		Book book = bookDAO.displayByBookId(Integer.parseInt(bookId));
 		List<FeedBack> list = bookDAO.getBookFeedback(Integer.parseInt(bookId));
 		System.out.println("List: "+list);
-//		model.addAttribute("book",book);
+		model.addAttribute("book",book);
 		model.addAttribute("list",list);
 		return "show-book-details";
 	}
@@ -818,11 +803,18 @@ public class UserController {
 		User userProfile = userDAO.getUser(user.getUserEmailId());
 		System.out.println(userProfile);
 		model.addAttribute("user", userProfile);
+//		model.addAttribute("profileImage", user.getProfilePic());
 		return "update-profile-page";
 	}
 
+	@InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Blob.class, new MultipartFileToBlobPropertyEditor());
+    }
+	
 	@PostMapping("/userForm")
 	public String updateProfile(@ModelAttribute User user, HttpSession session, Model model) {
+		
 		User userSession = (User) session.getAttribute("User");
 		int status = userDAO.updateProfile(user, userSession.getUserId());
 		model.addAttribute("userProfile", user);
@@ -840,13 +832,18 @@ public class UserController {
 	@PostMapping("/changePassword")
 	public String changePassword(@RequestParam("newPassword") String newPassword,
 			@RequestParam("confirmPassword") String confirmPassword, Model model, HttpSession session) {
-		String emailId = ((User) session.getAttribute("User")).getUserEmailId();
+		
+//		System.out.println("test");
+		User user = (User) session.getAttribute("User");
+		String emailId = user.getUserEmailId();
 		int changePassword = userDAO.updatePassword(newPassword, emailId);
-		User userSession = (User) session.getAttribute("User");
-		User userProfile = userDAO.getUser(emailId);
-		model.addAttribute("userProfile", userProfile);
-		return "user-profile";
-	}
+		System.out.println(changePassword);
+		
+//		User userSession = (User) session.getAttribute("User");
+//		User userProfile = userDAO.getUser(emailId);
+//		model.addAttribute("userProfile", userProfile);
+		return "UserLogin"; 
+	} 
 
 	@GetMapping("/approve-return-book")
 	public String approveBooks(Model model) {
@@ -874,9 +871,9 @@ public class UserController {
 	public String sendRejectEmail(@RequestParam("rejectReason") String message,
 			@RequestParam("borrowedId") String borrowedId, @RequestParam("bookName") String bookName,
 			@RequestParam("userEmailId") String userEmailId, Model model) {
-
 		EmailSender sender = new EmailSender();
 		sender.sendRejectResponse(userEmailId, message, borrowedId, bookName);
+		int status = userDAO.updateFineAmount(borrowedId);
 		List<BookApproval> list = userDAO.viewApprovalList();
 		model.addAttribute("list", list);
 		return "approve-return-books";
@@ -954,10 +951,13 @@ public class UserController {
 	}
 
 	@GetMapping("/handleReserve")
-	public String handleReserve(@RequestParam("bookId") String bookId, HttpSession session) {
+	public String handleReserve(@RequestParam("bookId") String bookId, HttpSession session, Model model) {
 		User user = (User) session.getAttribute("User");
 		int status = userDAO.insertHandleReserve(user.getUserId(), Integer.parseInt(bookId));
-		return "UserDashboard";
+		// ----------------------------------
+		List<ReserveBook> list = userDAO.getReserveBookByUserId(user.getUserId());
+		model.addAttribute("list", list);
+		return "view-reserve-page";
 	}
 
 	@GetMapping("/view-reserve-page")
@@ -1026,7 +1026,7 @@ public class UserController {
 			HttpSession session) {
 		User user = (User) session.getAttribute("User");
 		int status = userDAO.addFeedBack(Integer.parseInt(bookId), rating, comment, borrowedId, user.getUserId());
-		return "write-feedback-page";
+		return "redirect:write-feedback-page";
 	}
 
 	@GetMapping("/leaderboard")
@@ -1076,4 +1076,7 @@ public class UserController {
 		int status = userDAO.addForum(user.getUserId(),user.getUserName(),content);
 		return "redirect:forum";
 	}
+	
+	
+	
 }

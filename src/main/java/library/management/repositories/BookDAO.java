@@ -2,7 +2,10 @@ package library.management.repositories;
 
 import java.sql.Blob;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
+
+import org.springframework.dao.DataAccessException;
 
 import library.management.entities.Book;
 import library.management.entities.FeedBack;
@@ -20,7 +23,7 @@ public interface BookDAO {
 	int updateBookCount(int bookCount,int bookId);
 	int updateBorrowBookCount(int userId,int bookId,Date borrowedDate,Date returnDate);
 	List<Book> getAllAuthor();
-	int editBookDetails(int bookId,Book book);
+	int editBookDetails(int bookId,Book book) throws DataAccessException, SQLException;
 	int deleteBook(int bookId);
 	int addFreeBook(FreeBook freebook);
 	List<FreeBook> displayFreeBooks();

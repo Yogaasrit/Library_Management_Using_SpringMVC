@@ -6,24 +6,18 @@
     <title>Event Management</title>
      <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+           font-family: Arial, sans-serif;
+            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background-size: cover;
             margin: 0;
             padding: 0;
-        }
-
-        h1 {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
         }
 
         .form-container {
             width: 50%;
             margin: auto;
             padding: 20px;
-            background-color: #fff;
+            background-color: rgba(255,255,255,0.3);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-top: 50px;
         }
@@ -44,12 +38,19 @@
         }
 
         button {
-            background-color: #333;
+            background-color: #28a745;
             color: #fff;
             padding: 10px;
             border: none;
             cursor: pointer;
         }
+        
+        .center-container {
+        text-align: center;
+    }
+        h2{
+text-align: center;
+margin-top : 80px;}
     </style>
 
     <script>
@@ -69,7 +70,10 @@
     </script>
 </head>
 <body>
-    <h1>Event Management</h1>
+<header>
+        <jsp:include page="admin-header.jsp" />
+    </header>
+    <h2>Add Events</h2>
 
     <div class="form-container">
         <form action="upcoming-events-detail" method="post" onsubmit="return validateEventDate()">
@@ -82,8 +86,10 @@
                 <label for="eventDate">Event Date:</label>
                 <input type="date" id="eventDate" name="eventDate" required>
             </div>
-
-            <button type="submit" onclick="return window.confirm('Are you sure you want to add event?')">Submit</button>
+			
+			<div class="center-container">
+			<button type="submit" onclick="return window.confirm('Are you sure you want to add event?')">Submit</button>
+			</div>     
         </form>
     </div>
 </body>

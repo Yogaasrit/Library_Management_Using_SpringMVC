@@ -9,6 +9,10 @@
     <title>Bill Invoice</title>
     <style>
         /* Add your CSS styles here */
+        body{
+         background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+         background-size: cover;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -22,7 +26,10 @@
         .total-amount {
             font-weight: bold;
             margin-top: 20px;
+            text-align: right;
+            margin-right: 180px;
         }
+        
         .proceed-to-pay-btn {
             background-color: #4caf50;
             color: #fff;
@@ -30,26 +37,40 @@
             cursor: pointer;
             font-size: 16px;
             text-decoration: none;
-            display: inline-block;
+            
         }
         .shipping-form {
             margin-top: 20px;
+            text-align: center;
         }
         .shipping-label {
             display: block;
             margin-bottom: 5px;
         }
         .shipping-input {
-            width: 100%;
+            width: 50%;
             padding: 8px;
             margin-bottom: 10px;
             box-sizing: border-box;
+            background-color: rgba(255,255,255,0.3);
+        }
+        
+        h2{
+        	text-align: center;
         }
     </style>
+
 </head>
 <body>
-    <h1>Bill Invoice</h1>
-    <p>Billing Date: <%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %></p>
+<header>
+	<jsp:include page="Header.jsp" />
+</header>
+
+
+    <h2>Bill Invoice</h2>
+    <p><strong>
+    Billing Date: <%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %></strong>
+    </p>
 
     <table>
         <thead>
@@ -82,22 +103,55 @@
             <% } %>
         </tbody>
     </table>
+    <script>
+    function validateAndProceed() {
+        // Validate email
+        var emailInput = document.getElementById('contactEmail');
+        var emailError = document.getElementById('emailError');
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(emailInput.value)) {
+            emailError.innerHTML = 'Invalid email address';
+            alert('Invalid email address. Please enter a valid email.');
+            return;
+        } else {
+            emailError.innerHTML = '';
+        }
 
+        // Validate phone number
+        var phoneInput = document.getElementById('phoneNo');
+        var phoneError = document.getElementById('phoneError');
+        var phonePattern = /^\d{10}$/;
+        if (!phonePattern.test(phoneInput.value)) {
+            phoneError.innerHTML = 'Phone number must be 10 digits';
+            alert('Phone number must be 10 digits. Please enter a valid phone number.');
+            return;
+        } else {
+            phoneError.innerHTML = '';
+        }
+
+        // If both email and phone are valid, proceed to payment page
+        var grandTotal = <%= grandTotal %>;
+        alert('Validation successful! Proceeding to payment page.');
+        window.location.href = 'payment-page?grandTotal=' + grandTotal;
+    }
+</script>
     <p class="total-amount">Grand Total: <%= grandTotal %></p>
 
-    <!-- Add the shipping address form -->
     <div class="shipping-form">
-        <label class="shipping-label" for="shippingAddress">Shipping Address:</label>
-        <input class="shipping-input" type="text" id="shippingAddress" name="shippingAddress" required>
+    <label class="shipping-label" for="shippingAddress">Shipping Address:</label>
+    <input class="shipping-input" type="text" id="shippingAddress" name="shippingAddress" required>
 
-        <label class="shipping-label" for="contactEmail">Contact Email:</label>
-        <input class="shipping-input" type="email" id="contactEmail" name="contactEmail" required>
+    <label class="shipping-label" for="contactEmail">Contact Email:</label>
+    <input class="shipping-input" type="email" id="contactEmail" name="contactEmail" required>
+    <span id="emailError" style="color: red;"></span>
 
-        <label class="shipping-label" for="phoneNo">Phone Number:</label>
-        <input class="shipping-input" type="tel" id="phoneNo" name="phoneNo" required>
-    </div>
+    <label class="shipping-label" for="phoneNo">Phone Number:</label>
+    <input class="shipping-input" type="tel" id="phoneNo" name="phoneNo" required>
+    <span id="phoneError" style="color: red;"></span> <br><br>
+    <a href="#" onclick="validateAndProceed()" class="proceed-to-pay-btn">Proceed to Pay</a>
+    
+</div>
 
-    <!-- Proceed to Pay button -->
-    <a href="payment-page?grandTotal=<%=grandTotal %>" class="proceed-to-pay-btn">Proceed to Pay</a>
+<!-- Proceed to Pay button -->
 </body>
 </html>

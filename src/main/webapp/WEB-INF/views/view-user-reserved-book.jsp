@@ -9,34 +9,65 @@
 <head>
     <meta charset="UTF-8">
     <title>User Reserved Books</title>
-    <style>
+        <style>
         /* Add your CSS styles for the table here */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
+            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background-size: cover;
+        margin: 0;
+        padding: 0;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border:none;
+        margin-top: 20px;
+        
+    }
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align:center;
+    }
 
-        th {
-            background-color: #f2f2f2;
-        }
+    th {
+        background-color: rgba(255,255,255,0.3);
+    }
+
+    .book-image {
+        width: 100px; /* Set your preferred width */
+        height: 150px; /* Set your preferred height */
+        object-fit: cover; /* This ensures the image maintains its aspect ratio */
+    } 
+    a.update {
+    display: inline-block;
+    padding: 8px 16px; /* Adjust the padding as needed */
+    text-decoration: none;
+    background-color: #28a745; /* Button background color */
+    color: #fff; /* Button text color */
+    border:none; /* Button border color */
+    border-radius: 4px; /* Optional: Rounded corners */
+    transition: background-color 0.3s ease; /* Optional: Smooth hover effect */
+
+}
+
+a.update:hover {
+    background-color: #c82333; /* Change the background color on hover */
+    border-color: #c82333; /* Change the border color on hover */
+}  
+h2{
+text-align: center;
+margin-top : 80px;}
     </style>
 </head>
 <body>
-    <h1>User Reserved Books</h1>
+<header>
+        <jsp:include page="admin-header.jsp" />
+    </header>
+    <h2>User Reserved Books</h2>
     <% List<ReserveBook> list = (List<ReserveBook>)request.getAttribute("list"); %>
 
     <table>
@@ -48,7 +79,7 @@
                 <th>Book Name</th>
                 <th>Author Name</th>
                 <th>Book Cover</th>
-                <th>Count</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -68,7 +99,7 @@
                         <img class="book-image" src="data:image/png;base64, <%= bookCover %>" alt="<%= reserveBook.getBookName() %>" />
                     </td>
                     
-                    <td><a href="book/edit-book?bookId=<%=reserveBook.getBookId()%>" >update</a></td>
+                    <td><a class ="update" href="book/edit-book?bookId=<%=reserveBook.getBookId()%>" >update</a></td>
                 </tr>
             <% } %>
         </tbody>

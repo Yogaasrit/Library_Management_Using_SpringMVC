@@ -144,11 +144,13 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return "Book [bookId=" + bookId + ", bookName=" + bookName + ", bookPrice=" + bookPrice + ", bookGenre="
-				+ bookGenre + ", bookPublication=" + bookPublication + ", bookEdition=" + bookEdition
-				+ ", bookQuantity=" + bookQuantity + ", publishDate=" + bookPublishDate + ", authorName=" + authorName
-				+ ", bookStatus=" + bookStatus + "]";
+		return "Book [bookId=" + bookId + ", bookName=" + bookName + ", bookCover=" + bookCover + ", bookPrice="
+				+ bookPrice + ", bookGenre=" + bookGenre + ", bookPublication=" + bookPublication + ", bookEdition="
+				+ bookEdition + ", bookQuantity=" + bookQuantity + ", bookPublishDate=" + bookPublishDate
+				+ ", authorName=" + authorName + ", bookStatus=" + bookStatus + "]";
 	}
+
+	
 
 	
 }

@@ -482,4 +482,12 @@ public class UserDAOImplementation implements UserDAO{
 				+ "where userId = ? and borrowedId = ? and returnDate < curdate(); \r\n";
 		return jdbcTemplate.update(calcFineQuery,userId,borrowedId);
 	}
+
+	@Override
+	public int updateFineAmount(String borrowedId) {
+		String updateFineAmountQuery = "UPDATE borrowbook\r\n"
+				+ "SET bookFine = (SELECT bookPrice FROM books WHERE books.bookId = borrowbook.bookId)\r\n"
+				+ "WHERE borrowedId = ?";
+		return jdbcTemplate.update(updateFineAmountQuery,borrowedId );
+	}
 }

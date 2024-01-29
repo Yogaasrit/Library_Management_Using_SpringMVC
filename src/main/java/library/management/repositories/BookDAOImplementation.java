@@ -2,8 +2,10 @@ package library.management.repositories;
 
 import java.sql.Blob;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import library.management.entities.Book;
@@ -116,13 +118,13 @@ public class BookDAOImplementation implements BookDAO {
 	}
 
 	@Override
-	public int editBookDetails(int bookId, Book book) {
+	public int editBookDetails(int bookId, Book book) throws DataAccessException, SQLException {
 		
 		String editBookQuery= "UPDATE books SET bookName = ?, bookPrice = ?,bookGenre=?,bookPublication=?,bookEdition=?,bookQuantity=?,authorName=?, bookCover = ? WHERE bookId = ?";
 		return jdbcTemplate.update(editBookQuery,
 				book.getBookName(),book.getBookPrice(),book.getBookGenre(),book.getBookPublication(),
 				book.getBookEdition(),book.getBookQuantity(),
-				book.getAuthorName(),book.getBookCover(),bookId);
+				book.getAuthorName(),book.getBookCover().getBytes(1,(int)book.getBookCover().length() ),bookId);
 	}
 
 	@Override

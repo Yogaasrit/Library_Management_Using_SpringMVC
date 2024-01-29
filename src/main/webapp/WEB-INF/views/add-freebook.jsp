@@ -13,11 +13,11 @@
         }
         .form h2{
         text-align: center;
-        color:white;
+        color:black;
         }
 
         .form {
-            background-color: rgba(255,255,255,0.5);
+            background-color: rgba(255,255,255,0.3);
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -44,12 +44,13 @@
             padding: 8px;
             margin-bottom: 16px;
             box-sizing: border-box;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.5);
         }
 
         input[type="file"] {
             width: 55%;
             margin-top: 5px;
+            background-color: rgba(255, 255, 255, 0.5);
         }
 
         input[type="submit"] {

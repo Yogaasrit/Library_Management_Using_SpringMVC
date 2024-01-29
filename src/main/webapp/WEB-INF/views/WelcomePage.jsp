@@ -25,7 +25,7 @@
             color: #fff;
             padding: 10px 20px;
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
             position: fixed;
             top: 0;
@@ -37,7 +37,8 @@
         header a {
             color: #fff;
             text-decoration: none;
-            margin-left: 10px;
+            margin-right: 60px;
+            margin-left:20px;
             font-size: 20px;
             display: inline-block;
             background-color: transparent;
@@ -80,11 +81,13 @@
         .newsItem {
             display: inline-block;
             padding: 10px;
-            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background for better readability */
+            background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent background for better readability */
             margin-right: 20px;
             animation: scrollNews linear infinite;
         }
-
+		.detail{
+			color: black;
+		}
         @keyframes scrollNews {
             0% {
                 transform: translateX(100%);
@@ -108,6 +111,7 @@
         .quote-author {
             color: black;
         }
+        
     </style>
 </head>
 <body>
@@ -132,7 +136,7 @@
         <% for (UpcomingEvent event : events) { %>
             <div class="newsItem">
                 <p><strong><%= event.getUpcomingEventDate() %></strong></p>
-                <p><%= event.getUpcomingEventDetail() %></p>
+                <p class = "detail"><Strong><%= event.getUpcomingEventDetail() %></Strong></p>
             </div>
             
         <% } %>

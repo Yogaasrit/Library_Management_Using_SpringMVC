@@ -141,9 +141,12 @@ nav a:hover {
 </style>
 </head>
 <body>
+
+<%String url = request.getContextPath(); %>
+
 <header>
     <nav>
-        <a href="UserDashboard">Home</a>
+        <a href="<%= url %>/User/UserDashboard">Home</a>
         <a href="about-us">About Us</a>
         <a href="contact-us">Contact Us</a>
         <a href="Gallery">Gallery</a>
@@ -158,11 +161,11 @@ nav a:hover {
             <span class="button">User Operations</span>
             <div class="dropdown-content">
                 <a href="book/view-books">View Books</a>
-                <a href="view-your-books">Your Book orders</a>
-                <a href="view-borrowed-books">Borrowed Books</a>
-                <a href="view-requested-book">Request books</a>
-                <a href="view-reserve-page">Reserve books</a>
-                <a href ="write-feedback-page">Write your feedback</a>
+                <a href="<%= url %>/User/view-your-books">Your Book orders</a>
+                <a href="<%= url %>/User/view-borrowed-books">Borrowed Books</a>
+                <a href="<%= url %>/User/view-requested-book">Request books</a>
+                <a href="<%= url %>/User/view-reserve-page">Reserve books</a>
+                <a href="<%= url %>/User/write-feedback-page">Write your feedback</a>
                 <a href="#">Your Borrow history</a>
             </div>
         </div>

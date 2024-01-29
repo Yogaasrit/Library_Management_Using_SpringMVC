@@ -1,6 +1,5 @@
 <%@page import="library.management.entities.ReserveBook"%>
 <%@page import="java.util.Base64"%>
-<%@page import="library.management.entities.RequestBook"%>
 <%@page import="java.util.List"%>
 <%@page import="java.sql.Blob"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -11,12 +10,16 @@
     <meta charset="UTF-8">
     <title>Reserve Books</title>
     <style>
-        /* Add your CSS styles for the card here */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background-size: cover;
             margin: 0;
             padding: 0;
+        }
+
+        .card-container {
+            text-align: center;
         }
 
         .card {
@@ -24,58 +27,84 @@
             border-radius: 5px;
             padding: 20px;
             margin: 20px;
-            max-width: 300px;
-            background-color: #fff;
+            max-width: 200px;
+            background-color: rgba(255,255,255,0.3);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            text-align: left;
+        }
+
+        .card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
         }
 
         h2 {
-            color: #333;
+            color: black;
+            text-align: center;
         }
 
-        img {
-            max-width: 100%;
+        .book-cover {
+            max-width: 100px;
             height: auto;
+        }
+
+        .action-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
             margin-top: 10px;
+            text-decoration: none;
+        }
+
+        .action-button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <h1>Reserve Books</h1>
+<header>
+        <jsp:include page="Header.jsp" />
+    </header>
+    <h2>Reserve Books</h2>
 
-    <% List<ReserveBook> bookList = (List<ReserveBook>)request.getAttribute("list"); %>
-	
-    <% for (ReserveBook book : bookList) { %>
-        <div class="card">
-            <h2><%= book.getBookName() %></h2>
-            <p><strong>User ID:</strong> <%= book.getUserId() %></p>
-            <p><strong>Book ID:</strong> <%= book.getBookId() %></p>
-            
-            
-          
-            <!-- Assuming bookCover is stored as a Blob -->
-            <% Blob blob = book.getBookCover(); %>
-            <img src="<%= blobToBase64(blob) %>" alt="Book Cover" style="max-width: 100%; height: auto;">
-            <%if(book.getBookQuantity() == 0){ %>
-            Out of stock
-            <%}else{ %>
-            <a href = "handleReserveBorrowBook?bookId=<%= book.getBookId() %>&reserveId=<%= book.getReserveId()%>">
-            Borrow Book</a>
-            <%} %>
+    <% List<ReserveBook> bookList = (List<ReserveBook>)request.getAttribute("list");
+
+    if (bookList.isEmpty()) { %>
+        <p>No reserved books found.</p>
+    <% } else { %>
+        <div class="card-container">
+            <% for (ReserveBook book : bookList) {
+                String bookCover = Base64.getEncoder().encodeToString(
+                    (book.getBookCover())
+                    .getBytes(1, (int) 
+                    (book.getBookCover()
+                            .length()))); %>
+                
+                <div class="card">
+                    <img class="book-cover" src="data:image/png;base64, <%=bookCover%>" alt="<%= book.getBookName() %>" />
+                    <h2><%= book.getBookName() %></h2>
+                    <p><strong>User ID:</strong> <%= book.getUserId() %></p>
+                    <p><strong>Book ID:</strong> <%= book.getBookId() %></p>
+                    <% if(book.getBookQuantity() == 0) { %>
+                        <p>Out of stock</p>
+                    <% } else { %>
+                        <a class = "action-button" href="handleReserveBorrowBook?bookId=<%= book.getBookId() %>&reserveId=<%= book.getReserveId()%>">Borrow Book</a>
+                    <% } %>
+                </div>
+            <% } %>
         </div>
     <% } %>
 
-    <%-- Method to convert Blob to Base64 --%>
-    <%!
-        private String blobToBase64(Blob blob) {
-            try {
-                byte[] bytes = blob.getBytes(1, (int) blob.length());
-                return Base64.getEncoder().encodeToString(bytes);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return "";
-            }
+    <script>
+        function borrowBook(bookId, reserveId) {
+            // Add logic to handle borrowing the book for the specified book and reserve
+            alert("Borrow Book clicked for Book ID: " + bookId + ", Reserve ID: " + reserveId);
+            // You can redirect or perform additional actions as needed
         }
-    %>
+    </script>
 </body>
 </html>

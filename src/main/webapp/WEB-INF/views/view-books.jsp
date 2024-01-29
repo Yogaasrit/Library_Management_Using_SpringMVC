@@ -96,31 +96,42 @@
 </style>
 
     <script>
-        function searchBooks() {
-            var bookName = document.getElementById('bookName').value.toLowerCase();
-            var authorName = document.getElementById('authorName').value.toLowerCase();
-            var bookGenre = document.getElementById('genreFilter').value.toLowerCase();
+    function searchBooks() {
+        var bookName = document.getElementById('bookName').value.toLowerCase();
+        var authorName = document.getElementById('authorName').value.toLowerCase();
+        var bookGenre = document.getElementById('genreFilter').value.toLowerCase();
 
-            var bookContainers = document.querySelectorAll('.book-container');
+        var bookCards = document.querySelectorAll('.book-card');
 
-            for (var i = 0; i < bookContainers.length; i++) {
-                var container = bookContainers[i];
-                var bookTitle = container.querySelector('.book-title').textContent.toLowerCase();
-                var author = container.querySelector('.author').textContent.toLowerCase();
-                var genre = container.querySelector('.genre').textContent.toLowerCase();
+        for (var i = 0; i < bookCards.length; i++) {
+            var card = bookCards[i];
+            var bookTitle = card.querySelector('h3').textContent.toLowerCase();
+            var author = card.querySelector('.author').textContent.toLowerCase();
+            var genre = card.querySelector('.genre').textContent.toLowerCase();
+            var booksFound = false;
 
-                var matchName = bookTitle.indexOf(bookName) !== -1;
-                var matchAuthor = author.indexOf(authorName) !== -1;
-                var matchGenre = genre.indexOf(bookGenre) !== -1;
+            var matchName = bookTitle.indexOf(bookName) !== -1;
+            var matchAuthor = author.indexOf(authorName) !== -1;
+            var matchGenre = genre.indexOf(bookGenre) !== -1;
 
-                if (matchName && matchAuthor && matchGenre) {
-                    container.style.display = 'block';
-                } else {
-                    container.style.display = 'none';
-                }
+            if (matchName && matchAuthor && matchGenre) {
+                card.style.display = 'block';
+                booksFound = true;
+
+            } else {
+                card.style.display = 'none';
             }
         }
-    </script>
+        
+     // Show or hide the "No books found" message
+        if (booksFound) {
+            noBooksFoundMessage.style.display = 'none';
+        } else {
+            noBooksFoundMessage.style.display = 'block';
+        }
+    }
+</script>
+
 </head>
 <body>
 <header>
@@ -167,6 +178,7 @@
             No books found!!
         <% } else { 
             for (Book book : books) {
+            	
                 String bookCover = Base64.getEncoder().encodeToString(
                         (book.getBookCover())
                                 .getBytes(1, (int) 
@@ -191,14 +203,11 @@
                 <p class="author">Author: <%= book.getAuthorName() %></p>
                 <p class="genre">Genre: <%= book.getBookGenre() %></p>
             </div>
-                
-                
-                
-                
-                
-                
+  
                 
         <% } } %>
+            <p id="noBooksFoundMessage" style="display:none;">No books found!!</p>
+        
     <!-- </div> -->
 </body>
 </html>
