@@ -9,7 +9,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background: url('/LibraryManagement/resources/images/userimg25.avif') center center fixed;
             background-size: cover;
             margin: 0;
             padding: 0;
@@ -18,8 +18,8 @@
         .container {
             max-width: 800px;
             margin: 20px auto;
-            background-color: rgba(255,255,255,0.1);
             padding: 20px;
+            background-color: rgba(255,255,255,0.2);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
             border-radius: 5px;
         }
@@ -37,21 +37,18 @@
         }
 
         th, td {
+        	border: 1px solid black;
             padding: 12px;
             text-align: left;
-            border-bottom: 1px solid black; /* Border color set to black */
             margin: 8px 0;
             font-weight: bold; /* Text made bold */
             color: black; /* Text color set to black */
         }
+        
+       
+        
 
-        th {
-            background-color: rgba(255,255,255,0.1);
-        }
-
-        td {
-            background-color: rgba(255,255,255,0.3);
-        }
+       
 
         .book-container {
             display: flex;

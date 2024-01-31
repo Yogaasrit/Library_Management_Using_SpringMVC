@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,11 +31,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import library.management.entities.Admin;
 import library.management.entities.Book;
 import library.management.entities.BookApproval;
 import library.management.entities.BorrowBook;
 import library.management.entities.FeedBack;
+import library.management.entities.FineDetails;
 import library.management.entities.ForumHistory;
 import library.management.entities.FreeBook;
 import library.management.entities.LeaderBoard;
@@ -53,9 +56,6 @@ import library.management.repositories.BookDAO;
 import library.management.repositories.UserDAO;
 import library.management.utilities.EmailSender;
 import library.management.utilities.MultipartFileToBlobPropertyEditor;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @Controller
@@ -248,6 +248,31 @@ public class UserController {
 		}
 	}
 
+	@GetMapping("/AdminDashboard")
+	public String adminHomePage(Model model, HttpSession session) {
+		int totalUserCount = adminLoginDAO.totalUser();
+		int totalBookCount = adminLoginDAO.totalBooks();
+		int totalBooksBorrowed = adminLoginDAO.totalBooksBorrowed();
+		int totalPendingApproval = adminLoginDAO.totalBooksApproval();
+		int totalBooksBought = adminLoginDAO.totalBooksBought();
+		int totalBooksBorrowedToday = adminLoginDAO.totalBooksBorrowedToday();
+		int totalBooksBoughtToday = adminLoginDAO.totalBooksBoughtToday();
+		int totalUserOverDueCount = adminLoginDAO.totalUserOverDueCount();
+
+		model.addAttribute("totalUserCount", totalUserCount);
+		model.addAttribute("totalBookCount", totalBookCount);
+		model.addAttribute("totalBooksBorrowed", totalBooksBorrowed);
+		model.addAttribute("totalBooksBought", totalBooksBought);
+		model.addAttribute("totalPendingApproval", totalPendingApproval);
+		model.addAttribute("totalBooksBorrowedToday", totalBooksBorrowedToday);
+		model.addAttribute("totalBooksBoughtToday", totalBooksBoughtToday);
+		model.addAttribute("totalUserOverDueCount", totalUserOverDueCount);
+		
+		model.addAttribute("adminSession", session.getAttribute("adminSession"));
+	
+		return "AdminDashboard";
+	}
+	
 	@PostMapping("/validate-admin")
 	public String showAdminDashboard(@RequestParam("adminEmailId") String adminEmailId,
 			@RequestParam("adminPassword") String adminPassword, HttpServletRequest request, Model model) {
@@ -486,35 +511,35 @@ public class UserController {
 
 		System.out.println("Adding to cart: " + bookId + "-" + bookCount);
 
-// Get the current user from the session
+     // Get the current user from the session
 		User user = (User) session.getAttribute("User");
 
-// Get the user's cart from the session
+     // Get the user's cart from the session
 		Map<String, Integer> cart = (Map<String, Integer>) session.getAttribute("cart");
 
-// If the cart doesn't exist, create a new one
+     // If the cart doesn't exist, create a new one
 		if (cart == null) {
 			cart = new HashMap<>();
 		}
 
-// Update the cart with the selected book and quantity
+     // Update the cart with the selected book and quantity
 		if (cart.containsKey(bookId)) {
-// Book already exists in the cart, add the new count to the existing count
+     // Book already exists in the cart, add the new count to the existing count
 			int existingCount = cart.get(bookId);
 			int newCount = existingCount + Integer.parseInt(bookCount);
 			cart.put(bookId, newCount);
 		} else {
-// Book doesn't exist in the cart, add it with the provided count
+      // Book doesn't exist in the cart, add it with the provided count
 			cart.put(bookId, Integer.parseInt(bookCount));
 		}
 
-// Update the session with the modified cart
+      // Update the session with the modified cart
 		session.setAttribute("cart", cart);
 		System.out.println(cart);
 		
 		int countStatus = userDAO.updateBookQuantityAddToCart(bookId,bookCount);
 		
-// Redirect back to the view books page or wherever you want
+     // Redirect back to the view books page or wherever you want
 		List<Book> bookList = bookDAO.viewAllBooks();
 		System.out.println(bookList);
 		model.addAttribute("bookList", bookList);
@@ -700,8 +725,8 @@ public class UserController {
 
 	@GetMapping("/pay-fine")
 	public String handlePayfine(@RequestParam("borrowedId") String borrowedId, Model model) {
-
-		model.addAttribute("borrowedId", borrowedId);
+		FineDetails fine = userDAO.getFineDetails(Integer.parseInt(borrowedId));
+		model.addAttribute("finedetails", fine);
 		return "view-fine";
 	}
 
@@ -711,6 +736,16 @@ public class UserController {
 		return "redirect:view-borrowed-books";
 	}
 
+	@GetMapping("update-paid-fine")
+	public String UpdatePaidFine(@RequestParam("borrowedId") String borrowedId,
+			HttpSession session, Model model) {
+		int status = userDAO.updatePaidFine(Integer.parseInt(borrowedId));
+		User user = (User) session.getAttribute("User");
+		List<BorrowBook> borrowedBooks = userDAO.viewBorrowedBooks(user.getUserId());
+		// 
+		model.addAttribute("borrowedBooks", borrowedBooks);
+		return "view-borrowed-books";
+	}
 	// -------------------wasim-------------
 
 	// open delete-user.jsp file using getMapping annotation

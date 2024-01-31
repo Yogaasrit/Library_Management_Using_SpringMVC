@@ -12,7 +12,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: url('/LibraryManagement/resources/images/bg-image1.avif') center/cover no-repeat fixed;
+            background: url('/LibraryManagement/resources/images/adminimg1.jpg') center/cover no-repeat fixed;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -26,6 +26,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Box shadow for a subtle effect */
             text-align: center;
             background-color: transparent;
+            color:white;
         }
 
         h1 {

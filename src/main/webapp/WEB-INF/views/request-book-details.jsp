@@ -11,7 +11,7 @@
     body {
         font-family: Arial, sans-serif;
         margin: 20px;
-        background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+        background: url('/LibraryManagement/resources/images/userimg8.jpg') center center fixed;
         background-size: cover;
     }
 

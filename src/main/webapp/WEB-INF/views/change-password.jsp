@@ -9,8 +9,9 @@
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
-    background-size: cover;
+    background: url('/LibraryManagement/resources/images/userimg40.avif') center center fixed;
+     background-size: 100% 100%;
+            background-repeat: no-repeat;
 }
 
 h2 {

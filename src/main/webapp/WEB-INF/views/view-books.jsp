@@ -18,7 +18,7 @@
         margin: 0;
         padding: 0;
         text-align: center;
-        background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+        background: url('/LibraryManagement/resources/images/userimg23.jpg') center center fixed;
         background-size: cover;
     }
 
@@ -97,10 +97,11 @@
 
     <script>
     function searchBooks() {
+    	
         var bookName = document.getElementById('bookName').value.toLowerCase();
         var authorName = document.getElementById('authorName').value.toLowerCase();
         var bookGenre = document.getElementById('genreFilter').value.toLowerCase();
-
+		//book card has all books
         var bookCards = document.querySelectorAll('.book-card');
 
         for (var i = 0; i < bookCards.length; i++) {
@@ -113,7 +114,7 @@
             var matchName = bookTitle.indexOf(bookName) !== -1;
             var matchAuthor = author.indexOf(authorName) !== -1;
             var matchGenre = genre.indexOf(bookGenre) !== -1;
-
+			
             if (matchName && matchAuthor && matchGenre) {
                 card.style.display = 'block';
                 booksFound = true;

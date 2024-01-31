@@ -8,7 +8,7 @@
             padding: 0;
             display: flex;
             height: 100vh;
-            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background: url('/LibraryManagement/resources/images/adminimg13.avif') center center fixed;
             background-size: cover;
         }
         .form h2{
@@ -23,12 +23,13 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 80%;
             height:50%;
-            margin-left: 380px;
+            margin-left: 600px;
             margin-top: 100px;
             max-width: 600px; /* Adjust the maximum width as needed */
             justify-content: center;
             margin-bottom:120px;
             padding:50px;
+            
             
              
         }

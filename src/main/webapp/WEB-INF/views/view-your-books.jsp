@@ -22,8 +22,9 @@ function goBack() {
             margin: 0;
             padding: 20px;
             text-align: center;
-            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
-            background-size: cover;
+            background: url('/LibraryManagement/resources/images/userimg34.avif') center center fixed;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
         }
 
         h1 {

@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
-            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background: url('/LibraryManagement/resources/images/adminimg12.jpg') center center fixed;
             background-size: cover;
         }
 

@@ -8,12 +8,14 @@
   body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
-            background-size: cover;
+            background: url('/LibraryManagement/resources/images/userimg33.jpg') center center fixed;
+           background-size: 100% 100%;
+            background-repeat: no-repeat;
         }
         form {
             max-width: 400px;
             margin: 0 auto;
+            margin-left:400px;
         }
         label {
             display: block;
@@ -69,7 +71,7 @@
 <header>
         <jsp:include page="Header.jsp" />
     </header>
-    <h2>Payment Page</h2>
+    <h2 style=" margin-right:600px">Payment Page</h2>
     <% String grandTotal = request.getAttribute("grandTotal")+""; %>
 
     <form action="view-your-books" method="post">

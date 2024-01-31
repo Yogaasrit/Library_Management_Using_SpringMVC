@@ -15,7 +15,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-     background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+     background: url('/LibraryManagement/resources/images/userimg45.jpg') center center fixed;
             background-size: cover;
 }
 

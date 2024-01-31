@@ -154,8 +154,6 @@
     <form:input path="bookPublishDate" id="bookPublishDate" type="date" />
     <form:errors path="bookPublishDate" cssClass="error" />
 		
-		
-        
         <label for="bookCover">Book Cover (Base64):</label>
         <form:input path="bookCover" type = "file" id="bookCover" />
         

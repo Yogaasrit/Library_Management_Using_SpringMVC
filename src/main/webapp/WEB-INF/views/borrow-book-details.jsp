@@ -386,7 +386,7 @@
             margin: 0;
             padding: 20px;
             text-align: center;
-            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background: url('/LibraryManagement/resources/images/userimg30.avif') center center fixed;
             background-size: cover;
         }
 

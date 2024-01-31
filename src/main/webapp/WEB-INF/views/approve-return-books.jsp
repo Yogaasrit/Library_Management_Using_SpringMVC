@@ -12,7 +12,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background: url('/LibraryManagement/resources/images/adminimg11.avif') center center fixed;
             background-size: cover;
         }
 
@@ -25,6 +25,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            background-color: transparent;
         }
 
         th, td {

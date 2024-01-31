@@ -7,8 +7,9 @@
      <style>
         body {
            font-family: Arial, sans-serif;
-            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
-            background-size: cover;
+            background: url('/LibraryManagement/resources/images/adminimg18.avif') center center fixed;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
             margin: 0;
             padding: 0;
         }

@@ -16,10 +16,10 @@ body {
 	align-items: center;
 	justify-content: center;
 	height: 100vh;
-	background: url('/LibraryManagement/resources/images/bg-image1.avif')
+	background: url('/LibraryManagement/resources/images/userimg46.jpg')
 		center center fixed;
-	background-size: cover;
-}
+background-size: 100% 100%;
+            background-repeat: no-repeat; }
 
 form {
 	background-color: rgba(255, 255, 255, 0.3);

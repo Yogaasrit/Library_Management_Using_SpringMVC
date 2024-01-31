@@ -40,7 +40,7 @@
             padding: 0;
             display: flex;
             height: 100vh;
-            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background: url('/LibraryManagement/resources/images/adminimg8.jpg') center center fixed;
             background-size: cover;
         }
 

@@ -10,24 +10,27 @@
     <style>
         /* Add your CSS styles here */
         body{
-         background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+         background: url('/LibraryManagement/resources/images/userimg31.avif') center center fixed;
          background-size: cover;
         }
         table {
-            width: 100%;
+            width: 60%;
             border-collapse: collapse;
             margin-bottom: 20px;
+            justify-content:center;
+            margin-left:350px;
         }
         th, td {
             border: 1px solid #ddd;
             padding: 10px;
-            text-align: left;
+            text-align: center;
+            
         }
         .total-amount {
             font-weight: bold;
             margin-top: 20px;
             text-align: right;
-            margin-right: 180px;
+            margin-right: 500px;
         }
         
         .proceed-to-pay-btn {
@@ -68,7 +71,7 @@
 
 
     <h2>Bill Invoice</h2>
-    <p><strong>
+    <p style="margin-left:350px"><strong>
     Billing Date: <%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %></strong>
     </p>
 

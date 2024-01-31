@@ -24,7 +24,7 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    color: #fff;
+    color:black;
     padding: 10px 20px; /* Adjusted padding for a smaller header */
     display: flex;
     justify-content: space-between;
@@ -34,7 +34,7 @@ header {
 
 nav a {
 margin-left: 30px;
-    color: #fff;
+    color:black;
     text-decoration: none;
     margin-right: 20px;
 }
@@ -64,7 +64,7 @@ nav {
 }
 
 nav a {
-    color: #fff;
+   color:black;
     text-decoration: none;
     margin-right: 20px;
 }
@@ -147,12 +147,12 @@ nav a:hover {
 <header>
     <nav>
         <a href="<%= url %>/User/UserDashboard">Home</a>
-        <a href="about-us">About Us</a>
-        <a href="contact-us">Contact Us</a>
-        <a href="Gallery">Gallery</a>
-        <a href="free-books">Free Books</a>
-        <a href="leaderboard">Leaderboard</a>
-        <a href="forum">Forum</a>
+        <a href="<%= url %>/User/about-us">About Us</a>
+        <a href="<%= url %>/User/contact-us">Contact Us</a>
+        <a href="<%= url %>/User/Gallery">Gallery</a>
+        <a href="<%= url %>/User/free-books">Free Books</a>
+        <a href="<%= url %>/User/leaderboard">Leaderboard</a>
+        <a href="<%= url %>/User/forum">Forum</a>
     </nav>
     
     <div class="header-div">
@@ -160,7 +160,7 @@ nav a:hover {
         <div class="dropdown">
             <span class="button">User Operations</span>
             <div class="dropdown-content">
-                <a href="book/view-books">View Books</a>
+                <a href="<%= url %>/User/book/view-books">View Books</a>
                 <a href="<%= url %>/User/view-your-books">Your Book orders</a>
                 <a href="<%= url %>/User/view-borrowed-books">Borrowed Books</a>
                 <a href="<%= url %>/User/view-requested-book">Request books</a>
@@ -169,8 +169,8 @@ nav a:hover {
                 <a href="#">Your Borrow history</a>
             </div>
         </div>
-        <span class="profile-icon"><a href="user-profile"><i class="fas fa-user"></i></a></span>
-        <a href = "your-cart"><i class="fa fa-shopping-cart" style="font-size:28px;"></i></a>
+        <span class="profile-icon"><a href="<%= url %>/User/user-profile"><i class="fas fa-user"></i></a></span>
+        <a href = "<%= url %>/User/your-cart"><i class="fa fa-shopping-cart" style="font-size:28px;"></i></a>
         <button class="logout-btn">Logout</button>
     </div>
 </header>

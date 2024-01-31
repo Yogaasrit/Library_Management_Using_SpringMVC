@@ -14,23 +14,25 @@
     <header class="admin-header">
         <div class="brand">
             <span class="brand-name">APJ Abdul Kalam Library</span>
+            <a href="<%= url %>/User/AdminDashboard" >Home</a>  
+            
         </div>
         <div class="profile-section">
             <div class="actions-dropdown">
                 <button class="dropdown-btn">Admin Operations</button>
                 <div class="dropdown-content">
-                    <a href="book/admin-book-operation" onclick="performAction('viewBook')">View Book</a>
+                    <a href="<%= url %>/User/book/admin-book-operation" onclick="performAction('viewBook')">View Book</a>
                     <a href="<%= url %>/User/add-books" onclick="performAction('addBook')">Add Book</a>
                     <a href="<%= url %>/User/handle-view-user" onclick="performAction('viewUser')">View User</a>
                     <a href="<%= url %>/User/approve-return-book" onclick="performAction('approveReturnedBooks')">Approve Returned Books</a>
  					<a href="<%= url %>/User/add-freebook" >Add Free book</a>  
  					<a href="<%= url %>/User/view-user-requested-book">View Requested book</a>   
  					<a href="<%= url %>/User/view-user-reserved-book">View Reserved book</a>  
- 					<a href="<%= url %>/User/send-return-book-remainder">Send Remainder</a>
+ 					 <a href="<%= url %>/User/send-return-book-remainder">Send Remainder</a>
  					<a href="<%= url %>/User/add-upcoming-events">Add upcoming events</a>        
                 </div>
             </div>
-            <a href="admin-view-profile" class="user-icon" onclick="performAction('viewProfile')"><i class="fas fa-user"></i></a>
+            <a href="<%= url %>/User/admin-view-profile" class="user-icon" onclick="performAction('viewProfile')"><i class="fas fa-user"></i></a>
             <span class="logout"><a href="<%=request.getContextPath() %>/logout" onclick="performAction('logout')">Logout</a></span>
         </div>
     </header>

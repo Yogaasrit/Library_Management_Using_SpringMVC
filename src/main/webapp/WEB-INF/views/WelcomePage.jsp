@@ -11,7 +11,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: url("/LibraryManagement/resources/images/bg-image1.avif") center/cover no-repeat fixed;
+            background: url("/LibraryManagement/resources/images/Welcome.jpg") center/cover no-repeat fixed;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -22,7 +22,7 @@
 
         header {
             background-color: transparent;
-            color: #fff;
+            color: white;
             padding: 10px 20px;
             display: flex;
             justify-content: space-between;
@@ -35,7 +35,7 @@
         }
 
         header a {
-            color: #fff;
+            color: white;
             text-decoration: none;
             margin-right: 60px;
             margin-left:20px;
@@ -70,6 +70,7 @@
         .quotes p {
             font-size: 22px;
             margin: 10px 0;
+            color: white;
         }
 
         #newsContainer {

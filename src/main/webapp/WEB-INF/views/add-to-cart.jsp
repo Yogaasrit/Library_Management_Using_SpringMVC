@@ -14,8 +14,9 @@
             margin: 20px;
             padding: 20px;
             background-color: #f3f3f3;
-            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
-            background-size: cover;
+            background: url('/LibraryManagement/resources/images/userimg28.avif') center center fixed;
+             background-size: 100% 100%;
+            background-repeat: no-repeat;
         }
 
         header {
@@ -200,7 +201,10 @@
             <% } %>
         </div>
 
-        <!-- Assuming you have a confirm order endpoint -->
+		
+		
+		
+        <!-- If books removed, remove confirm order -->
         <form id="confirmOrderForm" method="post" action="confirm-order">
             <input type="hidden" id="cartData" name="cartData">
             <button type="button" onclick="confirmOrder()">Confirm Order</button>

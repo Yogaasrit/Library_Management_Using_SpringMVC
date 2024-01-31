@@ -55,9 +55,13 @@
 
 /* Example background styles (adjust as needed) */
 body {
-    padding: 20px;
-    background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
-    background-size: cover;
+    background: url('/LibraryManagement/resources/images/userimg17.jpg') center center fixed;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+form{
+	margin-left: 720px;
 }
 
 /* Additional styles for form elements */

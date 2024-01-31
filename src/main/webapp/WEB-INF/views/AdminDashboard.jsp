@@ -16,7 +16,7 @@
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-     background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+     background: url('/LibraryManagement/resources/images/adminimg3.jpg') center center fixed;
             background-size: cover;
 }
 

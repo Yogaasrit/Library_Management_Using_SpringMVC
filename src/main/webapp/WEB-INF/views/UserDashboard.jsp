@@ -13,17 +13,16 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
-    background-size: cover;
+    background: url('/LibraryManagement/resources/images/userimg44.avif') center center fixed;
+    background-size: 100% 100%;
+            background-repeat: no-repeat;
     display: flex;
     justify-content: center;
 }
 
 .left-div {
-	background: url('/LibraryManagement/resources/images/Kalam.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-   	margin-left:100px;
+	
+  	margin-left:100px;
     flex: 1;
 }
 
@@ -35,11 +34,14 @@ body {
     border-radius: 8px;
     margin: 20px;
     padding: 20px;
-    margin-right:150px;
-    height:420px;
-    background-color:rgba(255,255,255,0.2);
-    color:#fff;
+    margin-right:690px;
+    height:420px; 
+    background-color:transparent;
+    color:black;
     font-size:18px;
+    text-align:justify;
+    padding-top:30px;
+    margin-left:40px;
 }
 
 header {
@@ -71,12 +73,13 @@ blockquote {
 	
 }
 
+
 </style>
 <body>
     <header>
         <jsp:include page="Header.jsp" />
     </header>
-
+	
     <div class="left-div">
     
     </div>
@@ -86,16 +89,15 @@ blockquote {
             <blockquote>
                 "Dream, dream, dream. Dreams transform into thoughts, and thoughts result in action."
             </blockquote>
-        </section>
-		<span></span>
+<!--             <h2>Welcome to the APJ Abdul Kalam Library, where dreams come to life through the world of books.</h2>
+ -->        </section>
+		<!-- 
         <section class="library-info">
-            <h2>About Our Library</h2>
-             <p>Welcome to the APJ Abdul Kalam Library, where dreams come to life through the world of books.</p>
+            
+             
 
-            <p>The APJ Abdul Kalam Library is a haven for knowledge seekers. With a vast collection of books, we aim to inspire and nurture a love for reading and learning.</p>
-            <p>Our collection includes a diverse range of books, covering various genres such as fiction, non-fiction, science, literature, and more.</p>
-            <p>Explore the wonders of literature and embark on a journey of knowledge at our library.</p>
-        </section>
+            
+        </section> -->
     </div>
 </body>
 </html>

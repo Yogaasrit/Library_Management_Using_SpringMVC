@@ -11,7 +11,7 @@
         /* Add your CSS styles for the table here */
         body {
             font-family: Arial, sans-serif;
-            background: url('/LibraryManagement/resources/images/bg-image1.avif') center center fixed;
+            background: url('/LibraryManagement/resources/images/adminimg17.avif') center center fixed;
             background-size: cover;
         margin: 0;
         padding: 0;

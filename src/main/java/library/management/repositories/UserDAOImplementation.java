@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import library.management.entities.Book;
 import library.management.entities.BookApproval;
 import library.management.entities.BorrowBook;
+import library.management.entities.FineDetails;
 import library.management.entities.ForumHistory;
 import library.management.entities.LeaderBoard;
 import library.management.entities.PurchasedBook;
@@ -489,5 +490,17 @@ public class UserDAOImplementation implements UserDAO{
 				+ "SET bookFine = (SELECT bookPrice FROM books WHERE books.bookId = borrowbook.bookId)\r\n"
 				+ "WHERE borrowedId = ?";
 		return jdbcTemplate.update(updateFineAmountQuery,borrowedId );
+	}
+
+	@Override
+	public FineDetails getFineDetails(int borrowedId) {
+		String getFineDetails = "SELECT borrowedId,bookFine from borrowbook where borrowedId = ?";
+		return jdbcTemplate.queryForObject(getFineDetails, new FineDetailsRowMapper(), borrowedId);
+	}
+
+	@Override
+	public int updatePaidFine(int borrowedId) {
+		String updatePaidFineQuery = "update borrowbook set bookFine = 0 where borrowedId = ?";
+		return jdbcTemplate.update(updatePaidFineQuery, borrowedId);
 	}
 }
