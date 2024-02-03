@@ -13,7 +13,5 @@ public interface AdminLoginDAO{
 	public int totalBooksApproval();
 	public int totalUserOverDueCount();
 	public String getPassword();
-	public int updateAdminPassWord(String confirmPassword);
-		
-	
+	public int updateAdminPassWord(String confirmPassword);	
 }

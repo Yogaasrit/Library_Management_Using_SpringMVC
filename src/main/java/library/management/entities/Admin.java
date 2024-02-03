@@ -1,5 +1,7 @@
 package library.management.entities;
 
+import java.util.Objects;
+
 public class Admin {
 	private String adminEmailId;
 	private String adminName;
@@ -41,5 +43,8 @@ public class Admin {
 		return "Admin [adminEmailId=" + adminEmailId + ", adminName=" + adminName + ", adminPassword=" + adminPassword
 				+ "]";
 	}
+	
+	
+	 
 	
 }

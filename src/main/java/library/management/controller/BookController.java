@@ -159,15 +159,22 @@ public class BookController {
 	
 	@PostMapping("/edit-book-details")
 	public String handleUpdate(HttpSession session, @ModelAttribute Book book) {
+		
 		System.out.println(book);
+		
 		String bookId=(String)session.getAttribute("bookId");
-		System.out.println(bookId);
-		try {
-			int editBook=bookDao.editBookDetails(Integer.parseInt(bookId),book);
-		} catch (DataAccessException | NumberFormatException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+			try {
+				int editBook=bookDao.editBookDetails(Integer.parseInt(bookId),book);
+				System.out.println("Try " + book);
+			} catch (DataAccessException | NumberFormatException | SQLException e) {
+				// TODO Auto-generated catch block		
+				System.out.println("exception " + book);
+				e.printStackTrace();
+			}
+//		} catch (DataAccessException | NumberFormatException | SQLException e) {
+			
+//		}
 		return "redirect:admin-book-operation";
 	}
 	

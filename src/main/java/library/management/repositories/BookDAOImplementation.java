@@ -118,15 +118,20 @@ public class BookDAOImplementation implements BookDAO {
 	}
 
 	@Override
-	public int editBookDetails(int bookId, Book book) throws DataAccessException, SQLException {
+	public int editBookDetails(int bookId, Book book) throws DataAccessException, SQLException  {
 		
-		String editBookQuery= "UPDATE books SET bookName = ?, bookPrice = ?,bookGenre=?,bookPublication=?,bookEdition=?,bookQuantity=?,authorName=?, bookCover = ? WHERE bookId = ?";
+		String editBookQuery= "UPDATE books SET bookName = ?,"
+				+ " bookPrice = ?,bookGenre=?,bookPublication=?,"
+				+ " bookEdition=?,bookQuantity=?,authorName=?, bookCover = ? WHERE bookId = ?";
+		
 		return jdbcTemplate.update(editBookQuery,
 				book.getBookName(),book.getBookPrice(),book.getBookGenre(),book.getBookPublication(),
 				book.getBookEdition(),book.getBookQuantity(),
-				book.getAuthorName(),book.getBookCover().getBytes(1,(int)book.getBookCover().length() ),bookId);
+				book.getAuthorName(),
+				book.getBookCover().getBytes(1, (int)book.getBookCover().length()),
+				bookId);
 	}
-
+	
 	@Override
 	public int deleteBook(int bookId) {
 		String deleteBook = "UPDATE books SET bookStatus = 0 where bookId = ?";

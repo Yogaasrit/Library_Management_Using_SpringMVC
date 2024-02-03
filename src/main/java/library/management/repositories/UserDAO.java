@@ -48,7 +48,6 @@ public interface UserDAO {
 	public List<RequestBookHistory> viewUserRequestedBook();
 	public List<RequestBook> getRequestedBookById(int userId);
 	public int insertHandleReserve(int userId,int bookId);
-	//----------------------------------
 	public List<ReserveBook> getReserveBookByUserId(int userId);
 	public List<ReserveBook> viewUserReservedBook();
 	public int updateRequestStatus(int requestId);

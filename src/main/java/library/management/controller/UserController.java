@@ -850,6 +850,7 @@ public class UserController {
 	@PostMapping("/userForm")
 	public String updateProfile(@ModelAttribute User user, HttpSession session, Model model) {
 		
+		
 		User userSession = (User) session.getAttribute("User");
 		int status = userDAO.updateProfile(user, userSession.getUserId());
 		model.addAttribute("userProfile", user);

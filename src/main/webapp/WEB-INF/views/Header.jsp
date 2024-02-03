@@ -150,7 +150,6 @@ nav a:hover {
         <a href="<%= url %>/User/about-us">About Us</a>
         <a href="<%= url %>/User/contact-us">Contact Us</a>
         <a href="<%= url %>/User/Gallery">Gallery</a>
-        <a href="<%= url %>/User/free-books">Free Books</a>
         <a href="<%= url %>/User/leaderboard">Leaderboard</a>
         <a href="<%= url %>/User/forum">Forum</a>
     </nav>
@@ -165,6 +164,7 @@ nav a:hover {
                 <a href="<%= url %>/User/view-borrowed-books">Borrowed Books</a>
                 <a href="<%= url %>/User/view-requested-book">Request books</a>
                 <a href="<%= url %>/User/view-reserve-page">Reserve books</a>
+                <a href ="<%= url %>/User/free-books">Free Books</a>
                 <a href="<%= url %>/User/write-feedback-page">Write your feedback</a>
                 <a href="#">Your Borrow history</a>
             </div>

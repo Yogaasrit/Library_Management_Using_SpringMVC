@@ -16,9 +16,7 @@ public class Book {
 	private String authorName;	
 	private boolean bookStatus;
 	
-	public Book() {
-		super();
-	}
+
 
 	public Book(int bookId, String bookName, int bookPrice, String bookGenre, String bookPublication, int bookEdition,
 			int bookQuantity, Date publishDate, String authorName, boolean bookStatus, Blob bookCover) {
@@ -51,6 +49,15 @@ public class Book {
 		this.bookStatus = bookStatus;
 		this.bookCover = bookCover;
 
+	}
+
+	public Book() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Book(int i, String string, Object object, int j, String string2, String string3, Date valueOf, int k, int l,
+			Date valueOf2, String string4, boolean b) {
+		// TODO Auto-generated constructor stub
 	}
 
 	public boolean isBookStatus() {
