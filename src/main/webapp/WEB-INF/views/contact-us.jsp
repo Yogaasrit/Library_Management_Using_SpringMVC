@@ -30,6 +30,9 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             display: block;
+            margin-top:100px;
+            margin-bottom:100px;
+            
         }
 
         .contact-container h2 {
@@ -110,5 +113,5 @@
         </div>
     </div>
 </body>
-
+<jsp:include page="footer.jsp" />
 </html>

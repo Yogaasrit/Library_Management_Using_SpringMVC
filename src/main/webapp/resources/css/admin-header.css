@@ -2,10 +2,14 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    
+}
+.admin-header a{
+	color: black;
 }
 
 .admin-header {
-    background-color: transparent;
+   
     border: none;
     color: #fff;
     padding: 15px; /* Padding adjusted */
@@ -15,16 +19,36 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
+    
+    background-color: rgba(255,255,255,0.3);
     z-index: 1000;
+    font-size: 20px;
 }
 
-.brand {
-    font-size: 24px;
+
+.brand-name{
+	text-decoration: none;
+	color:black;
+	font-size: 26px;
+	padding: 10px 15px;
+}
+.brand-name:hover{
+	 background-color: #2980b9;
+}
+.brand-content{
+	text-decoration: none;
+	color: #fff;
+	font-size: 22px;
+	padding: 10px 15px;
+}
+.brand-content:hover{
+	 background-color: #2980b9;
 }
 
 .profile-section {
     display: flex;
     align-items: center;
+    font-size: 24px;
 }
 
 .actions-dropdown {
@@ -35,10 +59,14 @@ body {
 
 .dropdown-btn {
         background-color: transparent; /* Blue color */
-    color: #fff;
+    color: black;
     border: none;
     cursor: pointer;
     padding: 10px 15px; /* Adjusted padding */
+    font-size: 24px;
+}
+.dropdown-btn:hover {
+    background-color: #2980b9; /* Darker shade on hover */
 }
 
 .dropdown-content {
@@ -48,10 +76,12 @@ body {
     min-width: 160px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;
+    font-size: 20px;
+    color: black;
 }
 
 .dropdown-content a {
-    color: #fff;
+    color: rgb(0, 0, 0);
     padding: 12px 16px; /* Adjusted padding */
     text-decoration: none;
     display: block;
@@ -60,10 +90,12 @@ body {
 .dropdown-content a:hover {
     background-color: #2980b9; /* Darker shade on hover */
 }
-
+.logout a:hover {
+    background-color: #2980b9; /* Darker shade on hover */
+}
 .logout a {
     color: #fff;
-    background-color: transparent;
+    background-color: red;
 	border: none;
     text-decoration: none;
     padding: 10px 15px; /* Adjusted padding */
@@ -75,10 +107,12 @@ body {
 }
 
 .user-icon{
-	border-radius: 50%;
+	border-radius: 100%;
 	padding: 10px;
 	background-color: transparent;
 	border: none;
 }
-
+.user-icon:hover{
+	background-color: #2980b9;
+}
 

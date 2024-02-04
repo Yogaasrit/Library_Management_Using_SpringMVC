@@ -18,7 +18,9 @@
             margin: 0;
             padding: 0;
         }
-
+.container{
+        margin-top:100px;
+        margin-bottom:100px;}
         .card-container {
             text-align: center;
         }
@@ -70,6 +72,7 @@
 <header>
         <jsp:include page="Header.jsp" />
     </header>
+    <div class="container">
     <h2>Reserve Books</h2>
 
     <% List<ReserveBook> bookList = (List<ReserveBook>)request.getAttribute("list");
@@ -99,7 +102,7 @@
             <% } %>
         </div>
     <% } %>
-
+</div>
     <script>
         function borrowBook(bookId, reserveId) {
             // Add logic to handle borrowing the book for the specified book and reserve
@@ -108,4 +111,7 @@
         }
     </script>
 </body>
+
+<jsp:include page="footer.jsp" />
+
 </html>

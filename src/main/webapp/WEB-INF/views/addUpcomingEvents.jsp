@@ -94,4 +94,6 @@ margin-top : 80px;}
         </form>
     </div>
 </body>
+<jsp:include page="footer.jsp" />
+
 </html>

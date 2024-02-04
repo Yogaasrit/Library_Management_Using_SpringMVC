@@ -29,19 +29,20 @@ body {
 .right-div {
     
    flex:1;
-    width: 1100px;
+    width: 1000px;
     background-color: #f4f4f4;
     border-radius: 8px;
     margin: 20px;
     padding: 20px;
-    margin-right:690px;
+    margin-right:990px;
     height:420px; 
     background-color:transparent;
     color:black;
-    font-size:18px;
+    font-size:29px;
     text-align:justify;
     padding-top:30px;
-    margin-left:40px;
+    margin-left:-10px;
+    margin-top:100px;
 }
 
 header {
@@ -80,9 +81,7 @@ blockquote {
         <jsp:include page="Header.jsp" />
     </header>
 	
-    <div class="left-div">
-    
-    </div>
+ 
 
     <div class="right-div">
         <section class="quote-section">
@@ -100,4 +99,5 @@ blockquote {
         </section> -->
     </div>
 </body>
+<jsp:include page="footer.jsp" />
 </html>

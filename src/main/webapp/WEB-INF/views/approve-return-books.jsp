@@ -33,6 +33,13 @@
             text-align: left;
             padding: 8px;
         }
+        footer { 
+    position: fixed; 
+    bottom: 0; 
+    left: 0; 
+    z-index: 10;
+    background-color: rgba(255,255,255,0.5);
+}
 
         th {
             background-color: rgba(255,255,255,0.5);
@@ -147,4 +154,7 @@ a.reject:hover {
 %>
 
 </body>
+<footer>
+<jsp:include page="footer.jsp" />
+</footer>
 </html>

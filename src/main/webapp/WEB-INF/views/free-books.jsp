@@ -22,6 +22,7 @@
             background-color: rgba(255,255,255,0.2);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
             border-radius: 5px;
+            margin-top:100px;
         }
 
         h2 {
@@ -73,8 +74,9 @@ margin-top : 40px;}
     <header>
         <jsp:include page="Header.jsp" />
     </header>
+   <div class = "container"> 
     <h2>Free Books</h2>
-<div class = "container">
+
     <table>
         <thead>
             <tr>
@@ -107,4 +109,5 @@ margin-top : 40px;}
     </table>
 </div>
 </body>
+<jsp:include page="footer.jsp" />
 </html>

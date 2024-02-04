@@ -161,13 +161,15 @@
 
         .container {
             max-width: 800px;
+            margin-top:50px;
         }
 
         .bookContainer {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
-            margin-left: 200px;
+            margin-left: 10px;
+            margin-bottom: 100px;
         }
 
         .bookItem {
@@ -233,7 +235,7 @@
         <jsp:include page="Header.jsp" />
     </header>
     <% List<ReturnedBook> returnedBooks = (List<ReturnedBook>) request.getAttribute("returnedBook"); %>
-
+<div class="container">
     <h2>Feedback Page</h2>
     <br><br>
 
@@ -266,7 +268,7 @@
         <p>You haven't returned any books. Please borrow a book to provide feedback.</p>
     <% } %>
 
-
+</div>
     <script>
         function setRating(bookId, rating) {
             const stars = document.querySelectorAll(`.starRating[data-book-id="${bookId}"] .star`);
@@ -299,4 +301,5 @@
         }
     </script>
 </body>
+<jsp:include page="footer.jsp" />
 </html>

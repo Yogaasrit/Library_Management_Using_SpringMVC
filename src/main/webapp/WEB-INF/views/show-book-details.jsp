@@ -53,6 +53,7 @@
         .book-details-container {
            display: block;
            align-items: left;
+           text-align: left;
         }
 
         .book-details p {

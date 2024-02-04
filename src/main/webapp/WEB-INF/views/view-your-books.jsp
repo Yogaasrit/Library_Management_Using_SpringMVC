@@ -25,6 +25,8 @@ function goBack() {
             background: url('/LibraryManagement/resources/images/userimg34.avif') center center fixed;
             background-size: 100% 100%;
             background-repeat: no-repeat;
+                        margin-bottom: 30px;
+            
         }
 
         h1 {
@@ -130,4 +132,9 @@ function goBack() {
     <div class="button-container">
         <button class="button" onclick="goBack()">Back</button></div> 
 </body>
+
+<jsp:include page="footer.jsp" />
+
+
+
 </html>

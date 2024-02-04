@@ -121,4 +121,5 @@
     <button class="button" onclick="goBack()">Back</button></div> 
 </div>
 </body>
+<jsp:include page="footer.jsp" />
 </html>

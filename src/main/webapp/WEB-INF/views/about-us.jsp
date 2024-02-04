@@ -29,6 +29,7 @@
             
             max-width: 800px;
             margin: auto;
+            margin-top: 100px;
         }
 
         .carousel-container {
@@ -79,7 +80,7 @@
 <body>
     <header>
         <jsp:include page="Header.jsp" />
-    </header>
+	</header>
 
     <div class="content-container">
         <div class="carousel-container">
@@ -145,5 +146,5 @@
         }
     </script>
 </body>
-
+<jsp:include page="footer.jsp" />
 </html>

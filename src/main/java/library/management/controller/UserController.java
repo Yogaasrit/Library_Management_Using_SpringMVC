@@ -71,89 +71,6 @@ public class UserController {
 	@Autowired
 	AdminLoginDAO adminLoginDAO;
 
-	@GetMapping("/add-freebook")
-	public String addFreeBooks() {
-		return "add-freebook";
-	}
-
-	@GetMapping("/free-books")
-	public String showFreeBooks(Model model) {
-	    List<FreeBook> freeBooks = bookDAO.displayFreeBooks();
-	    System.out.println(freeBooks.size());
-	    model.addAttribute("freeBooks", freeBooks);
-	    return "free-books";
-	}
-	
-	@GetMapping("/free-books-pdf")
-	public ResponseEntity<byte[]> showFreeBooks(@RequestParam("id") int id) {
-	    List<FreeBook> freeBooks = bookDAO.displayFreeBooks();
-
-	    // Assuming the first free book contains the PDF content
-	    byte[] pdfContent = null;
-		try {
-			pdfContent = freeBooks.isEmpty() ? new byte[0] : freeBooks.get(id-1).getPdf().getBytes(1,
-					(int)freeBooks.get(id-1).getPdf().length());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	    HttpHeaders headers = new HttpHeaders();
-	    headers.setContentType(MediaType.APPLICATION_PDF);
-	    headers.setContentDisposition(ContentDisposition.builder("inline").filename("book.pdf").build());
-
-	    return new ResponseEntity<>(pdfContent, headers, HttpStatus.OK);
-	}
-	
-	
-
-//	public ResponseEntity<byte[]> showFreeBooksPdf() {
-//	    List<FreeBook> freeBooks = bookDAO.displayFreeBooks();
-//
-//	    // Assuming your FreeBook class has a method to retrieve PDF content as Blob
-//	    List<byte[]> pdfContents = freeBooks.stream()
-//	            .map(FreeBook::getPdf)
-//	            .map(this::blobToByteArray)
-//	            .collect(Collectors.toList());
-//
-//	    // Combine PDF contents into a single byte array (you may need a PDF library for this)
-//	    byte[] combinedPdfContent = combinePdfContents(pdfContents);
-//
-//	    HttpHeaders headers = new HttpHeaders();
-//	    headers.setContentType(MediaType.APPLICATION_PDF);
-//	    headers.setContentDisposition(ContentDisposition.builder("inline").filename("books.pdf").build());
-//
-//	    return new ResponseEntity<>(combinedPdfContent, headers, HttpStatus.OK);
-//	}
-//
-//	// Convert Blob to byte[]
-//	private byte[] blobToByteArray(Blob blob) {
-//	    try {
-//	        if (blob != null) {
-//	            return blob.getBytes(1, (int) blob.length());
-//	        }
-//	    } catch (SQLException e) {
-//	        e.printStackTrace();
-//	    }
-//	    return new byte[0];
-//	}
-//
-//	// Assuming you have a method to combine multiple PDF contents into a single byte array
-//	private byte[] combinePdfContents(List<byte[]> pdfContents) {
-//	    // Implement logic to combine multiple PDF contents into a single byte array
-//	    // This might involve using a PDF library like iText or PDFBox
-//	    // For simplicity, this example assumes a single PDF document
-//	    return pdfContents.isEmpty() ? new byte[0] : pdfContents.get(0);
-//	}
-	
-	
-	
-	/*
-	 * public String showFreeBooks(Model model) { List<FreeBook> freeBooks =
-	 * bookDAO.displayFreeBooks(); model.addAttribute("freeBooks", freeBooks);
-	 * return "free-books"; }
-	 */
-
 	@GetMapping("/UserDashboard")
 	public String showUserDashboard() {
 		return "UserDashboard";
@@ -484,24 +401,39 @@ public class UserController {
 		return "book-details";
 	}
 
-	/*
-	 * @GetMapping("/confirm-placeorder") public String
-	 * confirmPlaceOrder(@RequestParam("bookId") String
-	 * bookId, @RequestParam("count") String bookCount, Model model, HttpSession
-	 * session) {
-	 * 
-	 * System.out.println(bookId + "-" + bookCount); 
-	 * User user = (User)session.getAttribute("User");
-	 *  int status = userDAO.placeOrder(user.getUserId(), Integer.parseInt(bookId),
-	 * Integer.parseInt(bookCount), Date.valueOf(LocalDate.now()));
-	 * 
-	 * List<PurchasedBook> bookList = userDAO.viewPurchasedBooks(user.getUserId());
-	 * bookDAO.updateBookCount(Integer.parseInt(bookCount),
-	 * Integer.parseInt(bookId));
-	 * 
-	 *  model.addAttribute("bookList", bookList);
-	 *  return "view-your-books"; }
-	 */
+	@GetMapping("/add-freebook")
+	public String addFreeBooks() {
+		return "add-freebook";
+	}
+
+	@GetMapping("/free-books")
+	public String showFreeBooks(Model model) {
+	    List<FreeBook> freeBooks = bookDAO.displayFreeBooks();
+	    System.out.println(freeBooks.size());
+	    model.addAttribute("freeBooks", freeBooks);
+	    return "free-books";
+	}
+	
+	@GetMapping("/free-books-pdf")
+	public ResponseEntity<byte[]> showFreeBooks(@RequestParam("id") int id) {
+	    List<FreeBook> freeBooks = bookDAO.displayFreeBooks();
+
+	    // Assuming the first free book contains the PDF content
+	    byte[] pdfContent = null;
+		try {
+			pdfContent = freeBooks.isEmpty() ? new byte[0] : freeBooks.get(id-1).getPdf().getBytes(1,
+					(int)freeBooks.get(id-1).getPdf().length());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_PDF);
+	    headers.setContentDisposition(ContentDisposition.builder("inline").filename("book.pdf").build());
+
+	    return new ResponseEntity<>(pdfContent, headers, HttpStatus.OK);
+	}
 	
 	
 	@GetMapping("/add-to-cart")

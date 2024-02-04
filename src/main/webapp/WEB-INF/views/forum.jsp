@@ -30,8 +30,12 @@
             padding: 10px;
             margin-bottom: 10px;
             background-color: rgba(255,255,255,0.2);
+            
         }
 
+		#forum-history{
+			width: 800px;
+		}
         form {
             margin-top: 20px;
         }
@@ -61,6 +65,7 @@
         background-color: rgba(255,255,255,0.7);
         }
         h2{
+        margin-top:100px;
         color: black;}
     </style>
 </head>
@@ -88,5 +93,9 @@
             <button type="submit">Submit Chat</button>
         </form>
     </div>
+    
 </body>
+
+<jsp:include page="footer.jsp" />
+
 </html>

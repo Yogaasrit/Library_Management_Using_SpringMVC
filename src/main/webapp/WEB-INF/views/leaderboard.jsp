@@ -55,6 +55,8 @@
     <header>
         <jsp:include page="Header.jsp" />
     </header>
+    
+    
     <h2>Leaderboard</h2>
     <% List<LeaderBoard> list = (List<LeaderBoard>)request.getAttribute("list"); %>
     <% int badgeCount = (Integer)request.getAttribute("badgeCount"); %>
@@ -82,5 +84,11 @@
             </div>
         <% } %>
     </div>
+    
+
 </body>
+    <footer>
+		<jsp:include page="footer.jsp" />
+	</footer>
+
 </html>

@@ -16,6 +16,15 @@
         margin: 0;
         padding: 0;
     }
+   footer { 
+    position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    z-index: 10;
+    margin-top:50px;
+    
+    
+} 
 
     table {
         width: 100%;
@@ -24,6 +33,7 @@
         margin-top: 20px;
         
     }
+    
 
     th, td {
         border: 1px solid #ddd;
@@ -123,4 +133,8 @@ margin-top : 80px;}
 
 
 </body>
+
+<footer>
+<jsp:include page="footer.jsp" />
+</footer>
 </html>

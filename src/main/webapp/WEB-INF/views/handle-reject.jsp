@@ -20,6 +20,12 @@
             padding: 20px;
             margin-top:150px;
         }
+        footer { 
+    position: fixed; 
+    bottom: 0; 
+    left: 0; 
+    z-index: 10;
+}
 		h2{
 		color:#fff;
 		}
@@ -78,4 +84,7 @@
     }
 </script>
 </body>
+<footer>
+<jsp:include page="footer.jsp" />
+</footer>
 </html>

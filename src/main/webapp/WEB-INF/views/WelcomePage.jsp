@@ -10,14 +10,14 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 10px;
             background: url("/LibraryManagement/resources/images/Welcome.jpg") center/cover no-repeat fixed;
             position: relative;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
             color: #fff;
-            overflow: hidden; /* Ensure the blur effect doesn't extend beyond the viewport */
+           /*  overflow: hidden; */ /* Ensure the blur effect doesn't extend beyond the viewport */
         }
 
         header {
@@ -43,6 +43,10 @@
             display: inline-block;
             background-color: transparent;
             border: none;
+            padding: 10px 15px;
+        }
+        header a:hover{
+        background-color: #333;
         }
 
         header h1 {
@@ -58,6 +62,7 @@
             justify-content: center;
             text-align: center;
             z-index: 1; /* Ensure quotes are above the background image */
+            margin-top:100px;
         }
 
         .quotes {
@@ -74,7 +79,7 @@
         }
 
         #newsContainer {
-            overflow: hidden;
+            /* overflow: hidden; */
             white-space: nowrap;
             width: 100%; /* Ensure full-width marquee */
         }
@@ -98,16 +103,6 @@
             }
         }
 
-        footer {
-            background-color: transparent;
-            color: #fff;
-            padding: 10px 20px;
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            z-index: 1000;
-        }
 
         .quote-author {
             color: black;
@@ -136,7 +131,7 @@
     <marquee behavior="scroll" direction="left" scrollamount="3">
         <% for (UpcomingEvent event : events) { %>
             <div class="newsItem">
-                <p><strong><%= event.getUpcomingEventDate() %></strong></p>
+                <p ><strong style="color:black"><%= event.getUpcomingEventDate() %></strong></p>
                 <p class = "detail"><Strong><%= event.getUpcomingEventDetail() %></Strong></p>
             </div>
             
@@ -146,9 +141,10 @@
 </div>
 
 
-<footer>
-    <!-- Your footer content goes here -->
-</footer>
-
+  <jsp:include page="footer-welcome.jsp" />
 </body>
+
+
+      
+
 </html>

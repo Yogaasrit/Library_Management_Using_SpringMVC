@@ -18,7 +18,9 @@
              background-size: 100% 100%;
             background-repeat: no-repeat;
         }
-
+		.container{
+		margin-top:100px;
+		margin-bottom:100px;}
         header {
             margin-bottom: 20px;
         }
@@ -47,6 +49,7 @@
         .cart-card:hover {
             transform: scale(1.05);
         }
+        
 
         .card-image {
             width: 100%;
@@ -86,9 +89,11 @@
             color: #333;
             margin-top: 20px;
         }
-		h2{
-		text-align: center;
-		color: black;}
+		h2
+		{
+			text-align: center;
+			color: black;
+		}
         .no-items-message {
             font-size: 18px;
             margin-top: 20px;
@@ -98,6 +103,10 @@
         #confirmOrderForm {
             margin-top: 20px;
         }
+       
+        /* styles.css */
+
+        
     </style>
     <script>
         function removeFromCart(bookId, newQuantity) {
@@ -162,7 +171,7 @@
     
     <% Map<String, Integer> cart = (Map<String, Integer>) request.getAttribute("cart"); %>
     <% List<Book> allBooks = (List<Book>) request.getAttribute("books"); %>
-
+<div class="container">
     <h2>Your Cart</h2>
     
     <% if (cart == null || cart.isEmpty()) { %>
@@ -199,9 +208,9 @@
                     <% } %>
                 <% } %>
             <% } %>
-        </div>
+        
 
-		
+		</div>
 		
 		
         <!-- If books removed, remove confirm order -->
@@ -211,5 +220,9 @@
         </form>
 
     <% } %>
+    </div>
 </body>
+
+<jsp:include page="footer.jsp" />
+
 </html>

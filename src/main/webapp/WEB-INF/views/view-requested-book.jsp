@@ -17,7 +17,9 @@
             background-repeat: no-repeat;
             margin: 0;
             padding: 0;
-        }
+        }.container{
+        margin-top:100px;
+        margin-bottom:100px;}
 
         .card-container {
             text-align: center; /* Center the content */
@@ -72,6 +74,7 @@
     <header>
         <jsp:include page="Header.jsp" />
     </header>
+    <div class="container">
     <h2>Requested Books</h2>
 
     <% List<RequestBook> bookList = (List<RequestBook>)request.getAttribute("list");
@@ -106,7 +109,7 @@
             <% } %>
         </div>
     <% } %>
-
+</div>
     <script>
         function placeOrder(bookId, requestId) {
             // Add logic to handle placing the order for the specified book and request
@@ -115,4 +118,6 @@
         }
     </script>
 </body>
+<jsp:include page="footer.jsp" />
+
 </html>

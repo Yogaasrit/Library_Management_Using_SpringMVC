@@ -15,14 +15,16 @@ body {
     padding: 0;
     font-family: 'Arial', sans-serif;
     padding-top: 60px; /* Adjusted top padding for fixed header */
+    
 }
 
 header {
-    background-color: transparent;
+   background-color: rgba(255,255,255,0.3);
     border: none;
     position: fixed;
     top: 0;
     left: 0;
+    height:8%;
     width: 100%;
     color:black;
     padding: 10px 20px; /* Adjusted padding for a smaller header */
@@ -62,22 +64,44 @@ margin-left: 30px;
 nav {
     display: flex;
 }
-
+.button{
+font-size:20px;
+}
 nav a {
    color:black;
     text-decoration: none;
     margin-right: 20px;
+    padding: 8px 10px;
+    font-size:19px;
 }
 
 nav a:hover {
-    text-decoration: underline;
+    text-decoration: none;
+    background-color:#fff;
+    
+    
 }
 
 
 .profile-icon {
     margin-right: 10px;
+     padding: 8px 10px;
+     font-size:19px;
+     
+}
+.cart-icon:hover {
+  background-color:#fff;
 }
 
+.cart-icon {
+    margin-right: 10px;
+     padding: 8px 10px;
+     font-size:19px;
+     
+}
+.profile-icon:hover {
+  background-color:#fff;
+}
 .logout-btn {
     padding: 8px 15px;
     background-color: #ff0000;
@@ -106,11 +130,13 @@ nav a:hover {
     min-width: 160px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     z-index: 1;
+    
 }
+
 
 .dropdown:hover .dropdown-content {
     display: block;
-     background-color: transparent;
+     background-color: rgba(255,255,255,0.5);
     border: none;
 }
 
@@ -121,7 +147,7 @@ nav a:hover {
 
 
 .dropdown a {
-    color: #fff;
+    color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -170,7 +196,7 @@ nav a:hover {
             </div>
         </div>
         <span class="profile-icon"><a href="<%= url %>/User/user-profile"><i class="fas fa-user"></i></a></span>
-        <a href = "<%= url %>/User/your-cart"><i class="fa fa-shopping-cart" style="font-size:28px;"></i></a>
+        <span class="cart-icon"><a href = "<%= url %>/User/your-cart"><i class="fa fa-shopping-cart" style="font-size:28px;"></i></a></span>
         <button class="logout-btn">Logout</button>
     </div>
 </header>

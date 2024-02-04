@@ -13,17 +13,18 @@
 
     <header class="admin-header">
         <div class="brand">
-            <span class="brand-name">APJ Abdul Kalam Library</span>
-            <a href="<%= url %>/User/AdminDashboard" >Home</a>  
-            
+            <a href="<%= url %>/User/AdminDashboard" class="brand-name"><span >APJ Abdul Kalam Library</span>
+            </a>  
+             <a href="<%= url %>/User/book/admin-book-operation" onclick="performAction('viewBook')" class="brand-content">View Book</a>
+       		 <a href="<%= url %>/User/handle-view-user" onclick="performAction('viewUser')" class="brand-content">View User</a>
         </div>
         <div class="profile-section">
             <div class="actions-dropdown">
                 <button class="dropdown-btn">Admin Operations</button>
                 <div class="dropdown-content">
-                    <a href="<%= url %>/User/book/admin-book-operation" onclick="performAction('viewBook')">View Book</a>
+                   
                     <a href="<%= url %>/User/add-books" onclick="performAction('addBook')">Add Book</a>
-                    <a href="<%= url %>/User/handle-view-user" onclick="performAction('viewUser')">View User</a>
+                   
                     <a href="<%= url %>/User/approve-return-book" onclick="performAction('approveReturnedBooks')">Approve Returned Books</a>
  					<a href="<%= url %>/User/add-freebook" >Add Free book</a>  
  					<a href="<%= url %>/User/view-user-requested-book">View Requested book</a>   

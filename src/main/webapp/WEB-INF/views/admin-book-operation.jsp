@@ -212,5 +212,6 @@
     <% } %>
     <p id="noBooksFoundMessage" style="display:none;">No books found!!</p>
 </body>
+
 </html>
 

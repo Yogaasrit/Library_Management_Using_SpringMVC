@@ -10,6 +10,10 @@
     <link rel="icon" href="path/to/favicon.ico" type="image/x-icon">
 
     <style>
+    .container{
+    margin-top:100px;
+    margin-bottom:100px;
+    }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f4f4f4;
@@ -56,7 +60,7 @@
     <header>
         <jsp:include page="Header.jsp" />
     </header>
-
+<div class="container">
     <h2 style="color:#fff">Gallery</h2>
 
     <div class="gallery-container">
@@ -81,6 +85,7 @@
         </div>
         
     </div>
+    </div>
 </body>
-
+<jsp:include page="footer.jsp" />
 </html>
