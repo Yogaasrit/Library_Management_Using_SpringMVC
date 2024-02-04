@@ -30,7 +30,8 @@
  					<a href="<%= url %>/User/view-user-requested-book">View Requested book</a>   
  					<a href="<%= url %>/User/view-user-reserved-book">View Reserved book</a>  
  					 <a href="<%= url %>/User/send-return-book-remainder">Send Remainder</a>
- 					<a href="<%= url %>/User/add-upcoming-events">Add upcoming events</a>        
+ 					<a href="<%= url %>/User/add-upcoming-events">Add upcoming events</a>  
+ 					<a href="<%= url %>/User/View-user-chat">Chat with User</a>      
                 </div>
             </div>
             <a href="<%= url %>/User/admin-view-profile" class="user-icon" onclick="performAction('viewProfile')"><i class="fas fa-user"></i></a>

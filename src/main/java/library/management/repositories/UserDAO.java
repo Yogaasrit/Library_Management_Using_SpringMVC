@@ -7,6 +7,7 @@ import java.util.List;
 import library.management.entities.Book;
 import library.management.entities.BookApproval;
 import library.management.entities.BorrowBook;
+import library.management.entities.Chat;
 import library.management.entities.FineDetails;
 import library.management.entities.ForumHistory;
 import library.management.entities.LeaderBoard;
@@ -66,4 +67,6 @@ public interface UserDAO {
 	public int updateFineAmount(String borrowedId);
 	public FineDetails getFineDetails(int parseInt);
 	public int updatePaidFine(int borrowedId);
+	public int updateChat(int userId, String userName, String message);
+	public List<Chat> viewUserChats();
 }

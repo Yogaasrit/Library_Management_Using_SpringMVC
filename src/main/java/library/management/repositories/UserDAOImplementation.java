@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import library.management.entities.Book;
 import library.management.entities.BookApproval;
 import library.management.entities.BorrowBook;
+import library.management.entities.Chat;
 import library.management.entities.FineDetails;
 import library.management.entities.ForumHistory;
 import library.management.entities.LeaderBoard;
@@ -502,5 +503,18 @@ public class UserDAOImplementation implements UserDAO{
 	public int updatePaidFine(int borrowedId) {
 		String updatePaidFineQuery = "update borrowbook set bookFine = 0 where borrowedId = ?";
 		return jdbcTemplate.update(updatePaidFineQuery, borrowedId);
+	}
+
+	@Override
+	public int updateChat(int userId, String userName, String message) {
+	String updateChat = "Insert into chat (userName, chatMessage, userId) values"
+			+ "(?,?,?)";
+		return jdbcTemplate.update(updateChat, userName,message,userId);
+	}
+
+	@Override
+	public List<Chat> viewUserChats() {
+		String viewAllChat = "select * from chat";
+		return jdbcTemplate.query(viewAllChat, new viewAllChatRowMapper());
 	}
 }

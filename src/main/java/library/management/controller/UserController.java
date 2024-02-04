@@ -38,6 +38,7 @@ import library.management.entities.Admin;
 import library.management.entities.Book;
 import library.management.entities.BookApproval;
 import library.management.entities.BorrowBook;
+import library.management.entities.Chat;
 import library.management.entities.FeedBack;
 import library.management.entities.FineDetails;
 import library.management.entities.ForumHistory;
@@ -1045,6 +1046,22 @@ public class UserController {
 		return "redirect:forum";
 	}
 	
+	@GetMapping("/chat-with-admin")
+	public String chatWithAdmin() {
+		return "chat-with-admin";
+	}
 	
+	@PostMapping("/handle-chat")
+	public String addChat(@RequestParam("message") String message, HttpSession session) {
+		User user = (User) session.getAttribute("User");
+		int status = userDAO.updateChat(user.getUserId(), user.getUserName(), message);
+		return "redirect:UserDashboard";
+	}
 	
+	@GetMapping("/View-user-chat")
+	public String viewUserChat(Model model) {
+		List<Chat> list = userDAO.viewUserChats();
+		model.addAttribute("list", list);
+		return "view-user-chat";
+	}
 }

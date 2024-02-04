@@ -192,6 +192,7 @@ nav a:hover {
                 <a href="<%= url %>/User/view-reserve-page">Reserve books</a>
                 <a href ="<%= url %>/User/free-books">Free Books</a>
                 <a href="<%= url %>/User/write-feedback-page">Write your feedback</a>
+                <a href="<%= url %>/User/chat-with-admin">Chat with admin</a>
                 <a href="#">Your Borrow history</a>
             </div>
         </div>
