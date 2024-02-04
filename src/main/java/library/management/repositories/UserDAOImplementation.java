@@ -298,8 +298,8 @@ public class UserDAOImplementation implements UserDAO{
 				+ "JOIN\r\n"
 				+ "    requestbook r ON u.userId = r.userId\r\n"
 				+ "JOIN\r\n"
-				+ "    books b ON r.bookId = b.bookId;\r\n"
-				+ "";
+				+ "    books b ON r.bookId = b.bookId\r\n"
+				+ "where requestStatus = 0 and b.bookQuantity = 0";
 		return jdbcTemplate.query(viewUserRequestedBookQuery, new RequestBookHistoryRowMapper());
 	}
 
@@ -370,8 +370,8 @@ public class UserDAOImplementation implements UserDAO{
 				+ "JOIN\r\n"
 				+ "    reservebook r ON u.userId = r.userId\r\n"
 				+ "JOIN\r\n"
-				+ "    books b ON r.bookId = b.bookId;\r\n"
-				+ "";
+				+ "    books b ON r.bookId = b.bookId\r\n"
+				+ "where reserveStatus = 0 and b.bookQuantity = 0";
 		return jdbcTemplate.query(viewUserRequestedBookQuery, new ReserveBookRowMapper());
 	}
 
@@ -516,5 +516,17 @@ public class UserDAOImplementation implements UserDAO{
 	public List<Chat> viewUserChats() {
 		String viewAllChat = "select * from chat";
 		return jdbcTemplate.query(viewAllChat, new viewAllChatRowMapper());
+	}
+
+	@Override
+	public int updateReplyChat(int chatId, String replyMessage) {
+		String updateReplyChatQuery = "Update chat set chatReply = ? where chatId = ?";
+		return jdbcTemplate.update(updateReplyChatQuery,replyMessage, chatId);
+	}
+
+	@Override
+	public List<Chat> viewChatHistory(int userId) {
+		String viewChatHistoryQuery = "select * from chat where userId = ?";
+		return jdbcTemplate.query(viewChatHistoryQuery,new viewAllChatRowMapper(), userId);
 	}
 }

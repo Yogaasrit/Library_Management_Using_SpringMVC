@@ -186,6 +186,9 @@ document.addEventListener('DOMContentLoaded', function() {
             </button>
         </div>
         <button type="submit">Login</button>
+        <%@ include file ="errmessage.jsp" %>
+        
+        
         
         <% String message = (String) request.getAttribute("message"); %>
         <% if (message != null) { %>
@@ -196,5 +199,8 @@ document.addEventListener('DOMContentLoaded', function() {
          <a href="UserRegister">New User? Register</a>
     	 <a href="forget-password">Forgot password?</a>
     </form>
+    
+    
+    
 </body>
 </html>

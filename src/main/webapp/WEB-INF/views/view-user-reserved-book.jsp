@@ -119,5 +119,5 @@ margin-top : 80px;}
         }
     %>
 </body>
-<jsp:include page="footer.jsp" />
+
 </html>

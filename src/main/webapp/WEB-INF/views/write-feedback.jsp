@@ -162,6 +162,9 @@
         .container {
             max-width: 800px;
             margin-top:50px;
+            margin-left:350px;
+            align-items:center;
+            text-align:center;
         }
 
         .bookContainer {
@@ -301,5 +304,5 @@
         }
     </script>
 </body>
-<jsp:include page="footer.jsp" />
+
 </html>

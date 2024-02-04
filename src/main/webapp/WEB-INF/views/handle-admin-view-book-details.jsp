@@ -168,6 +168,10 @@
     .comment {
         color: #555;
     }
+    .container{
+    margin-top:100px;
+    margin-bottom:100px;
+    }
     </style>
 </head>
 <body>
@@ -180,7 +184,7 @@
 		//out.print(ctx);
 		String targetUrl = ctx + "/User";
 	%>
-
+<div class="container">
     <h1>Book Detail</h1>
     <% Book book = (Book) request.getAttribute("book");
     
@@ -238,12 +242,13 @@
     <div class="button-container">
         <button class="back-button" onclick="goBack()">Back</button>
     </div>
-
+</div>
     <script>
         function goBack() {
             window.history.back();
         }
     </script>
+   
 </body>
 <jsp:include page="footer.jsp" />
 </html>

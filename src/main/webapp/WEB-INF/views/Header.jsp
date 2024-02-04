@@ -77,7 +77,7 @@ nav a {
 
 nav a:hover {
     text-decoration: none;
-    background-color:#fff;
+    background-color:#FEDC56;
     
     
 }
@@ -90,7 +90,7 @@ nav a:hover {
      
 }
 .cart-icon:hover {
-  background-color:#fff;
+  background-color:#FEDC56;
 }
 
 .cart-icon {
@@ -100,7 +100,7 @@ nav a:hover {
      
 }
 .profile-icon:hover {
-  background-color:#fff;
+  background-color:#FEDC56;
 }
 .logout-btn {
     padding: 8px 15px;
@@ -136,7 +136,7 @@ nav a:hover {
 
 .dropdown:hover .dropdown-content {
     display: block;
-     background-color: rgba(255,255,255,0.5);
+     background-color: #FCF4A3;
     border: none;
 }
 
@@ -156,7 +156,7 @@ nav a:hover {
 }
 
 .dropdown a:hover {
-    background-color: #2980b9;
+    background-color: #FEDC56;
 }
 
 .button {
@@ -193,12 +193,11 @@ nav a:hover {
                 <a href ="<%= url %>/User/free-books">Free Books</a>
                 <a href="<%= url %>/User/write-feedback-page">Write your feedback</a>
                 <a href="<%= url %>/User/chat-with-admin">Chat with admin</a>
-                <a href="#">Your Borrow history</a>
             </div>
         </div>
         <span class="profile-icon"><a href="<%= url %>/User/user-profile"><i class="fas fa-user"></i></a></span>
         <span class="cart-icon"><a href = "<%= url %>/User/your-cart"><i class="fa fa-shopping-cart" style="font-size:28px;"></i></a></span>
-        <button class="logout-btn">Logout</button>
+        <a href = "<%= url %>/User/user-logout"><button class="logout-btn">Logout</button></a>
     </div>
 </header>
 </body>

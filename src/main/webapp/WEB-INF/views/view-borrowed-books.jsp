@@ -182,6 +182,6 @@ h1 {
 		<button class="button" onclick="goBack()">Back</button>
 	</div>
 </body>
-<jsp:include page="footer.jsp" />
+
 
 </html>

@@ -52,6 +52,8 @@ import library.management.entities.ReturnBookRemainder;
 import library.management.entities.ReturnedBook;
 import library.management.entities.User;
 import library.management.entities.ViewUserDetails;
+import library.management.exceptionhandler.AdminSessionExpired;
+import library.management.exceptionhandler.UserSessionExpired;
 import library.management.repositories.AdminLoginDAO;
 import library.management.repositories.BookDAO;
 import library.management.repositories.UserDAO;
@@ -193,7 +195,7 @@ public class UserController {
 	
 	@PostMapping("/validate-admin")
 	public String showAdminDashboard(@RequestParam("adminEmailId") String adminEmailId,
-			@RequestParam("adminPassword") String adminPassword, HttpServletRequest request, Model model) {
+			@RequestParam("adminPassword") String adminPassword, HttpServletRequest request, Model model) throws AdminSessionExpired {
 		// Creating admin session
 		HttpSession session = request.getSession();
 		Admin admin = new Admin();
@@ -228,6 +230,9 @@ public class UserController {
 			model.addAttribute("totalUserOverDueCount", totalUserOverDueCount);
 
 			admin = adminLoginDAO.validateAdmin(adminEmailId, adminPassword).get(0);
+			if(admin == null) {
+				throw new AdminSessionExpired();
+			}
 			session.setAttribute("adminSession", admin);
 			return "AdminDashboard";
 		}
@@ -235,7 +240,8 @@ public class UserController {
 
 	@PostMapping("/validate-user")
 	public String showUserDashboard(@RequestParam("emailId") String userEmailId,
-			@RequestParam("passWord") String userPassword, HttpServletRequest request, Model model) {
+			@RequestParam("passWord") String userPassword, HttpServletRequest request,
+			Model model) throws UserSessionExpired {
 		HttpSession session = request.getSession();
 		User user;
 		if (userDAO.userLogin(userEmailId, userPassword).isEmpty()) {
@@ -244,8 +250,14 @@ public class UserController {
 		} else {
 			user = userDAO.userLogin(userEmailId, userPassword).get(0);
 			session.setAttribute("User", user);
-			return "UserDashboard";
+			if(user == null) {
+				throw new UserSessionExpired();
+			}else {
+				return "UserDashboard";
+			}
 		}
+		
+		
 	}
 
 	@GetMapping("/handle-view-user")
@@ -261,12 +273,15 @@ public class UserController {
 	}
 
 	@PostMapping("/verify-email")
-	public String verifyEmail(@RequestParam("email") String email, HttpServletRequest request, Model model) {
+	public String verifyEmail(@RequestParam("email") String email, HttpServletRequest request, Model model) throws UserSessionExpired {
 		if (userDAO.isEmailInDatabase(email)) {
 			String generatedOTP = generateOTP(6);
 			HttpSession session = request.getSession();
 			session.setAttribute("otp", generatedOTP);
 			User user = userDAO.getUser(email);
+			if(user == null) {
+				throw new UserSessionExpired();
+			}
 			session.setAttribute("user-update", user);
 			session.setAttribute("emailId", email);
 			sendOTPEmail(email, generatedOTP);
@@ -300,13 +315,16 @@ public class UserController {
 	}
 
 	@PostMapping("verify-otp")
-	public String openOTPPage(@RequestParam("otp") String otp, HttpSession session, Model model) {
+	public String openOTPPage(@RequestParam("otp") String otp, HttpSession session, Model model) throws UserSessionExpired {
 		String emailId = (String) session.getAttribute("emailId");
 		session.setAttribute("emailId", emailId);
 //		System.out.println("In otp page"+emailId);
 		String sentOTP = (String) session.getAttribute("otp");
 		if (sentOTP.equals(otp)) {
 			User user = (User) session.getAttribute("user-update");
+			if(user == null) {
+				throw new UserSessionExpired();
+			}
 			model.addAttribute("user", user);
 			return "reset-password";
 		}
@@ -340,7 +358,7 @@ public class UserController {
 			@RequestParam("bookGenre") String bookGenre, @RequestParam("bookPublication") String bookPublication,
 			@RequestParam("bookPublishDate") String bookPublishDate, @RequestParam("bookEdition") String bookEdition,
 			@RequestParam("bookQuantity") String bookQuantity, @RequestParam("authorName") String authorName,
-			@RequestParam("bookCover") MultipartFile bookCover, Model model, HttpSession session) {
+			@RequestParam("bookCover") MultipartFile bookCover, Model model, HttpSession session) throws AdminSessionExpired {
 
 		byte[] bookCoverArr;
 		Blob bookCoverBlob = null;
@@ -380,6 +398,9 @@ public class UserController {
 		model.addAttribute("totalUserOverDueCount", totalUserOverDueCount);
 
 		admin = (Admin) session.getAttribute("adminSession");
+		if(admin == null) {
+			throw new AdminSessionExpired();
+		}
 		adminLoginDAO.validateAdmin(admin.getAdminEmailId(), admin.getAdminPassword()).get(0);
 		session.setAttribute("adminSession", admin);
 
@@ -440,12 +461,15 @@ public class UserController {
 	@GetMapping("/add-to-cart")
 	public String addToCart(@RequestParam("bookId") String bookId,
 			@RequestParam("count") String bookCount, Model model,
-			HttpSession session) {
+			HttpSession session) throws UserSessionExpired {
 
 		System.out.println("Adding to cart: " + bookId + "-" + bookCount);
 
      // Get the current user from the session
 		User user = (User) session.getAttribute("User");
+		if(user == null) {
+			throw new UserSessionExpired();
+		}
 
      // Get the user's cart from the session
 		Map<String, Integer> cart = (Map<String, Integer>) session.getAttribute("cart");
@@ -580,8 +604,11 @@ public class UserController {
 		return "payment-page";
 	}
 	@GetMapping("/view-your-books")
-	public String openOrder(Model model, HttpSession session) {
+	public String openOrder(Model model, HttpSession session) throws UserSessionExpired {
 		User user = (User) session.getAttribute("User");
+		if(user == null) {
+			throw new UserSessionExpired();
+		}
 		List<PurchasedBook> bookList = userDAO.viewPurchasedBooks(user.getUserId());
 		model.addAttribute("bookList", bookList);
 
@@ -614,9 +641,13 @@ public class UserController {
 	@GetMapping("/confirm-borrowbook")
 	public String confirmBorrowBook(@RequestParam("bookId") String bookId,
 			@RequestParam("count") String bookCount,
-			Model model, HttpSession session) {
+			Model model, HttpSession session) throws UserSessionExpired {
 
 		User user = (User) session.getAttribute("User");
+		
+		if(user == null) {
+			throw new UserSessionExpired();
+		}
 		int status = bookDAO.updateBorrowBookCount(user.getUserId(), Integer.parseInt(bookId),
 				Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusWeeks(2)));
 
@@ -631,8 +662,11 @@ public class UserController {
 	}
 
 	@GetMapping("/view-borrowed-books")
-	public String showBorrowedBooks(HttpSession session, Model model) {
+	public String showBorrowedBooks(HttpSession session, Model model) throws UserSessionExpired {
 		User user = (User) session.getAttribute("User");
+		if(user == null) {
+			throw new UserSessionExpired();
+		}
 		List<BorrowBook> borrowedBooks = userDAO.viewBorrowedBooks(user.getUserId());
 		// 
 		model.addAttribute("borrowedBooks", borrowedBooks);
@@ -671,9 +705,12 @@ public class UserController {
 
 	@GetMapping("update-paid-fine")
 	public String UpdatePaidFine(@RequestParam("borrowedId") String borrowedId,
-			HttpSession session, Model model) {
+			HttpSession session, Model model) throws UserSessionExpired {
 		int status = userDAO.updatePaidFine(Integer.parseInt(borrowedId));
 		User user = (User) session.getAttribute("User");
+		if(user == null) {
+			throw new UserSessionExpired();
+		}
 		List<BorrowBook> borrowedBooks = userDAO.viewBorrowedBooks(user.getUserId());
 		// 
 		model.addAttribute("borrowedBooks", borrowedBooks);
@@ -755,19 +792,27 @@ public class UserController {
 	}
 
 	@GetMapping("/user-profile")
-	public String openProfile(HttpSession session, Model model) {
+	public String openProfile(HttpSession session, Model model) throws UserSessionExpired {
 
 		User user = (User) session.getAttribute("User");
+		if(user == null) {
+			throw new UserSessionExpired();
+		}
 		User userProfile = userDAO.getUser(user.getUserEmailId());
 		model.addAttribute("userProfile", userProfile);
+		
+			return "user-profile";	
 
-		return "user-profile";
+		
 	}
 
 	@GetMapping("/update-profile")
-	public String openUpdate(HttpSession session, Model model) {
+	public String openUpdate(HttpSession session, Model model) throws UserSessionExpired {
 
 		User user = (User) session.getAttribute("User");
+		if(user == null) {
+			throw new UserSessionExpired();
+		}
 		User userProfile = userDAO.getUser(user.getUserEmailId());
 		System.out.println(userProfile);
 		model.addAttribute("user", userProfile);
@@ -781,10 +826,13 @@ public class UserController {
     }
 	
 	@PostMapping("/userForm")
-	public String updateProfile(@ModelAttribute User user, HttpSession session, Model model) {
+	public String updateProfile(@ModelAttribute User user, HttpSession session, Model model) throws UserSessionExpired {
 		
 		
 		User userSession = (User) session.getAttribute("User");
+		if(user == null) {
+			throw new UserSessionExpired();
+		}
 		int status = userDAO.updateProfile(user, userSession.getUserId());
 		model.addAttribute("userProfile", user);
 		return "user-profile";
@@ -800,10 +848,13 @@ public class UserController {
 
 	@PostMapping("/changePassword")
 	public String changePassword(@RequestParam("newPassword") String newPassword,
-			@RequestParam("confirmPassword") String confirmPassword, Model model, HttpSession session) {
+			@RequestParam("confirmPassword") String confirmPassword, Model model, HttpSession session) throws UserSessionExpired {
 		
 //		System.out.println("test");
 		User user = (User) session.getAttribute("User");
+		if(user == null) {
+			throw new UserSessionExpired();
+		}
 		String emailId = user.getUserEmailId();
 		int changePassword = userDAO.updatePassword(newPassword, emailId);
 		System.out.println(changePassword);
@@ -851,7 +902,7 @@ public class UserController {
 	// -------------------------------------
 	@PostMapping("/profile-pic")
 	public String updateProfilePic(Model model, HttpSession session,
-			@RequestParam("profile-pic") MultipartFile profilePic) {
+			@RequestParam("profile-pic") MultipartFile profilePic) throws UserSessionExpired {
 
 		byte[] profilePicArr;
 		Blob profilePicBlob = null;
@@ -862,6 +913,9 @@ public class UserController {
 			e.printStackTrace();
 		}
 		User userSession = (User) session.getAttribute("User");
+		if(userSession == null) {
+			throw new UserSessionExpired();
+		}
 		userSession.setProfilePic(profilePicBlob);
 		int dpInsertStatus = userDAO.insertImage(profilePicBlob, userSession.getUserEmailId());
 		User userProfile = userDAO.getUser(userSession.getUserEmailId());
@@ -879,8 +933,12 @@ public class UserController {
 
 	@GetMapping("/request-book-handle")
 	public String requestBookHandle(@RequestParam("bookId") String bookId, @RequestParam("count") String count,
-			HttpSession session, Model model) {
+			HttpSession session, Model model) throws UserSessionExpired {
 		User userSession = (User) session.getAttribute("User");
+		if(userSession == null) {
+			throw new UserSessionExpired();
+		}
+		
 		int status = userDAO.handleRequestBooks(userSession.getUserId(), Integer.parseInt(bookId),
 				Integer.parseInt(count));
 		List<RequestBook> requestBooks = userDAO.viewRequestedBooks(userSession.getUserId());
@@ -902,8 +960,11 @@ public class UserController {
 	}
 
 	@GetMapping("/view-requested-book")
-	public String openRequestBook(Model model, HttpSession session) {
+	public String openRequestBook(Model model, HttpSession session) throws UserSessionExpired {
 		User userSession = (User) session.getAttribute("User");
+		if(userSession == null) {
+			throw new UserSessionExpired();
+		}
 
 		List<RequestBook> list = userDAO.getRequestedBookById(userSession.getUserId());
 
@@ -920,8 +981,11 @@ public class UserController {
 	}
 
 	@GetMapping("/handleReserve")
-	public String handleReserve(@RequestParam("bookId") String bookId, HttpSession session, Model model) {
+	public String handleReserve(@RequestParam("bookId") String bookId, HttpSession session, Model model) throws UserSessionExpired {
 		User user = (User) session.getAttribute("User");
+		if(user == null) {
+			throw new UserSessionExpired();
+		}
 		int status = userDAO.insertHandleReserve(user.getUserId(), Integer.parseInt(bookId));
 		// ----------------------------------
 		List<ReserveBook> list = userDAO.getReserveBookByUserId(user.getUserId());
@@ -930,8 +994,11 @@ public class UserController {
 	}
 
 	@GetMapping("/view-reserve-page")
-	public String openReservePage(Model model, HttpSession session) {
+	public String openReservePage(Model model, HttpSession session) throws UserSessionExpired {
 		User user = (User) session.getAttribute("User");
+		if(user == null) {
+			throw new UserSessionExpired();
+		}
 		// ----------------------------------
 		List<ReserveBook> list = userDAO.getReserveBookByUserId(user.getUserId());
 		model.addAttribute("list", list);
@@ -952,7 +1019,7 @@ public class UserController {
 
 	@PostMapping("/upcoming-events-detail")
 	public String upcomingEventDetails(@RequestParam("eventDetails") String eventDetails,
-			@RequestParam("eventDate") String eventDate, Model model, HttpSession session) {
+			@RequestParam("eventDate") String eventDate, Model model, HttpSession session) throws AdminSessionExpired {
 
 		Admin admin = new Admin();
 
@@ -976,14 +1043,21 @@ public class UserController {
 		model.addAttribute("totalUserOverDueCount", totalUserOverDueCount);
 
 		admin = (Admin) session.getAttribute("adminSession");
+		if(admin == null) {
+			throw new AdminSessionExpired();
+		}
 		adminLoginDAO.validateAdmin(admin.getAdminEmailId(), admin.getAdminPassword()).get(0);
 		session.setAttribute("adminSession", admin);
+		
 		return "AdminDashboard";
 	}
 
 	@GetMapping("/write-feedback-page")
-	public String writeFeedbackPage(HttpSession session, Model model) {
+	public String writeFeedbackPage(HttpSession session, Model model) throws UserSessionExpired {
 		User user = (User) session.getAttribute("User");
+		if(user == null) {
+			throw new UserSessionExpired();
+		}
 		List<ReturnedBook> returnedBook = userDAO.getReturnedBookDetails(user.getUserId());
 		model.addAttribute("returnedBook", returnedBook);
 		return "write-feedback";
@@ -992,15 +1066,21 @@ public class UserController {
 	@GetMapping("/feedback")
 	public String getFeedback(Model model, @RequestParam("rating") String rating, @RequestParam("bookId") String bookId,
 			@RequestParam("comments") String comment, @RequestParam("borrowedId") String borrowedId,
-			HttpSession session) {
+			HttpSession session) throws UserSessionExpired {
 		User user = (User) session.getAttribute("User");
+		if(user == null) {
+			throw new UserSessionExpired();
+		}
 		int status = userDAO.addFeedBack(Integer.parseInt(bookId), rating, comment, borrowedId, user.getUserId());
 		return "redirect:write-feedback-page";
 	}
 
 	@GetMapping("/leaderboard")
-	public String showLeaderboard(Model model, HttpSession session) {
+	public String showLeaderboard(Model model, HttpSession session) throws UserSessionExpired {
 		User user = (User) session.getAttribute("User");
+		if(user == null) {
+			throw new UserSessionExpired();
+		}
 		List<LeaderBoard> list = userDAO.leaderboard();
 		model.addAttribute("list", list);
 		int badgeCount = userDAO.getBadgeCount(user.getUserId());
@@ -1040,22 +1120,34 @@ public class UserController {
 	
 	@PostMapping("/add-forum")
 	public String addForum(@RequestParam("content") String content,
-			HttpSession session) {
+			HttpSession session) throws UserSessionExpired {
 		User user = (User) session.getAttribute("User");
+		if(user == null) {
+			throw new UserSessionExpired();
+		}
 		int status = userDAO.addForum(user.getUserId(),user.getUserName(),content);
 		return "redirect:forum";
 	}
 	
 	@GetMapping("/chat-with-admin")
-	public String chatWithAdmin() {
+	public String chatWithAdmin(HttpSession session, Model model) throws UserSessionExpired {
+		User user = (User) session.getAttribute("User");
+		if(user == null) {
+			throw new UserSessionExpired();
+		}
+		List<Chat> list = userDAO.viewChatHistory(user.getUserId());
+		model.addAttribute("list",list);
 		return "chat-with-admin";
 	}
 	
 	@PostMapping("/handle-chat")
-	public String addChat(@RequestParam("message") String message, HttpSession session) {
+	public String addChat(@RequestParam("message") String message, HttpSession session) throws UserSessionExpired {
 		User user = (User) session.getAttribute("User");
+		if(user == null) {
+			throw new UserSessionExpired();
+		}
 		int status = userDAO.updateChat(user.getUserId(), user.getUserName(), message);
-		return "redirect:UserDashboard";
+		return "redirect:chat-with-admin";
 	}
 	
 	@GetMapping("/View-user-chat")
@@ -1064,4 +1156,28 @@ public class UserController {
 		model.addAttribute("list", list);
 		return "view-user-chat";
 	}
+	
+	@GetMapping("/update-reply-chat")
+	public String updateAdminReply(@RequestParam("chatId") String chatId,
+			@RequestParam("replyMessage") String replyMessage) {
+		int status = userDAO.updateReplyChat(Integer.parseInt(chatId), replyMessage);
+		return "redirect:View-user-chat";
+	}
+	
+	@GetMapping("/user-logout")
+	public String userLogout(HttpSession session) {
+		User user = (User)session.getAttribute("user");
+		session.invalidate();
+		return "UserLogin";
+		
+	}
+	
+	@GetMapping("/admin-logout")
+	public String adminLogout(HttpSession session) {
+		Admin admin = (Admin)session.getAttribute("adminSession");
+		session.invalidate();
+		return "AdminLogin";
+		
+	}
+	
 }

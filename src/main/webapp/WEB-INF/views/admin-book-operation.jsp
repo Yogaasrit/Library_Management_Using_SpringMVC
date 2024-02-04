@@ -181,11 +181,10 @@
         %>
     </select>
     
-    <button onclick="searchBooks()">Search</button>
+    <button onclick="searchBooks()">Search</button><br><br>
+    <br>
 
-    <div class="button-container">
-        <button class="button" onclick="goBack()">Back</button>
-    </div>
+   
 
     <% if (books != null && !books.isEmpty()) {
         for (Book book : books) {

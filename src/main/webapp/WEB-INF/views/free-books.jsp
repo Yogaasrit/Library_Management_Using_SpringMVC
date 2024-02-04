@@ -109,5 +109,5 @@ margin-top : 40px;}
     </table>
 </div>
 </body>
-<jsp:include page="footer.jsp" />
+
 </html>

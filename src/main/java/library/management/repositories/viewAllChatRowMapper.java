@@ -16,6 +16,7 @@ public class viewAllChatRowMapper implements RowMapper<Chat> {
 		list.setUserId(rs.getInt("userId"));
 		list.setUserName(rs.getString("userName"));
 		list.setMessage(rs.getString("chatMessage"));
+		list.setReplyMessage(rs.getString("chatReply"));
 		return list;
 	}
 

@@ -69,4 +69,6 @@ public interface UserDAO {
 	public int updatePaidFine(int borrowedId);
 	public int updateChat(int userId, String userName, String message);
 	public List<Chat> viewUserChats();
+	public int updateReplyChat(int chatId, String replyMessage);
+	public List<Chat> viewChatHistory(int userId);
 }

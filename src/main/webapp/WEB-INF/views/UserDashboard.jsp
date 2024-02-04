@@ -33,7 +33,7 @@ body {
     background-color: #f4f4f4;
     border-radius: 8px;
     margin: 20px;
-    padding: 20px;
+    
     margin-right:990px;
     height:420px; 
     background-color:transparent;
@@ -42,7 +42,7 @@ body {
     text-align:justify;
     padding-top:30px;
     margin-left:-10px;
-    margin-top:100px;
+    margin-top:150px;
 }
 
 header {
@@ -73,6 +73,9 @@ blockquote {
 	padding-bottom: 30px;
 	
 }
+.name{
+font-size:17px;
+}
 
 
 </style>
@@ -85,19 +88,19 @@ blockquote {
 
     <div class="right-div">
         <section class="quote-section">
+        	<strong>APJ ABDUL KALAM LIBRARY</strong>
             <blockquote>
                 "Dream, dream, dream. Dreams transform into thoughts, and thoughts result in action."
+                
             </blockquote>
+            <strong class="name"><i>- APJ Abdul Kalam</i>
+		</strong>
 <!--             <h2>Welcome to the APJ Abdul Kalam Library, where dreams come to life through the world of books.</h2>
- -->        </section>
-		<!-- 
-        <section class="library-info">
-            
-             
+ -->        
+ </section>
 
-            
-        </section> -->
     </div>
+     
 </body>
 <jsp:include page="footer.jsp" />
 </html>

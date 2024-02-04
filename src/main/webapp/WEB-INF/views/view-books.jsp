@@ -23,7 +23,7 @@
     }
 
     h1 {
-        color: #fff;
+        color: black;
         margin-top: 70px;
     }
 
@@ -51,7 +51,7 @@
 
     .button {
         padding: 10px 20px;
-        color: #fff;
+        color: black;
         border: none;
         border-radius: 5px;
         font-size: 16px;
@@ -84,7 +84,7 @@
         button {
             padding: 10px 20px;
             background-color: #333;
-            color: #fff;
+            color: white;
             border: none;
             cursor: pointer;
             font-size: 16px;
@@ -168,7 +168,7 @@
 
     <!-- Search button -->
     <button onclick="searchBooks()">Search</button>
-    <br><br>
+    <br><br><br><br>
 
     <!-- Book rows container -->
     <!-- <div class="book-row"> -->

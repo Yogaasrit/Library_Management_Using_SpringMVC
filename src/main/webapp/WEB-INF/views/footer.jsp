@@ -54,8 +54,7 @@
 </head>
 
 <body>
-
-    <footer>
+<footer>
         <!-- <p>Telephone: +1 (123) 456-7890</p>
  -->        <p>Follow us on:
             <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
@@ -66,7 +65,9 @@
                 <div class="copyright">&copy; 2024 APJ Abdul Kalam Library</div>
         
     </footer>
+    
 
 </body>
+
 
 </html>

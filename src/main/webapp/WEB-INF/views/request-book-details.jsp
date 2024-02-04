@@ -16,12 +16,14 @@
     }
 
     .card {
-        max-width: 800px;
+        max-width: 500px;
         margin: 0 auto;
         background-color: rgba(255,255,255,0.3);
         padding: 20px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
         border-radius: 5px;
+        margin-top:70px;
+         margin-bottom:30px;
     }
 
     h2 {
@@ -55,13 +57,17 @@
         align-items: center;
         justify-content: space-between;
     }
-
+    .action-button a{
+    text-decoration:none;
+    color:white;
+    }
     .action-button, .back-btn {
         background-color: #4CAF50;
         color: white;
         padding: 8px 16px;
         border: none;
         cursor: pointer;
+        text-decoration:none;
     }
 
     .action-button:hover, .back-btn:hover {

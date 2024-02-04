@@ -171,6 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </button>
         </div>
         <button type="submit">Login</button>
+        <%@ include file = 'errmessage.jsp' %>
         <% String message = (String) request.getAttribute("message"); %>
         <% if (message != null) { %>
             <h3><%= message %></h3>

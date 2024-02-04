@@ -35,7 +35,7 @@
                 </div>
             </div>
             <a href="<%= url %>/User/admin-view-profile" class="user-icon" onclick="performAction('viewProfile')"><i class="fas fa-user"></i></a>
-            <span class="logout"><a href="<%=request.getContextPath() %>/logout" onclick="performAction('logout')">Logout</a></span>
+            <span class="logout"><a href="<%= url %>/User/admin-logout" onclick="performAction('logout')">Logout</a></span>
         </div>
     </header>
     <script>
