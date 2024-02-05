@@ -546,8 +546,10 @@ public class UserController {
 			Model model, HttpSession session) {
 		 Map<String, Integer> updatedCart = null;
 	    // Convert the JSON string to a Java Map
+		 // jsp to java
 	    ObjectMapper objectMapper = new ObjectMapper();
 	    try {
+	    	// Getting from jsp
 	        updatedCart = objectMapper.readValue(cartData, new TypeReference<Map<String, Integer>>() {});
 	        
 	        // Now you have the updated cart map, you can use it as needed
@@ -569,6 +571,7 @@ public class UserController {
 	    List<Book> books = bookDAO.viewAllBooks();
 	    model.addAttribute("books",books);
 	    model.addAttribute("updatedCart",updatedCart);
+	    // updating the session.
 	    session.setAttribute("updatedCart", updatedCart);
 	    return "billing-details";
 	}

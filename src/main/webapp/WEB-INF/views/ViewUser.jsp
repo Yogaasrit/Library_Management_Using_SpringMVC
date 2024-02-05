@@ -117,7 +117,7 @@
         <div class="card">
             <form id="deleteForm<%= user.getUserId() %>" action="delete-user-form" method="post">
                 <p><strong>User ID:</strong> <%= user.getUserId() %></p>
-                <p><strong>User Name:</strong> <%= user.getUserName() %></p>
+                <p><strong >User Name:</strong> <%= user.getUserName() %></p>
                 <p><strong>Email:</strong> <%= user.getUserEmailId() %></p>
                 <p><strong>Total Ordered Books:</strong> <%= user.getTotalOrderedBooks() %></p>
                 <p><strong>Total Borrowed Books:</strong> <%= user.getTotalBorrowedBooks() %></p>

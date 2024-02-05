@@ -104,7 +104,13 @@ function goBack() {
 <% List<PurchasedBook> bookList = (List<PurchasedBook>)request.getAttribute("bookList"); %>
 
 
-    <div class="order-container">
+	<%if(bookList == null || bookList.isEmpty()) {%>
+	
+		
+		<p>You did not Purchase any book</p>
+	
+	<%} else{%>
+		<div class="order-container">
         <% for (PurchasedBook purchasedBook : bookList) { 
         	
         	String bookCover = Base64.getEncoder().encodeToString(
@@ -129,6 +135,10 @@ function goBack() {
             </div>
         <% } %>
     </div>
+	<%} %>
+	
+	
+    
     <div class="button-container">
         <button class="button" onclick="goBack()">Back</button></div> 
 </body>

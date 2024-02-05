@@ -64,6 +64,9 @@
 <body>
     <h1>Payment Page</h1>
     <% FineDetails finedetails = (FineDetails) request.getAttribute("finedetails"); %>
+    <%if(finedetails != null){ %>
+    
+    
     <div class="payment-form">
         <form id="paymentForm" method="post" action="update-pay-fine">
             <div class="form-group">
@@ -103,6 +106,13 @@
             <button type="button" onclick="validateAndPay('<%= finedetails.getBorrowedId() %>')">Pay Now</button>
         </form>
     </div>
+    
+    <%} else{%>
+    
+    <p>Go back and Pay the book fine!</p>
+    <%} %>
+    
+    
 
     <script>
         function validateAndPay(borrowedId) {

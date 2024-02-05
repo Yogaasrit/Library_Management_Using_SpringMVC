@@ -185,12 +185,12 @@ nav a:hover {
         <div class="dropdown">
             <span class="button">User Operations</span>
             <div class="dropdown-content">
-                <a href="<%= url %>/User/book/view-books">View Books</a>
-                <a href="<%= url %>/User/view-your-books">Your Book orders</a>
-                <a href="<%= url %>/User/view-borrowed-books">Borrowed Books</a>
-                <a href="<%= url %>/User/view-requested-book">Request books</a>
-                <a href="<%= url %>/User/view-reserve-page">Reserve books</a>
-                <a href ="<%= url %>/User/free-books">Free Books</a>
+                <a href="<%= url %>/User/book/view-books">View books</a>
+                <a href="<%= url %>/User/view-your-books">Ordered books</a>
+                <a href="<%= url %>/User/view-borrowed-books">Borrowed books</a>
+                <a href="<%= url %>/User/view-requested-book">Requested books</a>
+                <a href="<%= url %>/User/view-reserve-page">Reserved books</a>
+                <a href ="<%= url %>/User/free-books">Free books</a>
                 <a href="<%= url %>/User/write-feedback-page">Write your feedback</a>
                 <a href="<%= url %>/User/chat-with-admin">Chat with admin</a>
             </div>

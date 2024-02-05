@@ -130,6 +130,7 @@ a.reject:hover {
                     <td><%= bookApproval.getBookName() %></td>
                     <td><%= bookApproval.getBorrowedDate() %></td>
                     <td><%= bookApproval.getReturnDate() %></td>
+
                     
                     <td><img src="data:image/jpeg;base64,<%= bookCover %>" alt="<%= bookApproval.getBookName() %>" width = "100"></td>
                     <td>
@@ -154,7 +155,5 @@ a.reject:hover {
 %>
 
 </body>
-<footer>
-<jsp:include page="footer.jsp" />
-</footer>
+
 </html>

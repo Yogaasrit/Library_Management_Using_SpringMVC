@@ -51,6 +51,8 @@ import library.management.entities.RequestBookHistory;
 import library.management.entities.ReturnedBook;
 import library.management.entities.User;
 import library.management.entities.ViewUserDetails;
+import library.management.exceptionhandler.AdminSessionExpired;
+import library.management.exceptionhandler.UserSessionExpired;
 import library.management.repositories.AdminLoginDAO;
 import library.management.repositories.BookDAO;
 import library.management.repositories.UserDAO;
@@ -97,7 +99,13 @@ public class UserControllerTest {
         Model model = new BindingAwareModelMap();
 
         // Perform the controller method call
-        String result = yourController.showAdminDashboard("invalidEmail", "invalidPassword", request, model);
+        String result = null;
+		try {
+			result = yourController.showAdminDashboard("invalidEmail", "invalidPassword", request, model);
+		} catch (AdminSessionExpired e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         // Assertions
         assertEquals("AdminLogin", result); // Check if the view name is correct
@@ -223,7 +231,13 @@ public class UserControllerTest {
         when(userDAO.getReturnedBookDetails(anyInt())).thenReturn(mockReturnedBookList);
 
         // Call the controller method
-        String result = yourController.writeFeedbackPage(session, model);
+        String result = null;
+		try {
+			result = yourController.writeFeedbackPage(session, model);
+		} catch (UserSessionExpired e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         // Verify that the expected methods were called
         verify(session, times(1)).getAttribute("User");
@@ -264,7 +278,13 @@ public class UserControllerTest {
         when(userDAO.getBadgeCount(anyInt())).thenReturn(5); // or the expected badge count
 
         // Call the controller method
-        String result = yourController.showLeaderboard(model, session);
+        String result = null;
+		try {
+			result = yourController.showLeaderboard(model, session);
+		} catch (UserSessionExpired e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         // Verify that the expected methods were called
         verify(session, times(1)).getAttribute("User");
@@ -325,7 +345,13 @@ public class UserControllerTest {
         when(userDAO.updatePaidFine(anyInt())).thenReturn(1); // Adjust to the expected status
 
         // Call the controller method
-        String result = yourController.UpdatePaidFine("1", session, model);
+        String result = null;
+		try {
+			result = yourController.UpdatePaidFine("1", session, model);
+		} catch (UserSessionExpired e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         // Verify that the expected methods were called
         verify(session, times(1)).getAttribute("User");
@@ -346,7 +372,13 @@ public class UserControllerTest {
         when(userDAO.viewBorrowedBooks(anyInt())).thenReturn(mockBorrowedBooks);
 
         // Call the controller method
-        String result = yourController.showBorrowedBooks(session, model);
+        String result = null;
+		try {
+			result = yourController.showBorrowedBooks(session, model);
+		} catch (UserSessionExpired e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         // Verify that the expected methods were called
         verify(session, times(1)).getAttribute("User");

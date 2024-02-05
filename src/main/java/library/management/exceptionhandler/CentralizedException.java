@@ -23,11 +23,20 @@ public class CentralizedException {
 		return "AdminLogin";
 	}
 	
+	@ExceptionHandler(value=NullPointerException.class)
+    public String NullPointerExceptionClass(Model model)
+    {
+    	model.addAttribute("SessionMessage", "Some exception occured. Contact Admin");
+    	return "ExceptionPage";
+    }
+	
     @ExceptionHandler(value=Exception.class)
     public String ExceptionClass(Model model)
     {
     	model.addAttribute("SessionMessage", "Some exception occured. Contact Admin");
     	return "ExceptionPage";
     }
+    
+    
 
 }
