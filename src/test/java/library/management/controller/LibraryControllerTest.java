@@ -26,7 +26,7 @@ public class LibraryControllerTest {
     @Mock
     private Model model;
 
-    @Test
+	@Test
     public void testShowWelcomePage() {
         // Arrange
         MockitoAnnotations.initMocks(this);

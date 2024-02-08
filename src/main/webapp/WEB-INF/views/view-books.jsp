@@ -60,13 +60,13 @@
     }
 
     .edit-button {
-        background-color: #2ecc71; /* Green for edit button */
+        background-color: #2ecc71; 
     }
 
     .delete-button {
-        background-color: #e74c3c; /* Red for delete button */
+        background-color: #e74c3c;
     }
-     /* Optional: Add styling for the search bar */
+    
         label {
             display: inline-block;
             margin-right: 10px;
@@ -103,6 +103,8 @@
         var bookGenre = document.getElementById('genreFilter').value.toLowerCase();
 		//book card has all books
         var bookCards = document.querySelectorAll('.book-card');
+        var noUserFoundMessage = document.getElementById("noUserFoundMessage");
+
 
         for (var i = 0; i < bookCards.length; i++) {
             var card = bookCards[i];
@@ -176,8 +178,8 @@
             List<Book> books = (List<Book>)request.getAttribute("bookList"); 
             if (books.isEmpty()) { 
         %>
-            No books found!!
-        <% } else { 
+<!--            No books found!!
+ -->        <% } else { 
             for (Book book : books) {
             	
                 String bookCover = Base64.getEncoder().encodeToString(

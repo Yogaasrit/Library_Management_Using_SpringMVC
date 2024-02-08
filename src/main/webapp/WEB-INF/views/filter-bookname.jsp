@@ -7,7 +7,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Filtered by BookName</title>
 <script >
 function goBack() {
     window.history.back();

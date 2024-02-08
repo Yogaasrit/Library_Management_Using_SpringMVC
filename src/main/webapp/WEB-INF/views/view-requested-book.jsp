@@ -22,19 +22,19 @@
         margin-bottom:100px;}
 
         .card-container {
-            text-align: center; /* Center the content */
+            text-align: center; 
         }
 
         .card {
             border: 1px solid #ccc;
             border-radius: 5px;
             padding: 20px;
-            max-width: 200px; /* Adjust the card width as needed */
+            max-width: 200px; 
             background-color: rgba(255,255,255,0.3);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             display: inline-block;
             margin: 20px;
-            text-align: left; /* Reset text alignment for card content */
+            text-align: left; 
         }
 
         .card img {
@@ -48,7 +48,7 @@
         }
 
         .book-cover {
-            max-width: 100px; /* Adjust the image size as needed */
+            max-width: 100px;
             height: auto;
         }
 

@@ -48,21 +48,21 @@ a.resend-otp {
     display: inline-block;
     padding: 10px;
     text-decoration: none;
-    background-color: #007bff; /* Button background color */
-    color: #fff; /* Button text color */
+    background-color: #007bff; 
+    color: #fff;
     border: none;
-    border-radius: 4px; /* Optional: Rounded corners */
+    border-radius: 4px;
     cursor: pointer;
     width: 100%;
-    text-align: center; /* Center text within the button */
-    display: block; /* Make it a block-level element */
-    margin-top: 10px; /* Adjust margin as needed */
-    transition: background-color 0.3s ease; /* Optional: Smooth hover effect */
+    text-align: center; 
+    display: block; 
+    margin-top: 10px; 
+    transition: background-color 0.3s ease; 
 }
 
-/* Hover effect for the "Resend OTP" link */
+
 a.resend-otp:hover {
-    background-color: #0056b3; /* Change the background color on hover */
+    background-color: #0056b3; 
 }
 
 button {

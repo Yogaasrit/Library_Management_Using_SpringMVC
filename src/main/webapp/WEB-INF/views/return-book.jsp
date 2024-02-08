@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>After Returned Page</title>
 </head>
 <body>
 <h1>Returned successfull</h1>

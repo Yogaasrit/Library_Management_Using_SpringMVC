@@ -59,13 +59,13 @@
     }
 
     .edit-button {
-        background-color: #2ecc71; /* Green for edit button */
+        background-color: #2ecc71;
     }
 
     .delete-button {
-        background-color: #e74c3c; /* Red for delete button */
+        background-color: #e74c3c; 
     }
-     /* Optional: Add styling for the search bar */
+    
         label {
             display: inline-block;
             margin-right: 10px;

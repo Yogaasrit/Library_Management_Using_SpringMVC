@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>List of Borrowed Books</title>
 <script>
 	function goBack() {
 		window.history.back();
@@ -76,6 +76,27 @@ h1 {
 	border-radius: 20px;
 	border: none;
 	margin-top: 5px;
+	text-decoration:none;
+	
+}
+.pay-button a{
+	padding: 5px 20px;
+	background-color: #2980b9;
+	border-radius: 20px;
+	border: none;
+	margin-top: 50px;
+	text-decoration:none;
+	
+}
+
+.pay-button {
+	padding: 5px 20px;
+	background-color: #2980b9;
+	border-radius: 20px;
+	border: none;
+	margin-top: 50px;
+	text-decoration:none;
+	
 }
 
 .book-price {
@@ -146,10 +167,11 @@ h1 {
 				action="<%=borrowBook.getFine() > 0 ? "pay-fine" : "return-book"%>">
 				<input type="hidden" name="borrowedId"
 					value="<%=borrowBook.getBorrowedId()%>">
+					<br>
 
 				<% if (borrowBook.getFine() > 0) { %>
                         
-                   <a class="action-button" href="pay-fine?borrowedId=<%= borrowBook.getBorrowedId() %>">
+                   <a class="pay-button" href="pay-fine?borrowedId=<%= borrowBook.getBorrowedId() %>">
                    Pay Fine</a>
                     <% } %>
 				<%

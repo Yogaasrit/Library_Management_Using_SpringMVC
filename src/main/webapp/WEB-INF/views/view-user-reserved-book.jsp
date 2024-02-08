@@ -39,25 +39,25 @@
     }
 
     .book-image {
-        width: 100px; /* Set your preferred width */
-        height: 150px; /* Set your preferred height */
-        object-fit: cover; /* This ensures the image maintains its aspect ratio */
+        width: 100px; 
+        height: 150px; 
+        object-fit: cover;
     } 
     a.update {
     display: inline-block;
-    padding: 8px 16px; /* Adjust the padding as needed */
+    padding: 8px 16px;
     text-decoration: none;
-    background-color: #28a745; /* Button background color */
-    color: #fff; /* Button text color */
-    border:none; /* Button border color */
-    border-radius: 4px; /* Optional: Rounded corners */
-    transition: background-color 0.3s ease; /* Optional: Smooth hover effect */
+    background-color: #28a745; 
+    color: #fff; 
+    border:none; 
+    border-radius: 4px; 
+    transition: background-color 0.3s ease; 
 
 }
 
 a.update:hover {
-    background-color: #c82333; /* Change the background color on hover */
-    border-color: #c82333; /* Change the border color on hover */
+    background-color: #c82333; 
+    border-color: #c82333;
 }  
 h2{
 text-align: center;

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>List of Authors</title>
 </head>
 <body>
 <h1>LIST OF AUTHORS</h1>
@@ -22,7 +22,7 @@
 		for(Book author : authors)
 		{
 		%>	
-			<!-- print all columns in table -->
+			
 			<h1><%= author.getAuthorName() %></h1>
 		<%}
 	} %>

@@ -6,7 +6,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Genre Filter</title>
+    <title>Filtered By Book Genre</title>
 </head>
 <script >
 function goBack() {

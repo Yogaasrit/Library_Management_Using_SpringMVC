@@ -36,12 +36,7 @@
 }
  */
 
-/* .logo {
-    font-size: 24px;
-    font-weight: bold;
-    text-decoration: none;
-    color: #fff;
-} */
+
 
 footer {
     background-color: #007bff;

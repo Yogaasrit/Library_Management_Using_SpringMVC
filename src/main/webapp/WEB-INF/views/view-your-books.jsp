@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>View Your Books</title>
 <script >
 function goBack() {
     window.history.back();

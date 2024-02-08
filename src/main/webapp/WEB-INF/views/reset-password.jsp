@@ -23,7 +23,7 @@ form {
     max-width: 400px;
     margin: auto;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.3); /* Adjust alpha value for transparency */
+    background-color: rgba(255, 255, 255, 0.3);
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -88,7 +88,7 @@ h2 {
 </head>
 <body>
    <header><jsp:include page="user-header.jsp" /></header>
-    <form action="reset-password" onsubmit="return validatePassword()">
+    <form action="reset-password" method = "post" onsubmit="return validatePassword()">
      <h2>Reset Password</h2>
         <label for="newPassword">New Password:</label>
         <input type="password" id="newPassword" name="newPassword" required>

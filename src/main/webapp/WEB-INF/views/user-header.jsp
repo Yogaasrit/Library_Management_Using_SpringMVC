@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>User Header</title>
 <style>
 body {
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
-    padding-top: 60px; /* Adjusted top padding for fixed header */
+    padding-top: 60px; 
 }
 
 header {
@@ -21,11 +21,11 @@ header {
     left: 0;
     width: 100%;
     color: #fff;
-    padding: 10px 20px; /* Adjusted padding for a smaller header */
+    padding: 10px 20px; 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 1000; /* Ensure the header is above other elements */
+    z-index: 1000; 
 }
 
 

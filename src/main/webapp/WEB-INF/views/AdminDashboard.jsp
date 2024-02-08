@@ -26,7 +26,7 @@ body {
 
 .container {
 	max-width: 800px;
-	margin: 400px auto 20px; /* Adjust margin for better positioning */
+	margin: 400px auto 20px; 
 	padding: 20px;
 	border-radius: 8px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -60,7 +60,7 @@ body {
 
 .card i {
 	font-size: 36px;
-	color: #007bff; /* Blue color for icons */
+	color: #007bff;
 }
 
 .card p {

@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Book Details</title>
+    <title>Request Book Details</title>
 <style>
     body {
         font-family: Arial, sans-serif;

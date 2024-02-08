@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Book Form</title>
+    <title>Edit Book Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;

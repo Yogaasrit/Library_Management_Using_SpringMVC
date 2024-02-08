@@ -332,7 +332,7 @@ public class UserController {
 		return "otp-page";
 	}
 
-	@GetMapping("/reset-password")
+	@PostMapping("/reset-password")
 	public String updatePassword(@RequestParam("confirmPassword") String userPassword, HttpSession session) {
 		String emailId = (String) session.getAttribute("emailId");
 		System.out.println("Reset page" + emailId);
@@ -416,7 +416,7 @@ public class UserController {
 
 	@GetMapping("/handlePlaceOrder")
 	public String handlePlaceOrder(@RequestParam("bookId") String bookId, Model model) {
-		System.out.println("Running");
+//		System.out.println("Running");
 		
 		Book book = bookDAO.displayByBookId(Integer.parseInt(bookId));
 		model.addAttribute("book", book);
@@ -431,7 +431,7 @@ public class UserController {
 	@GetMapping("/free-books")
 	public String showFreeBooks(Model model) {
 	    List<FreeBook> freeBooks = bookDAO.displayFreeBooks();
-	    System.out.println(freeBooks.size());
+//	    System.out.println(freeBooks.size());
 	    model.addAttribute("freeBooks", freeBooks);
 	    return "free-books";
 	}
@@ -463,7 +463,7 @@ public class UserController {
 			@RequestParam("count") String bookCount, Model model,
 			HttpSession session) throws UserSessionExpired {
 
-		System.out.println("Adding to cart: " + bookId + "-" + bookCount);
+//		System.out.println("Adding to cart: " + bookId + "-" + bookCount);
 
      // Get the current user from the session
 		User user = (User) session.getAttribute("User");
@@ -492,13 +492,13 @@ public class UserController {
 
       // Update the session with the modified cart
 		session.setAttribute("cart", cart);
-		System.out.println(cart);
+//		System.out.println(cart);
 		
 		int countStatus = userDAO.updateBookQuantityAddToCart(bookId,bookCount);
 		
-     // Redirect back to the view books page or wherever you want
+     // Redirect back to the view books page
 		List<Book> bookList = bookDAO.viewAllBooks();
-		System.out.println(bookList);
+//		System.out.println(bookList);
 		model.addAttribute("bookList", bookList);
 		List<Book> filteredGenres = bookDAO.filterByBookGenre();
 		model.addAttribute("filteredGenres", filteredGenres);
@@ -549,11 +549,11 @@ public class UserController {
 		 // jsp to java
 	    ObjectMapper objectMapper = new ObjectMapper();
 	    try {
-	    	// Getting from jsp
+	    	// Getting map from jsp
 	        updatedCart = objectMapper.readValue(cartData, new TypeReference<Map<String, Integer>>() {});
-	        
+//	       
 	        // Now you have the updated cart map, you can use it as needed
-	        System.out.println("Updated Cart: " + updatedCart);
+//	        System.out.println("Updated Cart: " + updatedCart);
 
 	        // Do further processing, such as confirming the order
 	        // ...
@@ -563,6 +563,7 @@ public class UserController {
 	        // Handle JSON parsing exception
 	    }
 	    
+	    // After confirm order, making the cart session null
 		Map<String, Integer> cart = (Map<String, Integer>) session.getAttribute("cart");
 		cart = null;
 		session.setAttribute("cart", cart);
@@ -654,10 +655,6 @@ public class UserController {
 		int status = bookDAO.updateBorrowBookCount(user.getUserId(), Integer.parseInt(bookId),
 				Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusWeeks(2)));
 
-		
-		//------------------------fine
-		
-		
 		List<BorrowBook> borrowBooks = userDAO.viewBorrowedBooks(user.getUserId());
 
 		model.addAttribute("borrowedBooks", borrowBooks);
@@ -945,7 +942,7 @@ public class UserController {
 		int status = userDAO.handleRequestBooks(userSession.getUserId(), Integer.parseInt(bookId),
 				Integer.parseInt(count));
 		List<RequestBook> requestBooks = userDAO.viewRequestedBooks(userSession.getUserId());
-		System.out.println(requestBooks.get(0).getBookName());
+//		System.out.println(requestBooks.get(0).getBookName());
 		List<RequestBook> list = userDAO.getRequestedBookById(userSession.getUserId());
 //		model.addAttribute("requestBooks", requestBooks);
 		model.addAttribute("list", list);
@@ -955,7 +952,7 @@ public class UserController {
 	@GetMapping("/handleRequestPlaceOrder")
 	public String handleRequestPlaceOrder(@RequestParam("bookId") String bookId,
 			@RequestParam("requestId") String requestId, Model model) {
-		System.out.println("Running");
+//		System.out.println("Running");
 		Book book = bookDAO.displayByBookId(Integer.parseInt(bookId));
 		int status = userDAO.updateRequestStatus(Integer.parseInt(requestId));
 		model.addAttribute("book", book);

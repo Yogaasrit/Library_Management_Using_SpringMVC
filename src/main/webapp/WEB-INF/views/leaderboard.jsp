@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaderboard</title>
+    <title>Leaderboard Page</title>
     <link rel="icon" type="image/png" href="/LibraryManagement/resources/images/favicon.png">
     <style>
         body {
@@ -29,8 +29,8 @@
 
         .leaderboard {
             display: flex;
-            flex-wrap: wrap; /* Added to allow items to wrap to the next line */
-            justify-content: center; /* Center the items horizontally */
+            flex-wrap: wrap; 
+            justify-content: center; 
             margin-top: 20px;
         }
 
@@ -41,7 +41,7 @@
             background-color: rgba(255,255,255,0.3);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             width: 300px;
-            text-align: center; /* Center the content inside each item */
+            text-align: center; 
         }
 
         .profile-pic {

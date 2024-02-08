@@ -68,9 +68,9 @@
         }
 		.contact-container p {
 		    color: black;
-		    margin: 10px 0; /* Adjust margin as needed */
-		    font-size: 16px; /* Adjust font size as needed */
-		    line-height: 1.5; /* Adjust line height as needed */
+		    margin: 10px 0; 
+		    font-size: 16px; 
+		    line-height: 1.5; 
 		}
         button {
             background-color: #4caf50;

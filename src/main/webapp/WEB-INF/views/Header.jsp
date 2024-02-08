@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Header</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Add any additional CSS styles if needed -->
+   
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <style>
@@ -14,7 +14,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
-    padding-top: 60px; /* Adjusted top padding for fixed header */
+    padding-top: 60px; 
     
 }
 
@@ -27,11 +27,11 @@ header {
     height:8%;
     width: 100%;
     color:black;
-    padding: 10px 20px; /* Adjusted padding for a smaller header */
+    padding: 10px 20px; 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 1000; /* Ensure the header is above other elements */
+    z-index: 1000; 
 }
 
 nav a {
@@ -44,21 +44,20 @@ margin-left: 30px;
 .button {
 margin-left: 30px;
     padding: 10px;
-    margin-right: 20px; /* Adjusted margin for the dropdown button */
+    margin-right: 20px; 
 }
 
 .profile-icon {
 	
-    margin-right: 30px; /* Adjusted margin for the profile icon */
+    margin-right: 30px; 
 	margin-left: 30px;
 }
 
 .logout-btn {
 margin-left: 30px;
-    margin-right: 30px; /* Adjusted margin for the logout button */
+    margin-right: 30px; 
 }
 
-/* Rest of your existing styles */
 
 
 nav {
@@ -114,7 +113,6 @@ nav a:hover {
     background-color: #cc0000;
 }
 
-/* Added styles for dropdown */
 .dropdown {
     position: relative;
     display: inline-block;
@@ -160,7 +158,7 @@ nav a:hover {
 }
 
 .button {
-    padding: 10px; /* Adjusted padding for the button */
+    padding: 10px; 
 }
 
 

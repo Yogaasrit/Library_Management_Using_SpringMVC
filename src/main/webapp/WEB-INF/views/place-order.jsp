@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Place order</title>
+<title>Place order Page</title>
 <script>
 	function goBack() {
 		window.history.back();
@@ -39,7 +39,7 @@ body {
 
 .book-wrapper {
 	display: block;
-	align-items: left; /* Vertically center align items */
+	align-items: left;
 }
 
 .book-image-container {
@@ -164,18 +164,7 @@ h1 {
 		.encodeToString((book.getBookCover()).getBytes(1, (int) (book.getBookCover().length())));
 	%>
 
-	<%-- <div class="book-card">
-                <!-- Print all columns in the table -->
-                
-                
-                <img class="book-cover" src="data:image/png;base64, <%= bookCover %>" width="100" />
-
-                <!-- Buttons below the book cover image -->
-                <div class="button-container">
-                    <button class="action-button"> <a href = "handlePlaceOrder?bookId=<%=book.getBookId()%>">Place Order</a></button>
-                    <button class="action-button" ><a href = "handleBorrowBook?bookId=<%=book.getBookId()%>">Borrow book</a></button>
-                </div>
-            </div> --%>
+	
 	<div class="book-card">
 		<!-- Wrapper for Book Image and Container Details -->
 		<div class="book-wrapper">

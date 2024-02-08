@@ -113,10 +113,8 @@
             var bookElement = document.getElementById("book" + bookId);
             if (bookElement) {
                 bookElement.remove();
-
                 // Call the server to update the book count
                 updateBookCountOnServer(bookId, newQuantity);
-
                 // Update cartData input value with the updated cart map
                 updateCartData();
             }
@@ -126,6 +124,8 @@
             // Use AJAX to call the server endpoint
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "removeFromCart?bookId=" + bookId + "&quantity=" + newQuantity, true);
+            // creating post request 
+            // content type -> 
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>View Particular User</title>
 <script >
 function goBack() {
     window.history.back();

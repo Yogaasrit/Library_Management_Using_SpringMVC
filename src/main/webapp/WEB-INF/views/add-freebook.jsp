@@ -25,7 +25,7 @@
             height:50%;
             margin-left: 600px;
             margin-top: 100px;
-            max-width: 600px; /* Adjust the maximum width as needed */
+            max-width: 600px; 
             justify-content: center;
             margin-bottom:120px;
             padding:50px;

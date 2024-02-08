@@ -5,7 +5,7 @@
 
 <html>
 <head>
-    <title>User Form</title>
+    <title>User Profile Update Form</title>
 
      <style>
         body {
@@ -78,10 +78,10 @@
 		    width: 100%;
 		    display:flex;
 		    flex-direction:column;
-		    max-width: 400px; /* Set your desired max width */
-		    margin: auto; /* Center the element horizontally */
-		    padding: 20px; /* Add padding for better appearance */
-		    border-radius: 8px; /* Add border radius for rounded corners */
+		    max-width: 400px; 
+		    margin: auto; 
+		    padding: 20px; 
+		    border-radius: 8px; 
 			}
         
         
@@ -133,22 +133,7 @@
         <jsp:include page="Header.jsp" />
     </header>
     
-    <%-- <% 
-    
- 	Blob profileImage = (Blob)request.getAttribute("profileImage");
-    String bookCoverStr = null;
-    if(profileImage != null){
-    
-    	bookCoverStr = Base64.getEncoder().encodeToString(
-    			(profileImage
-    					.getBytes(1, (int) 
-    					(profileImage
-    							.length()))));
-    	
-    }
-    		
-    
-    %> --%>
+   
     <div class = "form-div">
     <form:form modelAttribute="user" method="post" action="userForm" onsubmit="return validateForm();">
 
@@ -181,26 +166,18 @@
 	            <!-- Add more options as needed -->
 	        </form:select>
 	        
-	        <%-- <label for="bookCover">Profile picture:</label>
-        	<form:input path="profilePic" type = "file" id="profilePic" />
-        
-		 	<img class="profilePic" src="data:image/png;base64, <%= bookCoverStr %>" 
-		 	alt="image %>" width=100 /> --%>
+	        
 	        
         </div>
 
-        <!-- Profile Photo Update -->
         
-
-        <!-- Add other form fields as needed -->
 
         <input type="submit" value="Submit" />
 
     </form:form>
     </div>
     <br><br>
-<!--     	 add profile pic into the above form
- -->    <div class = "form-div">
+   <div class = "form-div">
             <h2>Profile Photo Update</h2>
 
             <form action="profile-pic" method="post" enctype="multipart/form-data">

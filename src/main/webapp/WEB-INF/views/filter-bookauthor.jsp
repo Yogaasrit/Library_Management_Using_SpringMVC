@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Filtered Genre</title>
+<title>Filtered By Author</title>
 <script>
     function goBack() {
         window.history.back();

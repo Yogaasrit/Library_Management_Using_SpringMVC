@@ -54,38 +54,37 @@
             display: inline;
         }
 
-       /* Style for the "Approve" button */
+      
 button[name="action"][value="approve"] {
-    padding: 8px 16px; /* Adjust the padding as needed */
-    background-color: #28a745; /* Button background color */
-    color: #fff; /* Button text color */
-    border: 1px solid #28a745; /* Button border color */
-    border-radius: 4px; /* Optional: Rounded corners */
+    padding: 8px 16px; 
+    background-color: #28a745; 
+    color: #fff; 
+    border: 1px solid #28a745; 
+    border-radius: 4px; 
     cursor: pointer;
-    transition: background-color 0.3s ease; /* Optional: Smooth hover effect */
+    transition: background-color 0.3s ease; 
 }
 
-/* Hover effect for the "Approve" button */
 button[name="action"][value="approve"]:hover {
-    background-color: #218838; /* Change the background color on hover */
-    border-color: #218838; /* Change the border color on hover */
+    background-color: #218838; 
+    border-color: #218838; 
 }
 
 a.reject {
     display: inline-block;
-    padding: 8px 16px; /* Adjust the padding as needed */
+    padding: 8px 16px; 
     text-decoration: none;
-    background-color: #dc3545; /* Button background color */
-    color: #fff; /* Button text color */
-    border: 1px solid #dc3545; /* Button border color */
-    border-radius: 4px; /* Optional: Rounded corners */
-    transition: background-color 0.3s ease; /* Optional: Smooth hover effect */
+    background-color: #dc3545; 
+    color: #fff; 
+    border: 1px solid #dc3545; 
+    border-radius: 4px; 
+    transition: background-color 0.3s ease; 
 
 }
 
 a.reject:hover {
-    background-color: #c82333; /* Change the background color on hover */
-    border-color: #c82333; /* Change the border color on hover */
+    background-color: #c82333; 
+    border-color: #c82333; 
 }
 
         button:disabled {

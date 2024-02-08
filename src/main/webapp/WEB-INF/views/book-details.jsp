@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ordering Page</title>
+    <title>Book Ordering Page</title>
     <style>
          body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -33,7 +33,7 @@
 
         .book-wrapper {
             display: flex;
-            align-items: left; /* Vertically center align items */
+            align-items: left; 
         }
 
         .book-image-container {

@@ -42,8 +42,8 @@
             padding: 12px;
             text-align: left;
             margin: 8px 0;
-            font-weight: bold; /* Text made bold */
-            color: black; /* Text color set to black */
+            font-weight: bold; 
+            color: black; 
         }
         
        

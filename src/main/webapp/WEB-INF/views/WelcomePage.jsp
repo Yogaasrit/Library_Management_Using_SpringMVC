@@ -17,7 +17,7 @@
             flex-direction: column;
             min-height: 100vh;
             color: #fff;
-           /*  overflow: hidden; */ /* Ensure the blur effect doesn't extend beyond the viewport */
+          
         }
 
         header {
@@ -61,12 +61,12 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            z-index: 1; /* Ensure quotes are above the background image */
+            z-index: 1; 
             margin-top:100px;
         }
 
         .quotes {
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for better readability */
+            background-color: rgba(0, 0, 0, 0.5); 
             padding: 20px;
             box-sizing: border-box;
             background-color: transparent;
@@ -79,15 +79,15 @@
         }
 
         #newsContainer {
-            /* overflow: hidden; */
+            
             white-space: nowrap;
-            width: 100%; /* Ensure full-width marquee */
+            width: 100%;
         }
 
         .newsItem {
             display: inline-block;
             padding: 10px;
-            background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent background for better readability */
+            background-color: rgba(255, 255, 255, 0.3); 
             margin-right: 20px;
             animation: scrollNews linear infinite;
         }

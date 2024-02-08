@@ -25,9 +25,9 @@
         }
         .chat-message {
             background-color: #fff;
-            padding: 15px; /* Add padding */
-            margin: 10px 0; /* Adjust margin */
-            border-radius: 10px; /* Adjust border-radius */
+            padding: 15px; 
+            margin: 10px 0;
+            border-radius: 10px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             width : 800px;
             position: relative;
@@ -43,8 +43,8 @@
             margin-top: 5px;
             cursor: pointer;
             position: absolute;
-            top: 10px; /* Adjust the top position as needed */
-            right: 10px; /* Adjust the right position as needed */
+            top: 10px; 
+            right: 10px; 
         }
         .reply-box {
             display: none;

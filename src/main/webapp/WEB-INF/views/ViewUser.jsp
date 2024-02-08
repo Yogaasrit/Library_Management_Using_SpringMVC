@@ -21,6 +21,7 @@
         h1 {
             text-align: center;
             color: #333;
+            margin-top: 120px;
         }
 
         .card-container {
@@ -41,6 +42,7 @@
             box-sizing: border-box;
             background-color: rgba(255, 255, 255, 0.3);
     		border: none;
+    		display: block;
         }
 
         .button-container {
@@ -63,7 +65,7 @@
         }
 
         #statusMessage {
-            color: green; /* You can use a different color for success messages */
+            color: green;
             text-align: center;
         }
         .outer-container{
@@ -90,6 +92,30 @@
             visibility: visible;
             opacity: 1;
         }
+         .search-container {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    #searchInput {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-right: 5px;
+    }
+
+    #searchButton {
+        padding: 8px 12px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    #searchButton:hover {
+        background-color: #45a049;
+    }
     </style>
 </head>
 
@@ -98,8 +124,19 @@
         <jsp:include page="admin-header.jsp" />
     </header>
     
+        <h1>LIST OF USERS</h1>
+    
+    <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search by User Name">
+    <button id = "searchButton" onclick="searchUsers()">Search</button>
+</div>
+
+<div id="noUserFoundMessage" style="display: none; text-align: center; margin-top: 10px; color: red;">
+    No user found.
+</div>
+
     <div class="outer-container">
-    <h1>LIST OF USERS</h1>
+    
     <div class="card-container">
         <%
         List<ViewUserDetails> list = (List<ViewUserDetails>) request.getAttribute("userList");
@@ -117,7 +154,7 @@
         <div class="card">
             <form id="deleteForm<%= user.getUserId() %>" action="delete-user-form" method="post">
                 <p><strong>User ID:</strong> <%= user.getUserId() %></p>
-                <p><strong >User Name:</strong> <%= user.getUserName() %></p>
+                <p class="user-name"><strong >User Name:</strong> <%= user.getUserName() %></p>
                 <p><strong>Email:</strong> <%= user.getUserEmailId() %></p>
                 <p><strong>Total Ordered Books:</strong> <%= user.getTotalOrderedBooks() %></p>
                 <p><strong>Total Borrowed Books:</strong> <%= user.getTotalBorrowedBooks() %></p>
@@ -137,11 +174,8 @@
             }
         }
         %>
-    </div>
-    <div class="button-container">
-        <button class="button" onclick="goBack()">Back</button>
-    </div>
-    </div>
+    
+
 
     <script>
         function confirmDelete(userId) {
@@ -155,10 +189,35 @@
             	event.preventDefault();
             }
         }
+        
+       
+        function searchUsers() {
+            var searchInput = document.getElementById("searchInput").value.toLowerCase();
+            var cards = document.querySelectorAll(".card");
+            var noUserFoundMessage = document.getElementById("noUserFoundMessage");
+
+            var userFound = false;
+            cards.forEach(function(card) {
+                var userName = card.querySelector(".user-name").innerText.toLowerCase();
+                if (userName.includes(searchInput)) {
+                    card.style.display = "block";
+                    userFound = true;
+                } else {
+                    card.style.display = "none";
+                }
+            });
+            
+            if (!userFound) {
+                noUserFoundMessage.style.display = "block";
+            } else {
+                noUserFoundMessage.style.display = "none";
+            }
+        }
+    
+
     </script>
 </body>
 
-<jsp:include page="footer.jsp" />
 </html>
 
  

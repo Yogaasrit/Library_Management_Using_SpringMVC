@@ -20,10 +20,10 @@
         }
 
         form {
-            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background for the form */
+            background-color: rgba(255, 255, 255, 0.8); 
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Box shadow for a subtle effect */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
             text-align: center;
             background-color: transparent;
             color:white;
@@ -56,7 +56,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             background-color:rgb(255,255,255,0.5);
-            width: 150px; /* Adjust the width as needed */
+            width: 150px;
         }
         input {
             
@@ -85,7 +85,7 @@
         }
 
         h3 {
-            color: #ff0000; /* Red color for error message */
+            color: #ff0000;
         }
         header {
             background-color: transparent;
@@ -117,7 +117,7 @@
             color:#fff;
         }
 		header :hover {
-        color: #001f3f; /* Dark blue color */
+        color: #001f3f; 
     }
     </style>
     <script>

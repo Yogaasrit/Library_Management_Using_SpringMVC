@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Delete Book</title>
 <script>
     function validateForm() {
         var userId = document.getElementById('bookid').value;

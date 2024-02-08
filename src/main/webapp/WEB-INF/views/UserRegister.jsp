@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>User Register</title>
+    <title>User Registration</title>
     <style>
         body {
             background: url('/LibraryManagement/resources/images/userimg42.avif') center center fixed;

@@ -14,18 +14,20 @@
             margin: 0;
             padding: 20px;
             text-align: center;
+            background: url('/LibraryManagement/resources/images/userimg.jpg') center center fixed;
+        	background-size: cover;
         }
 
         h1 {
-            margin-top: 40px;
+            margin-top: 100px;
             color: #333;
         }
 
         .payment-form {
-            max-width: 400px;
+            width: 400px;
             margin: 20px auto;
             padding: 15px;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.5);
             border: 1px solid #ddd;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -45,6 +47,7 @@
             width: 100%;
             padding: 8px;
             box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.3);
         }
 
         button {
@@ -55,6 +58,9 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        .container{
+        margin-right:600px;
+        }
 
         button:hover {
             background-color: #216799;
@@ -62,6 +68,10 @@
     </style>
 </head>
 <body>
+<header>
+        <jsp:include page="Header.jsp" />
+    </header>
+    <div class="container">
     <h1>Payment Page</h1>
     <% FineDetails finedetails = (FineDetails) request.getAttribute("finedetails"); %>
     <%if(finedetails != null){ %>
@@ -75,7 +85,7 @@
             </div>
 
             <div class="form-group">
-                <label for="cardName">Card Name:</label>
+                <label for="cardName">Name on card:</label>
                 <input type="text" id="cardName" name="cardName" required>
             </div>
 
@@ -94,7 +104,7 @@
 
             <div class="form-group">
                 <label for="cvv">CVV:</label>
-                <input type="text" id="cvv" name="cvv" required>
+                <input type="password" id="cvv" name="cvv" required>
             </div>
 
             <div class="form-group">
@@ -113,7 +123,7 @@
     <%} %>
     
     
-
+</div>
     <script>
         function validateAndPay(borrowedId) {
             if (
@@ -122,7 +132,7 @@
                 validateCVV() &&
                 validateExpiryDate()
             ) {
-                // All validations pass, perform payment logic here
+                
                 // Redirect to the controller with borrowedId as a parameter
                 window.location.href = 'update-paid-fine?borrowedId=' + borrowedId;
             } else {
@@ -189,4 +199,5 @@
         }
     </script>
 </body>
+<jsp:include page="footer.jsp" />
 </html>
